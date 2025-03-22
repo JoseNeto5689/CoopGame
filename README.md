@@ -1,18 +1,17 @@
+# Coop Game
+
 ### Elementos que o jogo deve possuir
 
-- [ ] Trabalhos com funções assíncronas, onde cada jogador pode executar sua função independente dos outros.
+- [ ]  Jogadores devem possuir trabalhos assíncronos (Um jogador faz uma coisa enquanto outro jogador faz outra)
+- [ ]  Jogadores devem poder planejar oque cada um vai fazer (Um fica na chapa assando carne, enquanto outra fica cortando vegetais)
+- [ ]  Devem acontecer alguns eventos inesperados para quebrar o fluxo/planejamento dos jogadores. Sendo necessário que jogadores negociem oque devem fazer para contornar o problema.
+- [ ]  Deve ser possível analisar tomada de risco. (Algumas atividades podem ter uma chance de dar certo e de dar errado)
+- [ ]  Tempo por atividade/prato/objetivo, pode ser considerado uma boa medida para indicar trabalho em equipe, já que precisa de vários passos por prato, indica que funcionários estão trabalhando juntos para conclui-lo.
+- [ ]  Algumas informações podem estar disponíveis para somente um jogador, fazendo com que seja necessário comunicação para contornar.
+- [ ]  Score final pode ser considerado um indicativo de organização e gerencia de tempo.
 
-- [ ] Deve existir algo para atrapalhar alguns jogadores, forcando o mesmo a sair do seu trabalho ou necessitar da ajuda de outros jogadores.
-
-- [ ] Pode ter um limite de tempo para executar a tarefa e deve ter um limite de tempo para a equipe no geral.
-
-- [ ] Cada entrega bem sucedida deve contabilizar pontos para o membro e para a equipe. 
-
-- [ ] Alguns pontos devem ser escondidos do usuário para que o mesmo ajude os outros por vontade própria, e não por desejo de ser o melhor da equipe. 
-
-- [ ] Deve possuir uma tarefa principal para ser executada e a equipe deve decidir como fazer isso da melhor forma possível.
-
-A mecânica principal do jogo consistira em uma tela gigante com uma sequencia de símbolos a serem seguidas, como os cardápios do overcooked, as equipes devem se organizar para entregar os trabalhos em ordem correta e conseguir cumprir o objetivo, no decorrer do tempo, podem ocorrer alguns empecilhos, como computadores, queimar, comunicação falhar, dentre outros. 
+### Ideias 
+- A mecânica principal do jogo consistira em uma tela gigante com uma sequencia de símbolos a serem seguidas, como os cardápios do overcooked, as equipes devem se organizar para entregar os trabalhos em ordem correta e conseguir cumprir o objetivo, no decorrer do tempo, podem ocorrer alguns empecilhos, como computadores, queimar, comunicação falhar, dentre outros. 
 
 ### Assets
 
