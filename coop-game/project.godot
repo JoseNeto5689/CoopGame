@@ -11,11 +11,32 @@ config_version=5
 [application]
 
 config/name="Coop-Game"
-run/main_scene="res://image.tscn"
+run/main_scene="res://scenes/main/main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
-config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://scenes/global/global.gd"
+
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/size/resizable=false
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
+window/stretch/scale_mode="integer"
 
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/size/resizable=true
+textures/size/viewport_height=563
+textures/size/viewport_width=360
+textures/stretch/scale_mode="fractional"
+textures/stretch/mode="disabled"
+textures/size/borderless=false
+textures/size/window_height_override=0
+textures/size/window_width_override=0
