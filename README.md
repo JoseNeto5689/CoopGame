@@ -15,6 +15,8 @@
 
 ### Assets
 
+https://aztrakatze.itch.io/simple-cute-robot
+
 https://kenney.nl/assets/roguelike-indoors
 
 https://kenney.nl/assets/generic-items
