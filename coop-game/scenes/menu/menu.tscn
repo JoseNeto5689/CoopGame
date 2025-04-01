@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://cmv3qj0mf1esk"]
+[gd_scene load_steps=2 format=3 uid="uid://cmv3qj0mf1esk"]
+
+[ext_resource type="Script" uid="uid://c8tvjnq432ju8" path="res://scenes/menu/menu.gd" id="1_puvm1"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -7,15 +9,41 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_puvm1")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
 layout_mode = 2
-text = "Coop Game"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Host" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Host"
+
+[node name="Join" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="Input" type="LineEdit" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "Name"
+
+[node name="Start" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start Game"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
+[connection signal="text_changed" from="CenterContainer/VBoxContainer/VBoxContainer/Input" to="." method="_on_input_text_changed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]

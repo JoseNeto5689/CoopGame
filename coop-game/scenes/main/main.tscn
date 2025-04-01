@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhe3ad6xleai5"]
+[gd_scene load_steps=3 format=3 uid="uid://dhe3ad6xleai5"]
 
-[ext_resource type="Script" path="res://scenes/main/main.gd" id="1_emgb7"]
+[ext_resource type="Script" uid="uid://cir1iq8qg2ya4" path="res://scenes/main/main.gd" id="1_emgb7"]
+[ext_resource type="PackedScene" uid="uid://cmv3qj0mf1esk" path="res://scenes/menu/menu.tscn" id="2_soqjg"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_emgb7")
+
+[node name="Control" parent="." instance=ExtResource("2_soqjg")]
+
+[connection signal="host_pressed" from="Control" to="." method="_on_control_host_pressed"]
+[connection signal="join_pressed" from="Control" to="." method="_on_control_join_pressed"]
+[connection signal="start_pressed" from="Control" to="." method="_on_control_start_pressed"]

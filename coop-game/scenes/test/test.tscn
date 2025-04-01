@@ -1,0 +1,310 @@
+[gd_scene load_steps=46 format=3 uid="uid://dnefxnm72luc8"]
+
+[ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_da6vm"]
+[ext_resource type="PackedScene" uid="uid://dyt3fsimfa1ds" path="res://scenes/player/player.tscn" id="2_st4qh"]
+[ext_resource type="Texture2D" uid="uid://chsbmrgfeqjg1" path="res://assets/sprites/Boss/BossWalking/BossWalking_01.png" id="3_ue7n4"]
+[ext_resource type="Texture2D" uid="uid://dnvg6oxeilof0" path="res://assets/sprites/Boss/BossWalking/BossWalking_02.png" id="4_mhoba"]
+[ext_resource type="Texture2D" uid="uid://bccenea60oiy" path="res://assets/sprites/Boss/BossWalking/BossWalking_03.png" id="5_wxs1p"]
+[ext_resource type="Texture2D" uid="uid://danujv8niomjk" path="res://assets/sprites/Boss/BossWalking/BossWalking_04.png" id="6_ekw3t"]
+[ext_resource type="Texture2D" uid="uid://cbr7ofjn1iwlq" path="res://assets/sprites/basic cute robot/ballbot/1/ballred1.png" id="7_b650g"]
+[ext_resource type="Texture2D" uid="uid://bdgnrosvpr16g" path="res://assets/sprites/basic cute robot/ballbot/1/ballred2.png" id="8_ct545"]
+[ext_resource type="Texture2D" uid="uid://dl7pphlbbojmm" path="res://assets/sprites/basic cute robot/ballbot/1/ballred3.png" id="9_q34ur"]
+[ext_resource type="Texture2D" uid="uid://bbqnb6pby8o1y" path="res://assets/sprites/basic cute robot/ballbot/1/ballred4.png" id="10_km314"]
+[ext_resource type="Texture2D" uid="uid://bdic8fwip27ut" path="res://assets/sprites/basic cute robot/blockbot/blockbott1.png" id="11_o71nm"]
+[ext_resource type="Texture2D" uid="uid://bdep8knfq32xi" path="res://assets/sprites/basic cute robot/blockbot/blockbott2.png" id="12_m2vds"]
+[ext_resource type="Texture2D" uid="uid://bfyka5bo8yc2x" path="res://assets/sprites/basic cute robot/blockbot/blockbott3.png" id="13_qhl8k"]
+[ext_resource type="Texture2D" uid="uid://dccrxh7ssdnfq" path="res://assets/sprites/basic cute robot/blockbot/blockbott4.png" id="14_8eseq"]
+[ext_resource type="Texture2D" uid="uid://cbr0j3eteopyd" path="res://assets/sprites/basic cute robot/bombbot/bomb1.png" id="15_o1d21"]
+[ext_resource type="Texture2D" uid="uid://dimni5mq4b8uf" path="res://assets/sprites/basic cute robot/bombbot/bomb2.png" id="16_bqek0"]
+[ext_resource type="Texture2D" uid="uid://cmvv6mo48qa3d" path="res://assets/sprites/basic cute robot/bombbot/bomb3.png" id="17_v4ky4"]
+[ext_resource type="Texture2D" uid="uid://1478pc6hcb44" path="res://assets/sprites/basic cute robot/bombbot/bomb4.png" id="18_l3g6i"]
+[ext_resource type="Texture2D" uid="uid://ubfc8gglge28" path="res://assets/sprites/basic cute robot/clawbot/1/botzred1.png" id="19_ik3mv"]
+[ext_resource type="Texture2D" uid="uid://cfwwrk64payua" path="res://assets/sprites/basic cute robot/clawbot/1/botzred2.png" id="20_fbv4r"]
+[ext_resource type="Texture2D" uid="uid://c1v1ve06ajqkb" path="res://assets/sprites/basic cute robot/clawbot/1/botzred4.png" id="21_ah65a"]
+[ext_resource type="Texture2D" uid="uid://cxab1trds0bjp" path="res://assets/sprites/basic cute robot/gunbot/1/botred1.png" id="22_q1xw0"]
+[ext_resource type="Texture2D" uid="uid://d36xk3w1rytll" path="res://assets/sprites/basic cute robot/gunbot/1/botred2.png" id="23_v4r4c"]
+[ext_resource type="Texture2D" uid="uid://dqulms1vy0vwd" path="res://assets/sprites/basic cute robot/gunbot/1/botred3.png" id="24_7ey1e"]
+[ext_resource type="Texture2D" uid="uid://bp7qg2aaf3yh0" path="res://assets/sprites/basic cute robot/gunbot/1/botred4.png" id="25_elavs"]
+[ext_resource type="Texture2D" uid="uid://ctygu42rjai8g" path="res://assets/sprites/basic cute robot/wingbot/1/wingbot1.png" id="26_cdhv5"]
+[ext_resource type="Texture2D" uid="uid://dr0q4t5xb1roq" path="res://assets/sprites/basic cute robot/wingbot/1/wingbot2.png" id="27_j4piw"]
+[ext_resource type="Texture2D" uid="uid://d2kg543r5ypcd" path="res://assets/sprites/basic cute robot/wingbot/1/wingbot3.png" id="28_lms5b"]
+[ext_resource type="Texture2D" uid="uid://buje3wcy67og" path="res://assets/sprites/basic cute robot/wingbot/1/wingbot4.png" id="29_30h27"]
+[ext_resource type="Texture2D" uid="uid://bldhvklpy1qqx" path="res://assets/sprites/office_pixel_art/desk.png" id="30_gin70"]
+[ext_resource type="Texture2D" uid="uid://ca28b1lj0i62l" path="res://assets/sprites/displays/Display-32x32-empty.png" id="31_o25gc"]
+[ext_resource type="Texture2D" uid="uid://djsf5rfmng0w5" path="res://assets/sprites/displays/Display-32x32.png" id="32_xs63o"]
+[ext_resource type="Texture2D" uid="uid://dntlor2rx42aj" path="res://assets/sprites/displays/Display-64x32-empty.png" id="33_0i3n4"]
+[ext_resource type="Texture2D" uid="uid://ldtdiu6gwo8k" path="res://assets/sprites/displays/Monitor_1-empty.png" id="34_25oik"]
+[ext_resource type="Texture2D" uid="uid://bko5fo3be1mk4" path="res://assets/sprites/displays/OLED_Screen.png" id="35_0uqhe"]
+[ext_resource type="Texture2D" uid="uid://dos8hdm2pb5eq" path="res://assets/sprites/displays/TV_Monitor_2.png" id="36_nem1c"]
+[ext_resource type="Texture2D" uid="uid://cak3a0011k44t" path="res://assets/sprites/office_pixel_art/PC1.png" id="37_uesyv"]
+[ext_resource type="Texture2D" uid="uid://djaw5jeony6om" path="res://assets/sprites/modified/TV.png" id="38_mhoba"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wgr34"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ue7n4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_mhoba")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_wxs1p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ekw3t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v04qe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_b650g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ct545")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_q34ur")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_km314")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_se55h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_o71nm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_m2vds")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_qhl8k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_8eseq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w5p5o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_o1d21")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_bqek0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_v4ky4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_l3g6i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ec6vr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("19_ik3mv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_fbv4r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ah65a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_24is6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_q1xw0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_v4r4c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_7ey1e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_elavs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_740cx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("26_cdhv5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_j4piw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_lms5b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_30h27")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Test" type="Node2D"]
+
+[node name="Map" parent="." instance=ExtResource("1_da6vm")]
+position = Vector2(118, 95)
+
+[node name="Player" parent="." instance=ExtResource("2_st4qh")]
+position = Vector2(125, 289)
+collision_mask = 4
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+process_callback = 0
+limit_left = 0
+limit_top = 0
+limit_smoothed = true
+position_smoothing_enabled = true
+
+[node name="Sprites" type="Node2D" parent="."]
+position = Vector2(118, 95)
+
+[node name="Boss" type="AnimatedSprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(-87, -44)
+sprite_frames = SubResource("SpriteFrames_wgr34")
+autoplay = "default"
+
+[node name="Ball Red" type="AnimatedSprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(-39, -43)
+sprite_frames = SubResource("SpriteFrames_v04qe")
+autoplay = "default"
+
+[node name="Block Robot" type="AnimatedSprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(40, -29)
+scale = Vector2(0.6, 0.6)
+sprite_frames = SubResource("SpriteFrames_se55h")
+autoplay = "default"
+
+[node name="Bomb Robot" type="AnimatedSprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(131, -33)
+sprite_frames = SubResource("SpriteFrames_w5p5o")
+autoplay = "default"
+
+[node name="Claw Robot" type="AnimatedSprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(202, -34)
+sprite_frames = SubResource("SpriteFrames_ec6vr")
+autoplay = "default"
+
+[node name="Gun robot" type="AnimatedSprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(274, -37)
+sprite_frames = SubResource("SpriteFrames_24is6")
+autoplay = "default"
+
+[node name="Wing Robot" type="AnimatedSprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(359, -31)
+sprite_frames = SubResource("SpriteFrames_740cx")
+autoplay = "default"
+
+[node name="Desk2" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(-49, 128)
+texture = ExtResource("30_gin70")
+
+[node name="Display-32x32-empty" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(-82, 64)
+texture = ExtResource("31_o25gc")
+
+[node name="Display-32x32" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(-23, 63)
+texture = ExtResource("32_xs63o")
+
+[node name="Display-64x32-empty" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(46, 63)
+texture = ExtResource("33_0i3n4")
+
+[node name="Display-64x32-empty2" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(-50, 112)
+texture = ExtResource("33_0i3n4")
+
+[node name="Monitor1-empty" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(124, 63)
+texture = ExtResource("34_25oik")
+
+[node name="OledScreen" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(185, 66)
+texture = ExtResource("35_0uqhe")
+
+[node name="Desk4" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(47, 137)
+texture = ExtResource("30_gin70")
+flip_h = true
+
+[node name="Desk5" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(93, 137)
+texture = ExtResource("30_gin70")
+
+[node name="TvMonitor2" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(242, 62)
+texture = ExtResource("36_nem1c")
+
+[node name="Desk" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(296, 66)
+texture = ExtResource("30_gin70")
+
+[node name="Desk3" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(348, 66)
+texture = ExtResource("30_gin70")
+
+[node name="Pc1" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(348, 56)
+texture = ExtResource("37_uesyv")
+
+[node name="Tv" type="Sprite2D" parent="Sprites"]
+texture_filter = 1
+position = Vector2(70, 111)
+texture = ExtResource("38_mhoba")
