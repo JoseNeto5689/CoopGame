@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bccenea60oiy"
-path="res://.godot/imported/BossWalking_03.png-ff94c7890bfb35c16cff36d1c7ffd1a4.ctex"
+uid="uid://cmm7ku3qalqal"
+path="res://.godot/imported/Droid03Idle.png-ce2a700c4cd2c1595d793260c9c337ff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Boss/BossWalking/BossWalking_03.png"
-dest_files=["res://.godot/imported/BossWalking_03.png-ff94c7890bfb35c16cff36d1c7ffd1a4.ctex"]
+source_file="res://assets/sprites/droids/Droid03Idle.png"
+dest_files=["res://.godot/imported/Droid03Idle.png-ce2a700c4cd2c1595d793260c9c337ff.ctex"]
 
 [params]
 

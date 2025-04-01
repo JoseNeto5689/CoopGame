@@ -40,3 +40,5 @@ https://tilation.itch.io/16x16-small-indoor-tileset
 https://limezu.itch.io/kitchen
 
 https://blood-seller.itch.io/factory-assets-conveyer-belt
+
+https://foozlecc.itch.io/sci-fi-lab-droids

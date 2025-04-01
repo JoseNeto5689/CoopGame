@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chsbmrgfeqjg1"
-path="res://.godot/imported/BossWalking_01.png-24feac235d340739fe35afcc58e7d131.ctex"
+uid="uid://bccenea60oiy"
+path="res://.godot/imported/BossWalking_03.png-e3d58cdb5bd6e78da436b5307494845d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Boss/BossWalking/BossWalking_01.png"
-dest_files=["res://.godot/imported/BossWalking_01.png-24feac235d340739fe35afcc58e7d131.ctex"]
+source_file="res://assets/sprites/boss/BossWalking/BossWalking_03.png"
+dest_files=["res://.godot/imported/BossWalking_03.png-e3d58cdb5bd6e78da436b5307494845d.ctex"]
 
 [params]
 
