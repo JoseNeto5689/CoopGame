@@ -37,7 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://bko5fo3be1mk4" path="res://assets/sprites/displays/OLED_Screen.png" id="35_0uqhe"]
 [ext_resource type="Texture2D" uid="uid://dos8hdm2pb5eq" path="res://assets/sprites/displays/TV_Monitor_2.png" id="36_nem1c"]
 [ext_resource type="Texture2D" uid="uid://cak3a0011k44t" path="res://assets/sprites/office_pixel_art/PC1.png" id="37_uesyv"]
-[ext_resource type="Texture2D" uid="uid://djaw5jeony6om" path="res://assets/sprites/modified/TV.png" id="38_mhoba"]
+[ext_resource type="Texture2D" uid="uid://djaw5jeony6om" path="res://assets/sprites/own/TV.png" id="38_mhoba"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wgr34"]
 animations = [{
@@ -185,7 +185,7 @@ position = Vector2(118, 95)
 position = Vector2(125, 289)
 collision_mask = 4
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Camera2D2" type="Camera2D" parent="Player"]
 process_callback = 0
 limit_left = 0
 limit_top = 0

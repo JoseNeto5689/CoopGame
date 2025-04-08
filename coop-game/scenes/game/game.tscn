@@ -1,9 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=5 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
+[ext_resource type="PackedScene" uid="uid://tx64gjx52y3" path="res://scenes/computer/computer.tscn" id="3_0sr1o"]
+[ext_resource type="PackedScene" uid="uid://daf1bd8e1vvlx" path="res://scenes/UI/ui.tscn" id="4_kelw5"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_7h61r")
 
+[node name="HostCamera" type="Camera2D" parent="."]
+position = Vector2(319, 193)
+zoom = Vector2(0.45, 0.45)
+
 [node name="Map" parent="." instance=ExtResource("1_3pj57")]
+
+[node name="PC" parent="." instance=ExtResource("3_0sr1o")]
+position = Vector2(176, 81)
+
+[node name="Players" type="Node" parent="."]
+
+[node name="UI" parent="." instance=ExtResource("4_kelw5")]
+visible = false
+
+[connection signal="player_entered_pc" from="PC" to="." method="_on_pc_player_entered_pc"]
+[connection signal="player_exited_pc" from="PC" to="." method="_on_pc_player_exited_pc"]

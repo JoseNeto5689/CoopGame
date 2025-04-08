@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://daf1bd8e1vvlx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nt14h"]
+font_size = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_suays"]
+bg_color = Color(0.114897, 0.114897, 0.114897, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_yb1mt"]
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_41gti"]
+font_size = 12
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="Container" type="CenterContainer" parent="."]
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.75
+anchor_right = 0.9
+anchor_bottom = 0.95
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Container"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Container/HBoxContainer"]
+layout_mode = 2
+text = "Pressione"
+label_settings = SubResource("LabelSettings_nt14h")
+
+[node name="Panel" type="Panel" parent="Container/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_suays")
+
+[node name="Label" type="Label" parent="Container/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "E"
+label_settings = SubResource("LabelSettings_yb1mt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Container/HBoxContainer"]
+layout_mode = 2
+text = "para interagir"
+label_settings = SubResource("LabelSettings_41gti")

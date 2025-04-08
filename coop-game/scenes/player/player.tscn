@@ -1,8 +1,12 @@
-[gd_scene load_steps=55 format=3 uid="uid://dyt3fsimfa1ds"]
+[gd_scene load_steps=57 format=3 uid="uid://dyt3fsimfa1ds"]
 
 [ext_resource type="Texture2D" uid="uid://bxn4imo72mrow" path="res://assets/sprites/characters_modern/Adam_idle_anim_16x16.png" id="1_r4f7e"]
 [ext_resource type="Script" uid="uid://bhohfmsi6m0p" path="res://scenes/player/player.gd" id="1_t82pu"]
 [ext_resource type="Texture2D" uid="uid://gxbibxclujo1" path="res://assets/sprites/characters_modern/Adam_run_16x16.png" id="3_nm7kv"]
+[ext_resource type="Texture2D" uid="uid://chaubbjyur780" path="res://assets/sprites/own/USB_stick.png" id="4_lvxji"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_srqhr"]
+size = Vector2(14, 21.0911)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gmlin"]
 atlas = ExtResource("1_r4f7e")
@@ -383,8 +387,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_srqhr"]
-size = Vector2(16, 24)
+[sub_resource type="LabelSettings" id="LabelSettings_gmlin"]
+font_size = 5
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_gmlin"]
 properties/0/path = NodePath(".:position")
@@ -395,9 +399,15 @@ properties/1/spawn = true
 properties/1/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_t82pu")
 SPEED = 100
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+scale = Vector2(1, 0.995681)
+shape = SubResource("RectangleShape2D_srqhr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -406,10 +416,28 @@ animation = &"adam_idle_front"
 autoplay = "adam_idle_front"
 frame_progress = 0.566033
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-scale = Vector2(1, 0.995681)
-shape = SubResource("RectangleShape2D_srqhr")
+[node name="PlayerCamera" type="Camera2D" parent="."]
+process_callback = 0
+limit_left = 0
+limit_top = 0
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="USBStick" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(0, -18)
+texture = ExtResource("4_lvxji")
+
+[node name="PlayerName" type="Label" parent="."]
+texture_filter = 1
+offset_left = -16.0
+offset_top = 12.0
+offset_right = 16.0
+offset_bottom = 20.0
+label_settings = SubResource("LabelSettings_gmlin")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_gmlin")

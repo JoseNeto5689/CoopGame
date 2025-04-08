@@ -3,11 +3,14 @@ extends CharacterBody2D
 @export var SPEED = 0
 
 @onready var sprites = $AnimatedSprite2D
+@onready var name_label = $PlayerName
+@onready var camera = $PlayerCamera
+@onready var pendrive = $USBStick
 
 var last_direction := Vector2.ZERO
-var buttons_pressed = []
-var spawn_position: Vector2
+var buttons_pressed := []
 
+var spawn_position := Vector2.ZERO
 var id : int
 var player_name : String
 	
@@ -59,15 +62,17 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(id)
 
 func _ready() -> void:
+	if (player_name):
+		name_label.text = player_name
 	global_position = spawn_position
-	print(id)
+	if is_multiplayer_authority():
+		camera.make_current()
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
 	var direction = get_direction()
 	set_animation(direction)
-	
 	if direction:
 		velocity = direction * SPEED
 	else:
@@ -75,4 +80,4 @@ func _physics_process(_delta: float) -> void:
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 
 
-	move_and_slide()
+	move_and_collide(velocity * delta)

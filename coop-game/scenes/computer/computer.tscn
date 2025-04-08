@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://tx64gjx52y3"]
+
+[ext_resource type="Texture2D" uid="uid://bldhvklpy1qqx" path="res://assets/sprites/office_pixel_art/desk.png" id="1_qt3pe"]
+[ext_resource type="Script" uid="uid://wd31uttu17sr" path="res://scenes/computer/computer.gd" id="1_srgvo"]
+[ext_resource type="Texture2D" uid="uid://bdru0wobq4p5a" path="res://assets/sprites/office_pixel_art/PC2.png" id="2_srgvo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8d7te"]
+size = Vector2(38, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5o8iy"]
+size = Vector2(38, 29)
+
+[node name="PC" type="Node2D"]
+script = ExtResource("1_srgvo")
+
+[node name="Desk" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_qt3pe")
+
+[node name="Pc1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(2, -9)
+texture = ExtResource("2_srgvo")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_8d7te")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_5o8iy")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
