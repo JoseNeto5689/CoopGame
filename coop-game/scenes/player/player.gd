@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+#region variables
+
 @export var SPEED = 0
 
 @onready var sprites = $AnimatedSprite2D
@@ -13,7 +15,14 @@ var buttons_pressed := []
 var spawn_position := Vector2.ZERO
 var id : int
 var player_name : String
-	
+var holding_interaction := false 
+
+signal interacting
+signal stop_interacting
+
+#endregion
+
+
 func get_direction() -> Vector2:
 	if (Input.is_action_just_pressed("up")):
 		buttons_pressed.append(Vector2(0,-1))
@@ -61,6 +70,14 @@ func set_animation(direction: Vector2) -> void:
 func _enter_tree() -> void:
 	set_multiplayer_authority(id)
 
+func _unhandled_input(event: InputEvent) -> void:
+	if (event.is_action_pressed("interact")):
+		holding_interaction = true
+		interacting.emit()
+	elif (event.is_action_released("interact")):
+		holding_interaction = false
+		stop_interacting.emit()
+
 func _ready() -> void:
 	if (player_name):
 		name_label.text = player_name
@@ -81,3 +98,9 @@ func _physics_process(delta: float) -> void:
 
 
 	move_and_collide(velocity * delta)
+
+func show_usb_stick():
+	pendrive.visible = true
+	
+func hide_usb_stick():
+	pendrive.visible = false

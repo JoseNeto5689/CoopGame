@@ -14,7 +14,9 @@ zoom = Vector2(0.45, 0.45)
 
 [node name="Map" parent="." instance=ExtResource("1_3pj57")]
 
-[node name="PC" parent="." instance=ExtResource("3_0sr1o")]
+[node name="Computers" type="Node" parent="."]
+
+[node name="PC" parent="Computers" instance=ExtResource("3_0sr1o")]
 position = Vector2(176, 81)
 
 [node name="Players" type="Node" parent="."]
@@ -22,5 +24,5 @@ position = Vector2(176, 81)
 [node name="UI" parent="." instance=ExtResource("4_kelw5")]
 visible = false
 
-[connection signal="player_entered_pc" from="PC" to="." method="_on_pc_player_entered_pc"]
-[connection signal="player_exited_pc" from="PC" to="." method="_on_pc_player_exited_pc"]
+[connection signal="player_entered_pc" from="Computers/PC" to="." method="_on_pc_player_entered_pc"]
+[connection signal="player_exited_pc" from="Computers/PC" to="." method="_on_pc_player_exited_pc"]
