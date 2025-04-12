@@ -26,8 +26,8 @@ func _on_pc_player_entered_pc(id: int, pc_id: int) -> void:
 		ui.visible = true
 		var computer = find_computer_by_id(pc_id)
 		computer.show_progress_bar()
-		player.interacting.connect(computer.increase_progress)
-		player.stop_interacting.connect(computer.stop_progress)
+		player.interacting.connect(computer.increase_progress.rpc)
+		player.stop_interacting.connect(computer.stop_progress.rpc)
 
 func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 	var player = find_player_by_id(id)
@@ -36,8 +36,8 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 		ui.visible = false
 		var computer = find_computer_by_id(pc_id)
 		computer.hide_progress_bar()
-		player.interacting.disconnect(computer.increase_progress)
-		player.stop_interacting.disconnect(computer.stop_progress)
+		player.interacting.disconnect(computer.increase_progress.rpc)
+		player.stop_interacting.disconnect(computer.stop_progress.rpc)
 
 func find_player_by_id(id: int) -> Node2D:
 	var players_list = players.get_children()

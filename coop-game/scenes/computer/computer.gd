@@ -26,9 +26,11 @@ func _process(_delta: float) -> void:
 func change_progress(value: int): 
 	progress_bar.value = value
 	
+@rpc("any_peer", "call_local")
 func increase_progress():
 	working = true
 	
+@rpc("any_peer", "call_local")
 func stop_progress():
 	working = false
 	timer.paused = true

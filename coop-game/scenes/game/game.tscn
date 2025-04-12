@@ -1,9 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=12 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
 [ext_resource type="PackedScene" uid="uid://tx64gjx52y3" path="res://scenes/computer/computer.tscn" id="3_0sr1o"]
+[ext_resource type="Script" uid="uid://d2ald61gyqes0" path="res://scenes/game/path_follow_2d.gd" id="3_2a8rs"]
+[ext_resource type="Texture2D" uid="uid://cbr7ofjn1iwlq" path="res://assets/sprites/basic cute robot/ballbot/1/ballred1.png" id="3_87uf6"]
+[ext_resource type="Texture2D" uid="uid://bdgnrosvpr16g" path="res://assets/sprites/basic cute robot/ballbot/1/ballred2.png" id="4_2a8rs"]
 [ext_resource type="PackedScene" uid="uid://daf1bd8e1vvlx" path="res://scenes/UI/ui.tscn" id="4_kelw5"]
+[ext_resource type="Texture2D" uid="uid://dl7pphlbbojmm" path="res://assets/sprites/basic cute robot/ballbot/1/ballred3.png" id="5_4j704"]
+[ext_resource type="Texture2D" uid="uid://bbqnb6pby8o1y" path="res://assets/sprites/basic cute robot/ballbot/1/ballred4.png" id="6_kp23o"]
+
+[sub_resource type="Curve2D" id="Curve2D_5jirj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -128, 64, 0, 0, 0, 0, 768, 64)
+}
+point_count = 2
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vaxfo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_87uf6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_2a8rs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4j704")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_kp23o")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_7h61r")
@@ -14,10 +45,32 @@ zoom = Vector2(0.45, 0.45)
 
 [node name="Map" parent="." instance=ExtResource("1_3pj57")]
 
+[node name="ConveyerBelt" type="Node" parent="."]
+
+[node name="Path2D" type="Path2D" parent="ConveyerBelt"]
+visible = false
+curve = SubResource("Curve2D_5jirj")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="ConveyerBelt/Path2D"]
+position = Vector2(-128, 64)
+script = ExtResource("3_2a8rs")
+progress_number = 0.1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ConveyerBelt/Path2D/PathFollow2D"]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_vaxfo")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.201729
+
 [node name="Computers" type="Node" parent="."]
 
 [node name="PC" parent="Computers" instance=ExtResource("3_0sr1o")]
-position = Vector2(176, 81)
+position = Vector2(163, 116)
+
+[node name="PC2" parent="Computers" instance=ExtResource("3_0sr1o")]
+position = Vector2(319, 116)
+pc_id = 2
 
 [node name="Players" type="Node" parent="."]
 
@@ -26,3 +79,5 @@ visible = false
 
 [connection signal="player_entered_pc" from="Computers/PC" to="." method="_on_pc_player_entered_pc"]
 [connection signal="player_exited_pc" from="Computers/PC" to="." method="_on_pc_player_exited_pc"]
+[connection signal="player_entered_pc" from="Computers/PC2" to="." method="_on_pc_player_entered_pc"]
+[connection signal="player_exited_pc" from="Computers/PC2" to="." method="_on_pc_player_exited_pc"]
