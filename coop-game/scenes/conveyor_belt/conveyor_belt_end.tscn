@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1uy48f1djqwx"]
+
+[ext_resource type="Texture2D" uid="uid://jfds1uyx3ukq" path="res://assets/sprites/own/Esteira Fim.png" id="1_y7eag"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d1y4j"]
+atlas = ExtResource("1_y7eag")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_286sq"]
+atlas = ExtResource("1_y7eag")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p68rl"]
+atlas = ExtResource("1_y7eag")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3ub4u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d1y4j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_286sq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p68rl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="ConveyorBeltEnd" type="Node2D"]
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_3ub4u")
+autoplay = "default"
+frame = 1

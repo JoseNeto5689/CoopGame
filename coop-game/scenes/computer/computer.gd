@@ -14,7 +14,7 @@ var concluded = false
 
 func _ready() -> void:
 	timer.wait_time = time_for_conclude
-	
+
 func _process(_delta: float) -> void:
 	if(working and not concluded):
 		if(timer.is_stopped()):
@@ -25,22 +25,13 @@ func _process(_delta: float) -> void:
 
 func change_progress(value: int): 
 	progress_bar.value = value
-	
-@rpc("any_peer", "call_local")
-func increase_progress():
-	working = true
-	
-@rpc("any_peer", "call_local")
-func stop_progress():
-	working = false
-	timer.paused = true
 
 func get_percentage() -> int:
 	return abs(int(100-(timer.time_left/timer.wait_time)*100))
-	
+
 func show_progress_bar():
 	progress_bar.visible = true
-	
+
 func hide_progress_bar():
 	progress_bar.visible = false
 
@@ -54,3 +45,12 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 func _on_timer_timeout() -> void:
 	concluded = true
+
+@rpc("any_peer", "call_local")
+func increase_progress():
+	working = true
+	
+@rpc("any_peer", "call_local")
+func stop_progress():
+	working = false
+	timer.paused = true

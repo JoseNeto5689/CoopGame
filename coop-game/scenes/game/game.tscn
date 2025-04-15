@@ -1,13 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=15 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
 [ext_resource type="PackedScene" uid="uid://tx64gjx52y3" path="res://scenes/computer/computer.tscn" id="3_0sr1o"]
 [ext_resource type="Script" uid="uid://d2ald61gyqes0" path="res://scenes/game/path_follow_2d.gd" id="3_2a8rs"]
+[ext_resource type="PackedScene" uid="uid://cs0rocdmyyo7k" path="res://scenes/conveyor_belt/conveyor_belt_start.tscn" id="3_5jirj"]
 [ext_resource type="Texture2D" uid="uid://cbr7ofjn1iwlq" path="res://assets/sprites/basic cute robot/ballbot/1/ballred1.png" id="3_87uf6"]
 [ext_resource type="Texture2D" uid="uid://bdgnrosvpr16g" path="res://assets/sprites/basic cute robot/ballbot/1/ballred2.png" id="4_2a8rs"]
 [ext_resource type="PackedScene" uid="uid://daf1bd8e1vvlx" path="res://scenes/UI/ui.tscn" id="4_kelw5"]
+[ext_resource type="PackedScene" uid="uid://cvgl51byhwubb" path="res://scenes/conveyor_belt/conveyor_belt_middle.tscn" id="4_vaxfo"]
 [ext_resource type="Texture2D" uid="uid://dl7pphlbbojmm" path="res://assets/sprites/basic cute robot/ballbot/1/ballred3.png" id="5_4j704"]
+[ext_resource type="PackedScene" uid="uid://c1uy48f1djqwx" path="res://scenes/conveyor_belt/conveyor_belt_end.tscn" id="5_ftsea"]
 [ext_resource type="Texture2D" uid="uid://bbqnb6pby8o1y" path="res://assets/sprites/basic cute robot/ballbot/1/ballred4.png" id="6_kp23o"]
 
 [sub_resource type="Curve2D" id="Curve2D_5jirj"]
@@ -45,18 +48,42 @@ zoom = Vector2(0.45, 0.45)
 
 [node name="Map" parent="." instance=ExtResource("1_3pj57")]
 
-[node name="ConveyerBelt" type="Node" parent="."]
+[node name="ConveyorBelt" type="Node" parent="."]
 
-[node name="Path2D" type="Path2D" parent="ConveyerBelt"]
-visible = false
+[node name="Sprites" type="Node2D" parent="ConveyorBelt"]
+position = Vector2(-50, 0)
+
+[node name="ConveyorBeltStart" parent="ConveyorBelt/Sprites" instance=ExtResource("3_5jirj")]
+position = Vector2(0, 64)
+
+[node name="ConveyorBeltMiddle" parent="ConveyorBelt/Sprites" instance=ExtResource("4_vaxfo")]
+position = Vector2(80, 64)
+
+[node name="ConveyorBeltMiddle2" parent="ConveyorBelt/Sprites" instance=ExtResource("4_vaxfo")]
+position = Vector2(224, 64)
+
+[node name="ConveyorBeltMiddle3" parent="ConveyorBelt/Sprites" instance=ExtResource("4_vaxfo")]
+position = Vector2(368, 64)
+
+[node name="ConveyorBeltMiddle4" parent="ConveyorBelt/Sprites" instance=ExtResource("4_vaxfo")]
+position = Vector2(512, 64)
+
+[node name="ConveyorBeltMiddle5" parent="ConveyorBelt/Sprites" instance=ExtResource("4_vaxfo")]
+position = Vector2(656, 64)
+
+[node name="ConveyorBeltEnd" parent="ConveyorBelt/Sprites" instance=ExtResource("5_ftsea")]
+position = Vector2(736, 64)
+
+[node name="Path2D" type="Path2D" parent="ConveyorBelt"]
+position = Vector2(0, -16)
 curve = SubResource("Curve2D_5jirj")
 
-[node name="PathFollow2D" type="PathFollow2D" parent="ConveyerBelt/Path2D"]
+[node name="PathFollow2D" type="PathFollow2D" parent="ConveyorBelt/Path2D"]
 position = Vector2(-128, 64)
 script = ExtResource("3_2a8rs")
 progress_number = 0.1
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ConveyerBelt/Path2D/PathFollow2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ConveyorBelt/Path2D/PathFollow2D"]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_vaxfo")
 animation = &"idle"
@@ -69,7 +96,7 @@ frame_progress = 0.201729
 position = Vector2(163, 116)
 
 [node name="PC2" parent="Computers" instance=ExtResource("3_0sr1o")]
-position = Vector2(319, 116)
+position = Vector2(254, 116)
 pc_id = 2
 
 [node name="Players" type="Node" parent="."]

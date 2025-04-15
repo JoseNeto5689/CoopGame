@@ -1,0 +1,151 @@
+[gd_scene load_steps=14 format=3 uid="uid://cvgl51byhwubb"]
+
+[ext_resource type="Texture2D" uid="uid://boso1x5y4vjay" path="res://assets/sprites/own/Esteira Meio.png" id="1_hp10o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p22mk"]
+atlas = ExtResource("1_hp10o")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6dux3"]
+atlas = ExtResource("1_hp10o")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wo4yy"]
+atlas = ExtResource("1_hp10o")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_po1yv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p22mk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6dux3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wo4yy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41i5b"]
+atlas = ExtResource("1_hp10o")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4h8l"]
+atlas = ExtResource("1_hp10o")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyhsx"]
+atlas = ExtResource("1_hp10o")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l0mst"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41i5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4h8l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nyhsx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u8vk7"]
+atlas = ExtResource("1_hp10o")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gvq5v"]
+atlas = ExtResource("1_hp10o")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35mn3"]
+atlas = ExtResource("1_hp10o")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m0apa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u8vk7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gvq5v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35mn3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="ConveyorBeltMiddle" type="Node2D"]
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-64, 0)
+sprite_frames = SubResource("SpriteFrames_po1yv")
+autoplay = "default"
+
+[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-48, 0)
+sprite_frames = SubResource("SpriteFrames_l0mst")
+autoplay = "default"
+frame = 2
+
+[node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-32, 0)
+sprite_frames = SubResource("SpriteFrames_m0apa")
+autoplay = "default"
+frame = 1
+
+[node name="AnimatedSprite2D8" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(32, 0)
+sprite_frames = SubResource("SpriteFrames_po1yv")
+autoplay = "default"
+
+[node name="AnimatedSprite2D9" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(48, 0)
+sprite_frames = SubResource("SpriteFrames_l0mst")
+autoplay = "default"
+frame = 2
+
+[node name="AnimatedSprite2D10" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(64, 0)
+sprite_frames = SubResource("SpriteFrames_m0apa")
+autoplay = "default"
+frame = 1
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-16, 0)
+sprite_frames = SubResource("SpriteFrames_po1yv")
+autoplay = "default"
+
+[node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_l0mst")
+autoplay = "default"
+frame = 2
+
+[node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(16, 0)
+sprite_frames = SubResource("SpriteFrames_m0apa")
+autoplay = "default"
+frame = 1

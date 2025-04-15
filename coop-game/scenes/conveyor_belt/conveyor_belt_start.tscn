@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://cs0rocdmyyo7k"]
+
+[ext_resource type="Texture2D" uid="uid://b8inyl3akryv5" path="res://assets/sprites/own/Esteira Inicio.png" id="1_ufarb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fyncp"]
+atlas = ExtResource("1_ufarb")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yecty"]
+atlas = ExtResource("1_ufarb")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl87w"]
+atlas = ExtResource("1_ufarb")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rjt8c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fyncp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yecty")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gl87w")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="ConveyorBeltStart" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_rjt8c")
+autoplay = "default"
