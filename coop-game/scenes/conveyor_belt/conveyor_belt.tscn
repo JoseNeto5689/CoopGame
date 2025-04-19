@@ -1,16 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsd6ngwb43y4s"]
+[gd_scene load_steps=5 format=3 uid="uid://dsd6ngwb43y4s"]
 
+[ext_resource type="Script" uid="uid://cdi5yivig0oit" path="res://scenes/conveyor_belt/conveyor_belt.gd" id="1_wx4rt"]
 [ext_resource type="PackedScene" uid="uid://cs0rocdmyyo7k" path="res://scenes/conveyor_belt/conveyor_belt_start.tscn" id="1_ysxht"]
 [ext_resource type="PackedScene" uid="uid://cvgl51byhwubb" path="res://scenes/conveyor_belt/conveyor_belt_middle.tscn" id="2_wx4rt"]
 [ext_resource type="PackedScene" uid="uid://c1uy48f1djqwx" path="res://scenes/conveyor_belt/conveyor_belt_end.tscn" id="3_tyefu"]
 
 [node name="ConveyorBelt" type="Node2D"]
+script = ExtResource("1_wx4rt")
 
 [node name="ConveyorBeltStart" parent="." instance=ExtResource("1_ysxht")]
-position = Vector2(89, 69)
+position = Vector2(-368, 0)
 
 [node name="ConveyorBeltMiddle" parent="." instance=ExtResource("2_wx4rt")]
-position = Vector2(144, 69)
+position = Vector2(-288, 0)
+
+[node name="ConveyorBeltMiddle2" parent="." instance=ExtResource("2_wx4rt")]
+position = Vector2(-144, 0)
+
+[node name="ConveyorBeltMiddle3" parent="." instance=ExtResource("2_wx4rt")]
+
+[node name="ConveyorBeltMiddle4" parent="." instance=ExtResource("2_wx4rt")]
+position = Vector2(144, 0)
+
+[node name="ConveyorBeltMiddle5" parent="." instance=ExtResource("2_wx4rt")]
+position = Vector2(288, 0)
 
 [node name="ConveyorBeltEnd" parent="." instance=ExtResource("3_tyefu")]
-position = Vector2(201, 69)
+position = Vector2(368, 0)

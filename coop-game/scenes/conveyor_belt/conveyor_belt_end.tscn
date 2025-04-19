@@ -1,5 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1uy48f1djqwx"]
+[gd_scene load_steps=7 format=3 uid="uid://c1uy48f1djqwx"]
 
+[ext_resource type="Script" uid="uid://cosuoxajh00bg" path="res://scenes/conveyor_belt/conveyor_belt_end.gd" id="1_3ub4u"]
 [ext_resource type="Texture2D" uid="uid://jfds1uyx3ukq" path="res://assets/sprites/own/Esteira Fim.png" id="1_y7eag"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d1y4j"]
@@ -32,6 +33,7 @@ animations = [{
 }]
 
 [node name="ConveyorBeltEnd" type="Node2D"]
+script = ExtResource("1_3ub4u")
 
 [node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

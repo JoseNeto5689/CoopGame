@@ -2,9 +2,14 @@ extends Node2D
 
 @export var pc_id := 0
 @export var time_for_conclude := 0
+@export var texture_on: CompressedTexture2D = null
+@export var texture_off: CompressedTexture2D = null
 
 @onready var progress_bar := $ProgressBar
 @onready var timer := $Timer
+@onready var pc_sprite := $ComputerSprite
+
+signal work_concluded(pc_id: int)
 
 signal player_entered_pc(id: int, pc_id: int)
 signal player_exited_pc(id: int, pc_id: int)
@@ -13,6 +18,7 @@ var working = false
 var concluded = false
 
 func _ready() -> void:
+	pc_sprite.texture = texture_off
 	timer.wait_time = time_for_conclude
 
 func _process(_delta: float) -> void:
@@ -45,12 +51,15 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 func _on_timer_timeout() -> void:
 	concluded = true
+	work_concluded.emit(pc_id)
 
 @rpc("any_peer", "call_local")
 func increase_progress():
 	working = true
+	pc_sprite.texture = texture_on
 	
 @rpc("any_peer", "call_local")
 func stop_progress():
 	working = false
 	timer.paused = true
+	pc_sprite.texture = texture_off

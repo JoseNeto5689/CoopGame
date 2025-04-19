@@ -1,0 +1,117 @@
+[gd_scene load_steps=8 format=3 uid="uid://cbnqodshx2kif"]
+
+[ext_resource type="Script" uid="uid://75a4jbl6ffbq" path="res://scenes/conveyor_belt/conveyor_belt_implemented.gd" id="1_1lnr2"]
+[ext_resource type="PackedScene" uid="uid://dsd6ngwb43y4s" path="res://scenes/conveyor_belt/conveyor_belt.tscn" id="1_xyl1u"]
+
+[sub_resource type="Curve2D" id="Curve2D_8pk2l"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -128, 64, 0, 0, 0, 0, 768, 64)
+}
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_1lnr2"]
+resource_name = "stop"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.06, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_f80x0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.08]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_rk5o7"]
+resource_name = "restart"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:speed")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:progress")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 1.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.06]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rk5o7"]
+_data = {
+&"RESET": SubResource("Animation_f80x0"),
+&"restart": SubResource("Animation_rk5o7"),
+&"stop": SubResource("Animation_1lnr2")
+}
+
+[node name="ConveyorBelt" type="Node"]
+script = ExtResource("1_1lnr2")
+
+[node name="ConveyorBelt" parent="." instance=ExtResource("1_xyl1u")]
+position = Vector2(312, 72)
+
+[node name="LineProduction" type="Path2D" parent="."]
+position = Vector2(0, -14)
+curve = SubResource("Curve2D_8pk2l")
+
+[node name="Animation" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_rk5o7")
+}
+
+[connection signal="animation_finished" from="Animation" to="." method="_on_animation_animation_finished"]

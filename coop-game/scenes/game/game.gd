@@ -38,6 +38,9 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 		computer.hide_progress_bar()
 		player.interacting.disconnect(computer.increase_progress.rpc)
 		player.stop_interacting.disconnect(computer.stop_progress.rpc)
+		
+
+
 
 func find_player_by_id(id: int) -> Node2D:
 	var players_list = players.get_children()
@@ -51,3 +54,7 @@ func find_computer_by_id(id: int) -> Node2D:
 		if (computer.pc_id == id):
 			return computer
 	return null
+
+
+func _on_pc_work_concluded(pc_id: int) -> void:
+	print("Trabalho concluido no pc: "+ str(pc_id))
