@@ -1,14 +1,14 @@
 [gd_scene load_steps=6 format=3 uid="uid://tx64gjx52y3"]
 
 [ext_resource type="Script" uid="uid://wd31uttu17sr" path="res://scenes/computer/computer.gd" id="1_srgvo"]
-[ext_resource type="Texture2D" uid="uid://bjadbo2vechr4" path="res://assets/sprites/own/pc_2_0001.png" id="2_srgvo"]
+[ext_resource type="Texture2D" uid="uid://cc0shbq15u3n1" path="res://assets/sprites/own/pc_4_0001.png" id="2_srgvo"]
 [ext_resource type="PackedScene" uid="uid://djqygmt1j4djo" path="res://scenes/progress bar/progress_bar.tscn" id="4_8d7te"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8d7te"]
 size = Vector2(38, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5o8iy"]
-size = Vector2(38, 26)
+size = Vector2(38, 19)
 
 [node name="PC" type="Node2D"]
 script = ExtResource("1_srgvo")
@@ -31,11 +31,10 @@ position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_8d7te")
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 3)
+position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_5o8iy")
 
 [node name="ProgressBar" parent="." instance=ExtResource("4_8d7te")]
@@ -52,7 +51,7 @@ offset_bottom = -26.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 5.0
 one_shot = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

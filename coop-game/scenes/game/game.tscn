@@ -28,26 +28,35 @@ zoom = Vector2(0.45, 0.45)
 
 [node name="ConveyorBelt" parent="." instance=ExtResource("13_vaxfo")]
 
+[node name="StaticBody2D" type="StaticBody2D" parent="ConveyorBelt"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConveyorBelt/StaticBody2D"]
+position = Vector2(313, 35.5)
+shape = SubResource("RectangleShape2D_vaxfo")
+
 [node name="Computers" type="Node" parent="."]
 
-[node name="PC" parent="Computers" instance=ExtResource("3_0sr1o")]
+[node name="PC_1" parent="Computers" instance=ExtResource("3_0sr1o")]
 position = Vector2(163, 116)
+time_for_conclude = 2
 texture_on = ExtResource("11_10c2w")
 texture_off = ExtResource("11_otnwt")
 
-[node name="PC2" parent="Computers" instance=ExtResource("3_0sr1o")]
+[node name="PC_2" parent="Computers" instance=ExtResource("3_0sr1o")]
 position = Vector2(254, 116)
 pc_id = 2
 texture_on = ExtResource("13_pg2xm")
 texture_off = ExtResource("12_3xj4h")
 
-[node name="PC3" parent="Computers" instance=ExtResource("3_0sr1o")]
+[node name="PC_3" parent="Computers" instance=ExtResource("3_0sr1o")]
 position = Vector2(163, 201)
 pc_id = 3
 texture_on = ExtResource("15_gc57s")
 texture_off = ExtResource("12_vaxfo")
 
-[node name="PC4" parent="Computers" instance=ExtResource("3_0sr1o")]
+[node name="PC_4" parent="Computers" instance=ExtResource("3_0sr1o")]
 position = Vector2(256, 199)
 pc_id = 4
 texture_on = ExtResource("17_8b66f")
@@ -58,20 +67,12 @@ texture_off = ExtResource("11_5jirj")
 [node name="UI" parent="." instance=ExtResource("4_kelw5")]
 visible = false
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 4
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(313, 35.5)
-shape = SubResource("RectangleShape2D_vaxfo")
-
-[connection signal="player_entered_pc" from="Computers/PC" to="." method="_on_pc_player_entered_pc"]
-[connection signal="player_exited_pc" from="Computers/PC" to="." method="_on_pc_player_exited_pc"]
-[connection signal="work_concluded" from="Computers/PC" to="." method="_on_pc_work_concluded"]
-[connection signal="player_entered_pc" from="Computers/PC2" to="." method="_on_pc_player_entered_pc"]
-[connection signal="player_exited_pc" from="Computers/PC2" to="." method="_on_pc_player_exited_pc"]
-[connection signal="player_entered_pc" from="Computers/PC3" to="." method="_on_pc_player_entered_pc"]
-[connection signal="player_exited_pc" from="Computers/PC3" to="." method="_on_pc_player_exited_pc"]
-[connection signal="player_entered_pc" from="Computers/PC4" to="." method="_on_pc_player_entered_pc"]
-[connection signal="player_exited_pc" from="Computers/PC4" to="." method="_on_pc_player_exited_pc"]
+[connection signal="player_entered_pc" from="Computers/PC_1" to="." method="_on_pc_player_entered_pc"]
+[connection signal="player_exited_pc" from="Computers/PC_1" to="." method="_on_pc_player_exited_pc"]
+[connection signal="work_concluded" from="Computers/PC_1" to="." method="_on_pc_work_concluded"]
+[connection signal="player_entered_pc" from="Computers/PC_2" to="." method="_on_pc_player_entered_pc"]
+[connection signal="player_exited_pc" from="Computers/PC_2" to="." method="_on_pc_player_exited_pc"]
+[connection signal="player_entered_pc" from="Computers/PC_3" to="." method="_on_pc_player_entered_pc"]
+[connection signal="player_exited_pc" from="Computers/PC_3" to="." method="_on_pc_player_exited_pc"]
+[connection signal="player_entered_pc" from="Computers/PC_4" to="." method="_on_pc_player_entered_pc"]
+[connection signal="player_exited_pc" from="Computers/PC_4" to="." method="_on_pc_player_exited_pc"]

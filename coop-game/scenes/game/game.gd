@@ -57,4 +57,4 @@ func find_computer_by_id(id: int) -> Node2D:
 
 
 func _on_pc_work_concluded(pc_id: int) -> void:
-	print("Trabalho concluido no pc: "+ str(pc_id))
+	$ConveyorBelt.spawn_robot("gun_robot_red")
