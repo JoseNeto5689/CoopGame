@@ -42,3 +42,11 @@ https://limezu.itch.io/kitchen
 https://blood-seller.itch.io/factory-assets-conveyer-belt
 
 https://foozlecc.itch.io/sci-fi-lab-droids
+
+https://craftpix.net/freebies/free-city-enemies-pixel-art-sprite-sheets/?num=3&count=60&sq=robot&pos=15
+
+https://craftpix.net/freebies/free-drones-pack-pixel-art/?num=2&count=60&sq=robot&pos=7
+
+https://craftpix.net/freebies/free-sci-fi-antagonists-pixel-character-pack/?num=1&count=60&sq=robot&pos=15
+
+https://craftpix.net/freebies/free-simple-platformer-game-kit-pixel-art/?num=2&count=60&sq=robot&pos=15
