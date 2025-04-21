@@ -14,7 +14,7 @@ signal work_concluded(pc_id: int)
 signal player_entered_pc(id: int, pc_id: int)
 signal player_exited_pc(id: int, pc_id: int)
 
-var tween_turning_off
+var tween_turning_off : Tween
 
 var working = false
 var concluded = false
@@ -57,9 +57,13 @@ func _on_timer_timeout() -> void:
 
 @rpc("any_peer", "call_local")
 func increase_progress():
+	if(get_percentage() == 0):
+		change_progress(0)
 	working = true
+	
 	if tween_turning_off:
 		tween_turning_off.kill()
+		
 	pc_sprite.texture = texture_on
 	
 @rpc("any_peer", "call_local")
@@ -68,3 +72,9 @@ func stop_progress():
 	timer.paused = true
 	tween_turning_off = create_tween()
 	tween_turning_off.tween_property(pc_sprite, "texture", texture_off, 0.2)
+
+@rpc("any_peer", "call_local")
+func reset():
+	working = false
+	concluded = false
+	

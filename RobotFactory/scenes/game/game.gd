@@ -59,6 +59,8 @@ func find_computer_by_id(id: int) -> Node2D:
 
 
 func _on_pc_work_concluded(pc_id: int) -> void:
+	var computer = find_computer_by_id(pc_id)
+	computer.reset.rpc()
 	if(pc_id == 1 and Global.robot_list[robot_index - 1 ] == "gun_robot_red"):
 		$ConveyorBelt.spawn_robot(Global.robot_list[robot_index])
 		robot_index+=1
