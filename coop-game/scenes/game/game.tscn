@@ -67,12 +67,21 @@ texture_off = ExtResource("11_5jirj")
 [node name="UI" parent="." instance=ExtResource("4_kelw5")]
 visible = false
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
 [connection signal="player_entered_pc" from="Computers/PC_1" to="." method="_on_pc_player_entered_pc"]
 [connection signal="player_exited_pc" from="Computers/PC_1" to="." method="_on_pc_player_exited_pc"]
 [connection signal="work_concluded" from="Computers/PC_1" to="." method="_on_pc_work_concluded"]
 [connection signal="player_entered_pc" from="Computers/PC_2" to="." method="_on_pc_player_entered_pc"]
 [connection signal="player_exited_pc" from="Computers/PC_2" to="." method="_on_pc_player_exited_pc"]
+[connection signal="work_concluded" from="Computers/PC_2" to="." method="_on_pc_work_concluded"]
 [connection signal="player_entered_pc" from="Computers/PC_3" to="." method="_on_pc_player_entered_pc"]
 [connection signal="player_exited_pc" from="Computers/PC_3" to="." method="_on_pc_player_exited_pc"]
+[connection signal="work_concluded" from="Computers/PC_3" to="." method="_on_pc_work_concluded"]
 [connection signal="player_entered_pc" from="Computers/PC_4" to="." method="_on_pc_player_entered_pc"]
 [connection signal="player_exited_pc" from="Computers/PC_4" to="." method="_on_pc_player_exited_pc"]
+[connection signal="work_concluded" from="Computers/PC_4" to="." method="_on_pc_work_concluded"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

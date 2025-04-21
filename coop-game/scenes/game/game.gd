@@ -5,6 +5,8 @@ extends Node
 @onready var ui := $UI
 @onready var computers := $Computers
 
+var robot_index = 0
+
 func _ready() -> void:
 	var player_preloaded = preload("res://scenes/player/player.tscn")
 	var spawn_points: Array = map.get_spawn_points()
@@ -17,8 +19,10 @@ func _ready() -> void:
 		new_player.spawn_position = spawn_points[order]
 		order+=1
 		players.add_child(new_player)
+	
+	if multiplayer.is_server():
+		Global.sync_robots()
 		
-
 func _on_pc_player_entered_pc(id: int, pc_id: int) -> void:
 	var player = find_player_by_id(id)
 	if multiplayer.get_unique_id() == id:
@@ -40,8 +44,6 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 		player.stop_interacting.disconnect(computer.stop_progress.rpc)
 		
 
-
-
 func find_player_by_id(id: int) -> Node2D:
 	var players_list = players.get_children()
 	for player in players_list:
@@ -57,4 +59,14 @@ func find_computer_by_id(id: int) -> Node2D:
 
 
 func _on_pc_work_concluded(pc_id: int) -> void:
-	$ConveyorBelt.spawn_robot("gun_robot_red")
+	if(pc_id == 1 and Global.robot_list[robot_index - 1 ] == "gun_robot_red"):
+		$ConveyorBelt.spawn_robot(Global.robot_list[robot_index])
+		robot_index+=1
+	if(pc_id == 2 and Global.robot_list[robot_index - 1 ] == "claw_robot_red"):
+		$ConveyorBelt.spawn_robot(Global.robot_list[robot_index])
+		robot_index+=1
+
+func _on_timer_timeout() -> void:
+	$ConveyorBelt.spawn_robot(Global.robot_list[robot_index])
+	robot_index+=1
+	
