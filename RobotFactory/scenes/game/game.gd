@@ -61,14 +61,14 @@ func find_computer_by_id(id: int) -> Node2D:
 func _on_pc_work_concluded(pc_id: int) -> void:
 	var computer = find_computer_by_id(pc_id)
 	computer.reset.rpc()
-	if(pc_id == 1 and Global.robot_list[robot_index - 1 ] == "gun_robot_red"):
-		$ConveyorBelt.spawn_robot(Global.robot_list[robot_index])
+	Global.update_robot_stats(pc_id)
+	if (Global.check_robot_stats(Global.robot_list[robot_index - 1][1])):
+		Global.update_robot_stats(0)
+		$ConveyorBelt.spawn_robot(Global.robot_list[robot_index][0])
 		robot_index+=1
-	if(pc_id == 2 and Global.robot_list[robot_index - 1 ] == "claw_robot_red"):
-		$ConveyorBelt.spawn_robot(Global.robot_list[robot_index])
-		robot_index+=1
+	
 
 func _on_timer_timeout() -> void:
-	$ConveyorBelt.spawn_robot(Global.robot_list[robot_index])
+	$ConveyorBelt.spawn_robot(Global.robot_list[robot_index][0])
 	robot_index+=1
 	

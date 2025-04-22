@@ -4,7 +4,6 @@ extends Node2D
 @export var time_for_conclude := 0
 @export var texture_on: CompressedTexture2D = null
 @export var texture_off: CompressedTexture2D = null
-
 @onready var progress_bar := $ProgressBar
 @onready var timer := $Timer
 @onready var pc_sprite := $ComputerSprite

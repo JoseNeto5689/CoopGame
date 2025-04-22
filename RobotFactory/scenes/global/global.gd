@@ -2,6 +2,7 @@ extends Node
 
 var players: Array = []
 var robot_list = []
+var robot_status := RobotStats.new() 
 
 @rpc("call_local", "any_peer")
 func addPlayer(_id: String, _name: String):
@@ -22,16 +23,37 @@ func addPlayerRemote(_id: String, _name: String):
 	players.append(player)
 
 func sync_robots():
-	robot_list.append("gun_robot_red")
-	robot_list.append("claw_robot_red")
-	robot_list.append("wing_robot_red")
-	robot_list.append("ball_robot_red")
+	var raw_list = []
+	raw_list.append(["gun_robot_red",  2, 0, 0, 0, 0, 0])
+	raw_list.append(["claw_robot_red", 0, 2, 0, 0, 0, 0])
+	raw_list.append(["wing_robot_red", 1, 1, 0, 0, 0, 0])
+	raw_list.append(["ball_robot_red", 1, 2, 0, 0, 0, 0])
 	
-	var list = JSON.stringify(robot_list)
+	var list = JSON.stringify(raw_list)
 	send_robots_data.rpc(list)
 	
-@rpc("call_remote", "any_peer")
+@rpc("call_local", "any_peer")
 func send_robots_data(list: String):
 	var json = JSON.new()
 	json.parse(list)
-	robot_list.append_array(json.data)
+	var list_raw = json.data
+	for item in list_raw:
+		robot_list.append([item[0], RobotStats.new(item[1], item[2], item[3], item[4], item[5], item[6])])
+
+@rpc("any_peer", "call_local")
+func update_robot_stats(pc_id: int):
+	if pc_id == 0:
+		robot_status = RobotStats.new()
+	elif pc_id == 1:
+		robot_status.combat += 1
+	elif pc_id == 2:
+		robot_status.protection += 1
+	elif pc_id == 3:
+		robot_status.velocity += 1
+	elif pc_id == 4:
+		robot_status.energy += 1
+
+func check_robot_stats(robot : RobotStats):
+	if robot.chaos == robot_status.chaos and robot.charisma == robot_status.charisma and robot.combat == robot_status.combat and robot.energy == robot_status.energy and robot.protection == robot_status.protection and robot.velocity == robot_status.velocity:
+		return true
+	return false
