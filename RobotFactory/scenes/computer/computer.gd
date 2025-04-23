@@ -15,8 +15,9 @@ signal player_exited_pc(id: int, pc_id: int)
 
 var tween_turning_off : Tween
 
-var working = false
-var concluded = false
+var is_animation_concluded := false
+var working := false
+var concluded := false
 
 func _ready() -> void:
 	timer.wait_time = time_for_conclude
@@ -56,17 +57,20 @@ func _on_timer_timeout() -> void:
 
 @rpc("any_peer", "call_local")
 func increase_progress():
-	if(get_percentage() == 0):
-		change_progress(0)
-	working = true
-	
-	if tween_turning_off:
-		tween_turning_off.kill()
+	if is_animation_concluded:
+		#$PointLight2D.enabled = true
+		if(get_percentage() == 0):
+			change_progress(0)
+		working = true
 		
-	pc_sprite.texture = texture_on
+		if tween_turning_off:
+			tween_turning_off.kill()
+			
+		pc_sprite.texture = texture_on
 	
 @rpc("any_peer", "call_local")
 func stop_progress():
+	#$PointLight2D.enabled = false
 	working = false
 	timer.paused = true
 	tween_turning_off = create_tween()
@@ -76,4 +80,6 @@ func stop_progress():
 func reset():
 	working = false
 	concluded = false
-	
+
+func animation_changed(status: bool):
+	is_animation_concluded = status

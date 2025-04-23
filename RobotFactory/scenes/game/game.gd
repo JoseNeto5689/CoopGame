@@ -2,15 +2,22 @@ extends Node
 
 @onready var map := $Map
 @onready var players := $Players
-@onready var ui := $UI
+@onready var ui := $CanvasLayer/UI
 @onready var computers := $Computers
 
+signal animation_concluded(status: bool)
+
 var robot_index = 0
+
+var in_animation = true
 
 func _ready() -> void:
 	var player_preloaded = preload("res://scenes/player/player.tscn")
 	var spawn_points: Array = map.get_spawn_points()
 	var order = 0
+	for pc in $Computers.get_children():
+		animation_concluded.connect(pc.animation_changed)
+		
 	#Verificar se tamanho da lista de player bate com o tanto de spawn points
 	for player in Global.players:
 		var new_player = player_preloaded.instantiate()
@@ -72,3 +79,11 @@ func _on_timer_timeout() -> void:
 	$ConveyorBelt.spawn_robot(Global.robot_list[robot_index][0])
 	robot_index+=1
 	
+
+
+func _on_conveyor_belt_animation_concluded() -> void:
+	animation_concluded.emit(true)
+
+
+func _on_conveyor_belt_animation_started() -> void:
+	animation_concluded.emit(false)

@@ -115,3 +115,4 @@ libraries = {
 }
 
 [connection signal="animation_finished" from="Animation" to="." method="_on_animation_animation_finished"]
+[connection signal="animation_started" from="Animation" to="." method="_on_animation_animation_started"]

@@ -11,6 +11,9 @@ var last_robot :PathFollow2D
 var stopped = false
 var restart = false
 
+signal animation_started
+signal animation_concluded
+
 func spawn_robot(robot_sprite: String):
 	if actual_robot:
 		last_robot = actual_robot
@@ -36,3 +39,13 @@ func _physics_process(delta: float) -> void:
 	if actual_robot:
 		actual_robot.progress_ratio += progress * delta
 	$ConveyorBelt.change_speed(speed)
+
+
+func _on_animation_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "stop":
+		animation_concluded.emit()
+
+
+func _on_animation_animation_started(anim_name: StringName) -> void:
+	if anim_name == "stop" or anim_name == "restart":
+		animation_started.emit()
