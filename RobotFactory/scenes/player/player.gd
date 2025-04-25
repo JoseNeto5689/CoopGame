@@ -7,7 +7,10 @@ extends CharacterBody2D
 @onready var sprites = $AnimatedSprite2D
 @onready var name_label = $PlayerName
 @onready var camera = $PlayerCamera
-@onready var pendrive = $USBStick
+@onready var pendrive = $PenDrive
+
+var pendrive_stats : RobotStats
+var has_pendrive := false
 
 var last_direction := Vector2.ZERO
 var buttons_pressed := []
@@ -19,6 +22,7 @@ var holding_interaction := false
 
 signal interacting
 signal stop_interacting
+signal given_pendrive(robot_stats: RobotStats)
 
 #endregion
 
@@ -95,12 +99,19 @@ func _physics_process(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.y = move_toward(velocity.y, 0, SPEED)
-
-
 	move_and_collide(velocity * delta)
 
-func show_usb_stick():
-	pendrive.visible = true
+@rpc("any_peer", "call_local")
+func get_pendrive():
+	if not has_pendrive:
+		has_pendrive = true
+		pendrive.visible = true
+		pendrive_stats = Global.robot_status
 	
-func hide_usb_stick():
-	pendrive.visible = false
+@rpc("any_peer", "call_local")
+func give_pendrive():
+	if has_pendrive:
+		has_pendrive = false
+		pendrive.visible = false
+		given_pendrive.emit(pendrive_stats)
+		pendrive_stats = null

@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bxn4imo72mrow" path="res://assets/sprites/characters_modern/Adam_idle_anim_16x16.png" id="1_r4f7e"]
 [ext_resource type="Script" uid="uid://bhohfmsi6m0p" path="res://scenes/player/player.gd" id="1_t82pu"]
 [ext_resource type="Texture2D" uid="uid://gxbibxclujo1" path="res://assets/sprites/characters_modern/Adam_run_16x16.png" id="3_nm7kv"]
-[ext_resource type="Texture2D" uid="uid://chaubbjyur780" path="res://assets/sprites/own/USB_stick.png" id="4_lvxji"]
+[ext_resource type="Texture2D" uid="uid://dd7ki14jdwdwx" path="res://assets/sprites/own/Pendrives/Cores do Pendrive_0001.png" id="4_p47bc"]
 [ext_resource type="Texture2D" uid="uid://b4hyg3tusa4e0" path="res://assets/sprites/light/2d_light.webp" id="5_p47bc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_srqhr"]
@@ -428,11 +428,11 @@ limit_top = 0
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 
-[node name="USBStick" type="Sprite2D" parent="."]
+[node name="PenDrive" type="Sprite2D" parent="."]
 visible = false
 texture_filter = 1
-position = Vector2(0, -18)
-texture = ExtResource("4_lvxji")
+position = Vector2(0, -19)
+texture = ExtResource("4_p47bc")
 
 [node name="PlayerName" type="Label" parent="."]
 texture_filter = 1

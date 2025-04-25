@@ -14,11 +14,10 @@ var in_animation = true
 func _ready() -> void:
 	var player_preloaded = preload("res://scenes/player/player.tscn")
 	var spawn_points: Array = map.get_spawn_points()
-	var order = 0
 	for pc in $Computers.get_children():
 		animation_concluded.connect(pc.animation_changed)
-		
 	#Verificar se tamanho da lista de player bate com o tanto de spawn points
+	var order = 0
 	for player in Global.players:
 		var new_player = player_preloaded.instantiate()
 		new_player.id = int(player.id)
@@ -26,6 +25,9 @@ func _ready() -> void:
 		new_player.spawn_position = spawn_points[order]
 		order+=1
 		players.add_child(new_player)
+	
+	for player in $Players.get_children():
+		player.given_pendrive.connect(check_robot_in_conveyor_belt)
 	
 	if multiplayer.is_server():
 		Global.sync_robots()
@@ -51,6 +53,50 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 		player.stop_interacting.disconnect(computer.stop_progress.rpc)
 		
 
+func _on_pc_work_concluded(pc_id: int) -> void:
+	var computer = find_computer_by_id(pc_id)
+	computer.reset.rpc()
+	Global.update_robot_stats(pc_id)
+
+func _on_timer_timeout() -> void:
+	$ConveyorBelt.spawn_robot(Global.robot_list[robot_index][0])
+	robot_index+=1
+	
+
+func _on_conveyor_belt_animation_concluded() -> void:
+	animation_concluded.emit(true)
+
+
+func _on_conveyor_belt_animation_started() -> void:
+	animation_concluded.emit(false)
+
+
+func _on_player_enter_deployer_area(player_id: int) -> void:
+	var player = find_player_by_id(player_id)
+	player.interacting.connect(player.get_pendrive.rpc)
+
+func _on_player_exit_deployer_area(player_id) -> void:
+	var player = find_player_by_id(player_id)
+	player.interacting.disconnect(player.get_pendrive.rpc)
+
+
+func _on_enter_robot_area(body: Node2D) -> void:
+	var player = find_player_by_id(body.id)
+	player.interacting.connect(player.give_pendrive.rpc)
+	
+func _on_exit_robot_area(body: Node2D) -> void:
+	var player = find_player_by_id(body.id)
+	player.interacting.disconnect(player.give_pendrive.rpc)
+	
+
+func check_robot_in_conveyor_belt(robot_stats: RobotStats):
+	print(robot_stats.protection)
+	print(Global.robot_list[robot_index -1][1].protection)
+	if Global.check_robot_stats(robot_stats, Global.robot_list[robot_index -1][1]):
+		$ConveyorBelt.spawn_robot(Global.robot_list[robot_index][0])
+		Global.update_robot_stats(0)
+		robot_index+=1
+
 func find_player_by_id(id: int) -> Node2D:
 	var players_list = players.get_children()
 	for player in players_list:
@@ -63,27 +109,3 @@ func find_computer_by_id(id: int) -> Node2D:
 		if (computer.pc_id == id):
 			return computer
 	return null
-
-
-func _on_pc_work_concluded(pc_id: int) -> void:
-	var computer = find_computer_by_id(pc_id)
-	computer.reset.rpc()
-	Global.update_robot_stats(pc_id)
-	if (Global.check_robot_stats(Global.robot_list[robot_index - 1][1])):
-		Global.update_robot_stats(0)
-		$ConveyorBelt.spawn_robot(Global.robot_list[robot_index][0])
-		robot_index+=1
-	
-
-func _on_timer_timeout() -> void:
-	$ConveyorBelt.spawn_robot(Global.robot_list[robot_index][0])
-	robot_index+=1
-	
-
-
-func _on_conveyor_belt_animation_concluded() -> void:
-	animation_concluded.emit(true)
-
-
-func _on_conveyor_belt_animation_started() -> void:
-	animation_concluded.emit(false)

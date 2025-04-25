@@ -53,7 +53,7 @@ func update_robot_stats(pc_id: int):
 	elif pc_id == 4:
 		robot_status.energy += 1
 
-func check_robot_stats(robot : RobotStats):
-	if robot.chaos == robot_status.chaos and robot.charisma == robot_status.charisma and robot.combat == robot_status.combat and robot.energy == robot_status.energy and robot.protection == robot_status.protection and robot.velocity == robot_status.velocity:
+func check_robot_stats(robot1 : RobotStats, robot2: RobotStats):
+	if robot1.chaos == robot2.chaos and robot1.charisma == robot2.charisma and robot1.combat == robot2.combat and robot1.energy == robot2.energy and robot1.protection == robot2.protection and robot1.velocity == robot2.velocity:
 		return true
 	return false

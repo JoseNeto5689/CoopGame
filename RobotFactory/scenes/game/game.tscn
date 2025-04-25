@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=17 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
@@ -11,11 +11,15 @@
 [ext_resource type="Texture2D" uid="uid://bjadbo2vechr4" path="res://assets/sprites/own/pc_2_0001.png" id="12_vaxfo"]
 [ext_resource type="Texture2D" uid="uid://dbvic5c5jiuto" path="res://assets/sprites/own/pc_3_0002.png" id="13_pg2xm"]
 [ext_resource type="PackedScene" uid="uid://cbnqodshx2kif" path="res://scenes/conveyor_belt/conveyor_belt_implemented.tscn" id="13_vaxfo"]
+[ext_resource type="PackedScene" uid="uid://1bgp4wmb7bh7" path="res://scenes/deployer/deployer.tscn" id="14_ftsea"]
 [ext_resource type="Texture2D" uid="uid://calkw8w2mvhn" path="res://assets/sprites/own/pc_2_0002.png" id="15_gc57s"]
 [ext_resource type="Texture2D" uid="uid://bm5yx8xawkmbk" path="res://assets/sprites/own/pc_1_0002.png" id="17_8b66f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vaxfo"]
 size = Vector2(610, 71)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ftsea"]
+size = Vector2(32.9989, 13.7307)
 
 [node name="Game" type="Node"]
 script = ExtResource("1_7h61r")
@@ -36,6 +40,14 @@ collision_mask = 0
 position = Vector2(313, 35.5)
 shape = SubResource("RectangleShape2D_vaxfo")
 
+[node name="Area2D" type="Area2D" parent="ConveyorBelt"]
+position = Vector2(327.322, 77.6742)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ConveyorBelt/Area2D"]
+position = Vector2(0.171021, 0)
+shape = SubResource("RectangleShape2D_ftsea")
+
 [node name="Computers" type="Node" parent="."]
 
 [node name="PC_1" parent="Computers" instance=ExtResource("3_0sr1o")]
@@ -47,6 +59,7 @@ texture_off = ExtResource("11_otnwt")
 [node name="PC_2" parent="Computers" instance=ExtResource("3_0sr1o")]
 position = Vector2(254, 116)
 pc_id = 2
+time_for_conclude = 2
 texture_on = ExtResource("13_pg2xm")
 texture_off = ExtResource("12_3xj4h")
 
@@ -62,24 +75,28 @@ pc_id = 4
 texture_on = ExtResource("17_8b66f")
 texture_off = ExtResource("11_5jirj")
 
+[node name="Deployer" parent="." instance=ExtResource("14_ftsea")]
+position = Vector2(423.258, 162.382)
+
 [node name="Players" type="Node" parent="."]
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
 one_shot = true
 autostart = true
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-color = Color(0.0605304, 0.0605303, 0.0605303, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="UI" parent="CanvasLayer" instance=ExtResource("4_kelw5")]
 visible = false
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0.0605304, 0.0605303, 0.0605303, 1)
+
 [connection signal="animation_concluded" from="ConveyorBelt" to="." method="_on_conveyor_belt_animation_concluded"]
 [connection signal="animation_started" from="ConveyorBelt" to="." method="_on_conveyor_belt_animation_started"]
+[connection signal="body_entered" from="ConveyorBelt/Area2D" to="." method="_on_enter_robot_area"]
+[connection signal="body_exited" from="ConveyorBelt/Area2D" to="." method="_on_exit_robot_area"]
 [connection signal="player_entered_pc" from="Computers/PC_1" to="." method="_on_pc_player_entered_pc"]
 [connection signal="player_exited_pc" from="Computers/PC_1" to="." method="_on_pc_player_exited_pc"]
 [connection signal="work_concluded" from="Computers/PC_1" to="." method="_on_pc_work_concluded"]
@@ -92,4 +109,6 @@ visible = false
 [connection signal="player_entered_pc" from="Computers/PC_4" to="." method="_on_pc_player_entered_pc"]
 [connection signal="player_exited_pc" from="Computers/PC_4" to="." method="_on_pc_player_exited_pc"]
 [connection signal="work_concluded" from="Computers/PC_4" to="." method="_on_pc_work_concluded"]
+[connection signal="enter_deployer_area" from="Deployer" to="." method="_on_player_enter_deployer_area"]
+[connection signal="exit_deployer_area" from="Deployer" to="." method="_on_player_exit_deployer_area"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
