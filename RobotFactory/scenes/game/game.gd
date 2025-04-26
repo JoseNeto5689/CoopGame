@@ -28,6 +28,7 @@ func _ready() -> void:
 	
 	for player in $Players.get_children():
 		player.given_pendrive.connect(check_robot_in_conveyor_belt)
+		animation_concluded.connect(player.set_animation_status)
 	
 	if multiplayer.is_server():
 		Global.sync_robots()
@@ -90,11 +91,10 @@ func _on_exit_robot_area(body: Node2D) -> void:
 	
 
 func check_robot_in_conveyor_belt(robot_stats: RobotStats):
-	print(robot_stats.protection)
-	print(Global.robot_list[robot_index -1][1].protection)
+	Global.update_robot_stats(0)
 	if Global.check_robot_stats(robot_stats, Global.robot_list[robot_index -1][1]):
+		$ConveyorBelt.robot_ok()
 		$ConveyorBelt.spawn_robot(Global.robot_list[robot_index][0])
-		Global.update_robot_stats(0)
 		robot_index+=1
 
 func find_player_by_id(id: int) -> Node2D:

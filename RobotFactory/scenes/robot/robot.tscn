@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://d4f5l5h647twd"]
+[gd_scene load_steps=30 format=3 uid="uid://d4f5l5h647twd"]
 
 [ext_resource type="Script" uid="uid://cxgvrotvfomsq" path="res://scenes/robot/robot.gd" id="1_eqtul"]
 [ext_resource type="Texture2D" uid="uid://cbr7ofjn1iwlq" path="res://assets/sprites/basic cute robot/ballbot/1/ballred1.png" id="2_0abj3"]
+[ext_resource type="Shader" uid="uid://b870mj1svnhk" path="res://assets/shaders/blink.gdshader" id="2_15li0"]
 [ext_resource type="Texture2D" uid="uid://bdgnrosvpr16g" path="res://assets/sprites/basic cute robot/ballbot/1/ballred2.png" id="3_ujdmv"]
 [ext_resource type="Texture2D" uid="uid://dl7pphlbbojmm" path="res://assets/sprites/basic cute robot/ballbot/1/ballred3.png" id="4_jhdl5"]
 [ext_resource type="Texture2D" uid="uid://bbqnb6pby8o1y" path="res://assets/sprites/basic cute robot/ballbot/1/ballred4.png" id="5_36p58"]
@@ -22,6 +23,11 @@
 [ext_resource type="Texture2D" uid="uid://dr0q4t5xb1roq" path="res://assets/sprites/basic cute robot/wingbot/1/wingbot2.png" id="19_84cbo"]
 [ext_resource type="Texture2D" uid="uid://d2kg543r5ypcd" path="res://assets/sprites/basic cute robot/wingbot/1/wingbot3.png" id="20_8ivtw"]
 [ext_resource type="Texture2D" uid="uid://buje3wcy67og" path="res://assets/sprites/basic cute robot/wingbot/1/wingbot4.png" id="21_6mnvf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1gelo"]
+shader = ExtResource("2_15li0")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eqtul"]
 atlas = ExtResource("13_k6xon")
@@ -149,5 +155,6 @@ script = ExtResource("1_eqtul")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_1gelo")
 sprite_frames = SubResource("SpriteFrames_a3dwq")
 animation = &"gun_robot_red"

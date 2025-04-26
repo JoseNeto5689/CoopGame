@@ -19,6 +19,7 @@ var spawn_position := Vector2.ZERO
 var id : int
 var player_name : String
 var holding_interaction := false 
+var animation_concluded := false
 
 signal interacting
 signal stop_interacting
@@ -101,16 +102,19 @@ func _physics_process(delta: float) -> void:
 		velocity.y = move_toward(velocity.y, 0, SPEED)
 	move_and_collide(velocity * delta)
 
+func set_animation_status(status: bool):
+	animation_concluded = status
+
 @rpc("any_peer", "call_local")
 func get_pendrive():
-	if not has_pendrive:
+	if not has_pendrive and animation_concluded:
 		has_pendrive = true
 		pendrive.visible = true
 		pendrive_stats = Global.robot_status
 	
 @rpc("any_peer", "call_local")
 func give_pendrive():
-	if has_pendrive:
+	if has_pendrive and animation_concluded:
 		has_pendrive = false
 		pendrive.visible = false
 		given_pendrive.emit(pendrive_stats)

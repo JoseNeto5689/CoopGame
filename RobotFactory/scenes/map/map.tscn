@@ -273,10 +273,10 @@ tile_set = ExtResource("2_tqkkf")
 [node name="SpawnPoints" type="Node" parent="."]
 
 [node name="Spawn 1" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(90, 80)
+position = Vector2(90, 103)
 
 [node name="Spawn 2" type="Marker2D" parent="SpawnPoints"]
-position = Vector2(520, 80)
+position = Vector2(520, 103)
 
 [node name="Spawn 3" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(90, 320)

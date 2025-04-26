@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 		$Animation.play("restart")
 		restart = false
 	if actual_robot and actual_robot.progress_ratio >= 0.46 and not stopped:
-		$Animation.play("stop") 
+		$Animation.play("stop")
 		stopped = true
 	if last_robot and last_robot.progress_ratio >= 0.99:
 		last_robot.queue_free()
@@ -49,3 +49,7 @@ func _on_animation_animation_finished(anim_name: StringName) -> void:
 func _on_animation_animation_started(anim_name: StringName) -> void:
 	if anim_name == "stop" or anim_name == "restart":
 		animation_started.emit()
+
+func robot_ok():
+	var tween = create_tween()
+	tween.tween_method(actual_robot.change_blink_intensity, 1.0, 0.0, 0.3)
