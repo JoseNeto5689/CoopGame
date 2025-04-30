@@ -2,8 +2,18 @@ extends Node
 
 var players: Array = []
 var robot_list = []
-var robot_status := RobotStats.new() 
+var robot_status := RobotStats.new()
 
+var money := 0
+var usb_sticker_number := 1
+
+signal usb_number_changed
+
+func update_usb_stick_number(value: int):
+	usb_number_changed.emit()
+	usb_sticker_number = value
+	
+	
 @rpc("call_local", "any_peer")
 func addPlayer(_id: String, _name: String):
 	var player = Player.new(_id, _name)
@@ -52,6 +62,11 @@ func update_robot_stats(pc_id: int):
 		robot_status.velocity += 1
 	elif pc_id == 4:
 		robot_status.energy += 1
+		
+
+@rpc("any_peer", "call_local", "reliable")
+func update_money(new_value: int):
+	money = new_value
 
 func check_robot_stats(robot1 : RobotStats, robot2: RobotStats):
 	if robot1.chaos == robot2.chaos and robot1.charisma == robot2.charisma and robot1.combat == robot2.combat and robot1.energy == robot2.energy and robot1.protection == robot2.protection and robot1.velocity == robot2.velocity:

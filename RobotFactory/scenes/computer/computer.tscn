@@ -1,9 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://tx64gjx52y3"]
+[gd_scene load_steps=19 format=3 uid="uid://tx64gjx52y3"]
 
 [ext_resource type="Script" uid="uid://wd31uttu17sr" path="res://scenes/computer/computer.gd" id="1_srgvo"]
 [ext_resource type="Texture2D" uid="uid://cc0shbq15u3n1" path="res://assets/sprites/own/pc_4_0001.png" id="2_srgvo"]
 [ext_resource type="Texture2D" uid="uid://b4hyg3tusa4e0" path="res://assets/sprites/light/2d_light.webp" id="4_5o8iy"]
 [ext_resource type="PackedScene" uid="uid://djqygmt1j4djo" path="res://scenes/progress bar/progress_bar.tscn" id="4_8d7te"]
+[ext_resource type="Texture2D" uid="uid://c0nqpddj13sjt" path="res://assets/sprites/explosion/4.png" id="5_gh4r0"]
+[ext_resource type="Texture2D" uid="uid://dsrposf2qh061" path="res://assets/sprites/explosion/5.png" id="6_8it8f"]
+[ext_resource type="Texture2D" uid="uid://dam65crfyia8h" path="res://assets/sprites/explosion/6.png" id="7_jrk3l"]
+[ext_resource type="Texture2D" uid="uid://dtatj7in5ksgr" path="res://assets/sprites/explosion/7.png" id="8_8xmrj"]
+[ext_resource type="Texture2D" uid="uid://ckf71yln7kfh2" path="res://assets/sprites/explosion/8.png" id="9_lmu87"]
+[ext_resource type="Texture2D" uid="uid://b16t54m1nsf28" path="res://assets/sprites/explosion/9.png" id="10_f361i"]
+[ext_resource type="Texture2D" uid="uid://dnap5c0bf6svx" path="res://assets/sprites/explosion/10.png" id="11_ymmt0"]
+[ext_resource type="Texture2D" uid="uid://dewgpm8nevv2a" path="res://assets/sprites/explosion/11.png" id="12_p8ue4"]
+[ext_resource type="Texture2D" uid="uid://dcf4kpgfhljpr" path="res://assets/sprites/explosion/12.png" id="13_re0mp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8d7te"]
 size = Vector2(38, 20)
@@ -18,7 +27,43 @@ light_mode = 1
 closed = false
 polygon = PackedVector2Array(-31.3958, -13.2863, -1.19687, -13.2038, 21.2847, -13.1423)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_hh48c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_gh4r0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_8it8f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_jrk3l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_8xmrj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_lmu87")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_f361i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_ymmt0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_p8ue4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_re0mp")
+}],
+"loop": false,
+"name": &"boom",
+"speed": 10.0
+}]
+
 [node name="PC" type="Node2D"]
+position = Vector2(50, 50)
 script = ExtResource("1_srgvo")
 pc_id = 1
 time_for_conclude = 5
@@ -79,6 +124,35 @@ visible = false
 position = Vector2(3.56697, 1.06692)
 occluder = SubResource("OccluderPolygon2D_twnhc")
 sdf_collision = false
+
+[node name="Explosions" type="Node2D" parent="."]
+
+[node name="Explosion1" type="AnimatedSprite2D" parent="Explosions"]
+visible = false
+position = Vector2(10.5647, -6.87937)
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_hh48c")
+animation = &"boom"
+frame = 8
+frame_progress = 1.0
+
+[node name="Explosion2" type="AnimatedSprite2D" parent="Explosions"]
+visible = false
+position = Vector2(-12.5303, -1.597)
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_hh48c")
+animation = &"boom"
+frame = 8
+frame_progress = 1.0
+
+[node name="Explosion3" type="AnimatedSprite2D" parent="Explosions"]
+visible = false
+position = Vector2(2.45692, 10.5647)
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_hh48c")
+animation = &"boom"
+frame = 8
+frame_progress = 1.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

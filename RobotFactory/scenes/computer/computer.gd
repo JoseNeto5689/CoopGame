@@ -83,3 +83,13 @@ func reset():
 
 func animation_changed(status: bool):
 	is_animation_concluded = status
+
+func explode():
+	var explosions = $Explosions.get_children()
+	for explosion:AnimatedSprite2D in explosions:
+		explosion.show()
+		explosion.play("boom")
+		explosion.animation_finished.connect(func() :
+			explosion.hide()
+		)
+		await get_tree().create_timer(0.2).timeout 

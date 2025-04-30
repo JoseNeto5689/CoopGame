@@ -50,3 +50,5 @@ https://craftpix.net/freebies/free-drones-pack-pixel-art/?num=2&count=60&sq=robo
 https://craftpix.net/freebies/free-sci-fi-antagonists-pixel-character-pack/?num=1&count=60&sq=robot&pos=15
 
 https://craftpix.net/freebies/free-simple-platformer-game-kit-pixel-art/?num=2&count=60&sq=robot&pos=15
+
+https://nyknck.itch.io/explosion

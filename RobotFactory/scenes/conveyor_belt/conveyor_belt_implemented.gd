@@ -25,7 +25,7 @@ func spawn_robot(robot_sprite: String):
 	actual_robot = spawned_robot
 	
 	
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if restart:
 		$Animation.play("restart")
 		restart = false

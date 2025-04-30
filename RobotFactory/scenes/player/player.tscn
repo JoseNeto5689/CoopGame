@@ -1,10 +1,10 @@
-[gd_scene load_steps=59 format=3 uid="uid://dyt3fsimfa1ds"]
+[gd_scene load_steps=60 format=3 uid="uid://dyt3fsimfa1ds"]
 
 [ext_resource type="Texture2D" uid="uid://bxn4imo72mrow" path="res://assets/sprites/characters_modern/Adam_idle_anim_16x16.png" id="1_r4f7e"]
 [ext_resource type="Script" uid="uid://bhohfmsi6m0p" path="res://scenes/player/player.gd" id="1_t82pu"]
 [ext_resource type="Texture2D" uid="uid://gxbibxclujo1" path="res://assets/sprites/characters_modern/Adam_run_16x16.png" id="3_nm7kv"]
 [ext_resource type="Texture2D" uid="uid://dd7ki14jdwdwx" path="res://assets/sprites/own/Pendrives/Cores do Pendrive_0001.png" id="4_p47bc"]
-[ext_resource type="Texture2D" uid="uid://b4hyg3tusa4e0" path="res://assets/sprites/light/2d_light.webp" id="5_p47bc"]
+[ext_resource type="Texture2D" uid="uid://cty8hx8fkvew0" path="res://assets/sprites/light/light.png" id="5_p47bc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_srqhr"]
 size = Vector2(14, 21.0911)
@@ -388,6 +388,12 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p47bc"]
+light_mode = 1
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lvxji"]
+polygon = PackedVector2Array(-6, -8, -4, -10, 3.75106, -10, 5, -9, 6, -8, 7, -6, 7, 8.95716, 6, 10, 4.99924, 11, -5.67963, 11, -6, 10, -7, 8.81847, -7, -6)
+
 [sub_resource type="LabelSettings" id="LabelSettings_gmlin"]
 font_size = 5
 
@@ -399,14 +405,11 @@ properties/1/path = NodePath("AnimatedSprite2D:animation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_lvxji"]
-polygon = PackedVector2Array(-6, -8, -4, -10, 3.75106, -10, 5, -9, 6, -8, 7, -6, 7, 8.95716, 6, 10, 4.99924, 11, -5.67963, 11, -6, 10, -7, 8.81847, -7, -6)
-
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_t82pu")
-SPEED = 100
+SPEED = 80
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
@@ -422,17 +425,32 @@ autoplay = "adam_idle_front"
 frame_progress = 0.566033
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
-process_callback = 0
 limit_left = 0
 limit_top = 0
 position_smoothing_enabled = true
+position_smoothing_speed = 4.0
 rotation_smoothing_enabled = true
 
 [node name="PenDrive" type="Sprite2D" parent="."]
 visible = false
 texture_filter = 1
+material = SubResource("CanvasItemMaterial_p47bc")
 position = Vector2(0, -19)
 texture = ExtResource("4_p47bc")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
+occluder = SubResource("OccluderPolygon2D_lvxji")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
+visibility_layer = 2
+position = Vector2(1.19209e-07, 0.999999)
+scale = Vector2(0.2, 0.2)
+energy = 0.4
+blend_mode = 2
+range_item_cull_mask = 5
+texture = ExtResource("5_p47bc")
 
 [node name="PlayerName" type="Label" parent="."]
 texture_filter = 1
@@ -446,15 +464,3 @@ vertical_alignment = 1
 
 [node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_gmlin")
-
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-visible = false
-occluder = SubResource("OccluderPolygon2D_lvxji")
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-visible = false
-position = Vector2(1.19209e-07, -2.98023e-07)
-scale = Vector2(0.2, 0.2)
-energy = 0.4
-range_item_cull_mask = 5
-texture = ExtResource("5_p47bc")

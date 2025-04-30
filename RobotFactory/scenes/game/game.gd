@@ -2,7 +2,7 @@ extends Node
 
 @onready var map := $Map
 @onready var players := $Players
-@onready var ui := $CanvasLayer/UI
+@onready var ui := $UI
 @onready var computers := $Computers
 
 signal animation_concluded(status: bool)
@@ -12,6 +12,11 @@ var robot_index = 0
 var in_animation = true
 
 func _ready() -> void:
+	Global.usb_number_changed.connect($UI.update_pendrive.rpc)
+	
+	if multiplayer.is_server():
+		$UI.hide_hud()
+	
 	var player_preloaded = preload("res://scenes/player/player.tscn")
 	var spawn_points: Array = map.get_spawn_points()
 	for pc in $Computers.get_children():
@@ -37,7 +42,7 @@ func _on_pc_player_entered_pc(id: int, pc_id: int) -> void:
 	var player = find_player_by_id(id)
 	if multiplayer.get_unique_id() == id:
 		#Trocar por func de Ui
-		ui.visible = true
+		ui.show_interact()
 		var computer = find_computer_by_id(pc_id)
 		computer.show_progress_bar()
 		player.interacting.connect(computer.increase_progress.rpc)
@@ -47,7 +52,7 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 	var player = find_player_by_id(id)
 	if multiplayer.get_unique_id() == id:
 		#Trocar por func de Ui
-		ui.visible = false
+		ui.hide_interact()
 		var computer = find_computer_by_id(pc_id)
 		computer.hide_progress_bar()
 		player.interacting.disconnect(computer.increase_progress.rpc)
@@ -78,7 +83,8 @@ func _on_player_enter_deployer_area(player_id: int) -> void:
 
 func _on_player_exit_deployer_area(player_id) -> void:
 	var player = find_player_by_id(player_id)
-	player.interacting.disconnect(player.get_pendrive.rpc)
+	if player.interacting.is_connected(player.get_pendrive.rpc):
+		player.interacting.disconnect(player.get_pendrive.rpc)
 
 
 func _on_enter_robot_area(body: Node2D) -> void:

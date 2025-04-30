@@ -33,14 +33,17 @@ zoom = Vector2(0.45, 0.45)
 [node name="ConveyorBelt" parent="." instance=ExtResource("13_vaxfo")]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="ConveyorBelt"]
+visible = false
 collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ConveyorBelt/StaticBody2D"]
+visible = false
 position = Vector2(313, 35.5)
 shape = SubResource("RectangleShape2D_vaxfo")
 
 [node name="Area2D" type="Area2D" parent="ConveyorBelt"]
+visible = false
 position = Vector2(327.322, 77.6742)
 collision_layer = 0
 
@@ -76,22 +79,19 @@ texture_on = ExtResource("17_8b66f")
 texture_off = ExtResource("11_5jirj")
 
 [node name="Deployer" parent="." instance=ExtResource("14_ftsea")]
-position = Vector2(423.258, 162.382)
+position = Vector2(419, 162)
 
 [node name="Players" type="Node" parent="."]
-
-[node name="Timer" type="Timer" parent="."]
-one_shot = true
-autostart = true
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="UI" parent="CanvasLayer" instance=ExtResource("4_kelw5")]
-visible = false
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
 color = Color(0.0605304, 0.0605303, 0.0605303, 1)
+
+[node name="UI" parent="." instance=ExtResource("4_kelw5")]
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
 
 [connection signal="animation_concluded" from="ConveyorBelt" to="." method="_on_conveyor_belt_animation_concluded"]
 [connection signal="animation_started" from="ConveyorBelt" to="." method="_on_conveyor_belt_animation_started"]

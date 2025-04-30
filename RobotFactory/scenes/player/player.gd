@@ -90,7 +90,7 @@ func _ready() -> void:
 	if is_multiplayer_authority():
 		camera.make_current()
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if not is_multiplayer_authority():
 		return
 	var direction = get_direction()
@@ -107,7 +107,8 @@ func set_animation_status(status: bool):
 
 @rpc("any_peer", "call_local")
 func get_pendrive():
-	if not has_pendrive and animation_concluded:
+	if not has_pendrive and animation_concluded and Global.usb_sticker_number > 0:
+		Global.update_usb_stick_number(Global.usb_sticker_number - 1)
 		has_pendrive = true
 		pendrive.visible = true
 		pendrive_stats = Global.robot_status
