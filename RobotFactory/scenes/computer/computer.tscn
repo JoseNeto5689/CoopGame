@@ -63,7 +63,6 @@ animations = [{
 }]
 
 [node name="PC" type="Node2D"]
-position = Vector2(50, 50)
 script = ExtResource("1_srgvo")
 pc_id = 1
 time_for_conclude = 5

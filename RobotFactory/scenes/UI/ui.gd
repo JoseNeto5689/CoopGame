@@ -2,12 +2,13 @@ extends CanvasLayer
 
 func _ready() -> void:
 	update_pendrive()
+	update_money()
 
 func show_interact():
-	$Container.show()
+	$InteractHUD.show()
 
 func hide_interact():
-	$Container.hide()
+	$InteractHUD.hide()
 
 func show_hud():
 	$HUD.show()
@@ -17,4 +18,8 @@ func hide_hud():
 
 @rpc("any_peer", "call_local")
 func update_pendrive():
-	$HUD/PendriveNumber.text = str(Global.usb_sticker_number)
+	$HUD/PendriveNumber.text = str(Global.usb_stick_number)
+
+@rpc("any_peer", "call_local")
+func update_money():
+	$HUD/MoneyQuantity.text = str(Global.money)

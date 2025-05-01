@@ -12,10 +12,11 @@ var robot_index = 0
 var in_animation = true
 
 func _ready() -> void:
-	Global.usb_number_changed.connect($UI.update_pendrive.rpc)
+	Global.usb_number_changed.connect(ui.update_pendrive.rpc)
+	Global.money_changed.connect(ui.update_money.rpc)
 	
 	if multiplayer.is_server():
-		$UI.hide_hud()
+		ui.hide_hud()
 	
 	var player_preloaded = preload("res://scenes/player/player.tscn")
 	var spawn_points: Array = map.get_spawn_points()
@@ -115,3 +116,9 @@ func find_computer_by_id(id: int) -> Node2D:
 		if (computer.pc_id == id):
 			return computer
 	return null
+
+
+func _on_market_pendrive_buyed() -> void:
+	if (Global.money >= 5):
+		Global.update_money(-5)
+		Global.update_usb_stick_number(+1)

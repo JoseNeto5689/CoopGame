@@ -409,7 +409,7 @@ properties/1/replication_mode = 1
 collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_t82pu")
-SPEED = 80
+SPEED = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
@@ -428,8 +428,8 @@ frame_progress = 0.566033
 limit_left = 0
 limit_top = 0
 position_smoothing_enabled = true
-position_smoothing_speed = 4.0
 rotation_smoothing_enabled = true
+rotation_smoothing_speed = 10.0
 
 [node name="PenDrive" type="Sprite2D" parent="."]
 visible = false

@@ -4,14 +4,15 @@ var players: Array = []
 var robot_list = []
 var robot_status := RobotStats.new()
 
-var money := 0
-var usb_sticker_number := 1
+var money := 5
+var usb_stick_number := 1
 
 signal usb_number_changed
+signal money_changed
 
 func update_usb_stick_number(value: int):
 	usb_number_changed.emit()
-	usb_sticker_number = value
+	usb_stick_number += value
 	
 	
 @rpc("call_local", "any_peer")
@@ -64,9 +65,9 @@ func update_robot_stats(pc_id: int):
 		robot_status.energy += 1
 		
 
-@rpc("any_peer", "call_local", "reliable")
-func update_money(new_value: int):
-	money = new_value
+func update_money(value: int):
+	money_changed.emit()
+	money += value
 
 func check_robot_stats(robot1 : RobotStats, robot2: RobotStats):
 	if robot1.chaos == robot2.chaos and robot1.charisma == robot2.charisma and robot1.combat == robot2.combat and robot1.energy == robot2.energy and robot1.protection == robot2.protection and robot1.velocity == robot2.velocity:

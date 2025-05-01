@@ -52,3 +52,7 @@ https://craftpix.net/freebies/free-sci-fi-antagonists-pixel-character-pack/?num=
 https://craftpix.net/freebies/free-simple-platformer-game-kit-pixel-art/?num=2&count=60&sq=robot&pos=15
 
 https://nyknck.itch.io/explosion
+
+https://osmanfrat.itch.io/coin
+
+https://szadiart.itch.io/3-direction-npc-characters

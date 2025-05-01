@@ -107,8 +107,8 @@ func set_animation_status(status: bool):
 
 @rpc("any_peer", "call_local")
 func get_pendrive():
-	if not has_pendrive and animation_concluded and Global.usb_sticker_number > 0:
-		Global.update_usb_stick_number(Global.usb_sticker_number - 1)
+	if not has_pendrive and animation_concluded and Global.usb_stick_number > 0:
+		Global.update_usb_stick_number(-1)
 		has_pendrive = true
 		pendrive.visible = true
 		pendrive_stats = Global.robot_status

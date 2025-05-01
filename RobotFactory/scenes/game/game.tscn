@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=18 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dbvic5c5jiuto" path="res://assets/sprites/own/pc_3_0002.png" id="13_pg2xm"]
 [ext_resource type="PackedScene" uid="uid://cbnqodshx2kif" path="res://scenes/conveyor_belt/conveyor_belt_implemented.tscn" id="13_vaxfo"]
 [ext_resource type="PackedScene" uid="uid://1bgp4wmb7bh7" path="res://scenes/deployer/deployer.tscn" id="14_ftsea"]
+[ext_resource type="PackedScene" uid="uid://4xnw1sko17cx" path="res://scenes/market/market.tscn" id="14_otnwt"]
 [ext_resource type="Texture2D" uid="uid://calkw8w2mvhn" path="res://assets/sprites/own/pc_2_0002.png" id="15_gc57s"]
 [ext_resource type="Texture2D" uid="uid://bm5yx8xawkmbk" path="res://assets/sprites/own/pc_1_0002.png" id="17_8b66f"]
 
@@ -79,7 +80,11 @@ texture_on = ExtResource("17_8b66f")
 texture_off = ExtResource("11_5jirj")
 
 [node name="Deployer" parent="." instance=ExtResource("14_ftsea")]
-position = Vector2(419, 162)
+texture_filter = 1
+position = Vector2(360, 160)
+
+[node name="Market" parent="." instance=ExtResource("14_otnwt")]
+position = Vector2(537, 111)
 
 [node name="Players" type="Node" parent="."]
 
@@ -111,4 +116,5 @@ autostart = true
 [connection signal="work_concluded" from="Computers/PC_4" to="." method="_on_pc_work_concluded"]
 [connection signal="enter_deployer_area" from="Deployer" to="." method="_on_player_enter_deployer_area"]
 [connection signal="exit_deployer_area" from="Deployer" to="." method="_on_player_exit_deployer_area"]
+[connection signal="pendrive_buyed" from="Market" to="." method="_on_market_pendrive_buyed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

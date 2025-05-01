@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://daf1bd8e1vvlx"]
+[gd_scene load_steps=18 format=3 uid="uid://daf1bd8e1vvlx"]
 
 [ext_resource type="Script" uid="uid://bmgrif72ct8mr" path="res://scenes/UI/ui.gd" id="1_suays"]
+[ext_resource type="Texture2D" uid="uid://b3xw0100fgls1" path="res://assets/sprites/coin/coin_spin-Sheet.png" id="2_41gti"]
 [ext_resource type="Texture2D" uid="uid://dk0lrtebxa7yh" path="res://assets/sprites/own/Small Pendrive.png" id="2_yb1mt"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_nt14h"]
@@ -19,6 +20,70 @@ font_size = 12
 [sub_resource type="LabelSettings" id="LabelSettings_41gti"]
 font_size = 12
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_f54a5"]
+atlas = ExtResource("2_41gti")
+region = Rect2(0, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7e3k0"]
+atlas = ExtResource("2_41gti")
+region = Rect2(80, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m41qk"]
+atlas = ExtResource("2_41gti")
+region = Rect2(160, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35jxk"]
+atlas = ExtResource("2_41gti")
+region = Rect2(240, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tpnoy"]
+atlas = ExtResource("2_41gti")
+region = Rect2(320, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vb61p"]
+atlas = ExtResource("2_41gti")
+region = Rect2(400, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_owlbh"]
+atlas = ExtResource("2_41gti")
+region = Rect2(480, 0, 80, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5elv"]
+atlas = ExtResource("2_41gti")
+region = Rect2(560, 0, 80, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cketn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f54a5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7e3k0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m41qk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35jxk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tpnoy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vb61p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_owlbh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5elv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
 [sub_resource type="LabelSettings" id="LabelSettings_suays"]
 font_size = 20
 font_color = Color(0.0422793, 0.585654, 0.0344029, 1)
@@ -26,7 +91,7 @@ font_color = Color(0.0422793, 0.585654, 0.0344029, 1)
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_suays")
 
-[node name="Container" type="CenterContainer" parent="."]
+[node name="InteractHUD" type="CenterContainer" parent="."]
 visible = false
 anchors_preset = -1
 anchor_left = 0.1
@@ -35,21 +100,21 @@ anchor_right = 0.9
 anchor_bottom = 0.95
 metadata/_edit_use_anchors_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Container"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InteractHUD"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Container/HBoxContainer"]
+[node name="Label" type="Label" parent="InteractHUD/HBoxContainer"]
 layout_mode = 2
 text = "Pressione"
 label_settings = SubResource("LabelSettings_nt14h")
 
-[node name="Panel" type="Panel" parent="Container/HBoxContainer"]
+[node name="Panel" type="Panel" parent="InteractHUD/HBoxContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_suays")
 
-[node name="Label" type="Label" parent="Container/HBoxContainer/Panel"]
+[node name="Label" type="Label" parent="InteractHUD/HBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -61,7 +126,7 @@ label_settings = SubResource("LabelSettings_yb1mt")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="Container/HBoxContainer"]
+[node name="Label2" type="Label" parent="InteractHUD/HBoxContainer"]
 layout_mode = 2
 text = "para interagir"
 label_settings = SubResource("LabelSettings_41gti")
@@ -89,7 +154,16 @@ horizontal_alignment = 2
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD"]
+texture_filter = 1
+position = Vector2(304.826, 21.0555)
+scale = Vector2(0.15, 0.15)
+sprite_frames = SubResource("SpriteFrames_cketn")
+autoplay = "default"
+frame_progress = 0.127462
+
 [node name="DolarIcon" type="Label" parent="HUD"]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.925908
