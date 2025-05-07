@@ -1,10 +1,14 @@
-[gd_scene load_steps=60 format=3 uid="uid://dyt3fsimfa1ds"]
+[gd_scene load_steps=64 format=3 uid="uid://dyt3fsimfa1ds"]
 
 [ext_resource type="Texture2D" uid="uid://bxn4imo72mrow" path="res://assets/sprites/characters_modern/Adam_idle_anim_16x16.png" id="1_r4f7e"]
 [ext_resource type="Script" uid="uid://bhohfmsi6m0p" path="res://scenes/player/player.gd" id="1_t82pu"]
+[ext_resource type="Texture2D" uid="uid://3r7s2gqna6vx" path="res://assets/sprites/own/pc_parts/GPU.png" id="3_5gtgg"]
 [ext_resource type="Texture2D" uid="uid://gxbibxclujo1" path="res://assets/sprites/characters_modern/Adam_run_16x16.png" id="3_nm7kv"]
+[ext_resource type="Texture2D" uid="uid://dfe7fhtbu38lf" path="res://assets/sprites/own/pc_parts/HD.png" id="4_h17s1"]
 [ext_resource type="Texture2D" uid="uid://dd7ki14jdwdwx" path="res://assets/sprites/own/pendrives/Cores do Pendrive_0001.png" id="4_p47bc"]
+[ext_resource type="Texture2D" uid="uid://r1fqepdqw8b4" path="res://assets/sprites/own/pc_parts/RAM.png" id="5_je7p5"]
 [ext_resource type="Texture2D" uid="uid://cty8hx8fkvew0" path="res://assets/sprites/light/light.png" id="5_p47bc"]
+[ext_resource type="Texture2D" uid="uid://dbh8i4ay3rscr" path="res://assets/sprites/own/ToolBox v2.png" id="6_fm80t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_srqhr"]
 size = Vector2(14, 21.0911)
@@ -410,6 +414,11 @@ collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_t82pu")
 SPEED = 100
+usb_stick_img = ExtResource("4_p47bc")
+gpu_img = ExtResource("3_5gtgg")
+hd_img = ExtResource("4_h17s1")
+ram_img = ExtResource("5_je7p5")
+toolkit_img = ExtResource("6_fm80t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
@@ -435,8 +444,7 @@ rotation_smoothing_speed = 10.0
 visible = false
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_p47bc")
-position = Vector2(0, -19)
-texture = ExtResource("4_p47bc")
+position = Vector2(0, -22)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 visible = false

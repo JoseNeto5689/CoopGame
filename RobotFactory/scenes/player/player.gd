@@ -4,13 +4,20 @@ extends CharacterBody2D
 
 @export var SPEED = 0
 
+@export var usb_stick_img : CompressedTexture2D
+@export var gpu_img : CompressedTexture2D
+@export var hd_img : CompressedTexture2D
+@export var ram_img : CompressedTexture2D
+@export var toolkit_img : CompressedTexture2D
+
 @onready var sprites = $AnimatedSprite2D
 @onready var name_label = $PlayerName
 @onready var camera = $PlayerCamera
 @onready var item = $Item
 
-var pendrive_stats : RobotStats
+var pendrive_stats : RobotStats = RobotStats.new()
 var has_item := false
+var current_item := ""
 
 var last_direction := Vector2.ZERO
 var buttons_pressed := []
@@ -23,7 +30,7 @@ var animation_concluded := false
 
 signal interacting
 signal stop_interacting
-signal given_item(robot_stats: RobotStats)
+signal given_usb_stick(robot_stats: RobotStats)
 
 #endregion
 
@@ -105,18 +112,46 @@ func _process(delta: float) -> void:
 func set_animation_status(status: bool):
 	animation_concluded = status
 
+		
+		
 @rpc("any_peer", "call_local")
-func get_item():
-	if not has_item and animation_concluded and Global.usb_stick_number > 0:
-		Global.update_usb_stick_number(-1)
+func get_item(item_name : String):
+	if not has_item and animation_concluded:
 		has_item = true
+		match item_name:
+			"usb_stick":
+				item.texture = usb_stick_img
+				pendrive_stats = RobotStats.new()
+			"gpu":
+				item.texture = gpu_img
+			"hd":
+				item.texture = hd_img
+			"ram":
+				item.texture = ram_img
+			"toolkit":
+				item.texture = toolkit_img
 		item.visible = true
-		pendrive_stats = Global.copy_robot_stats(Global.robot_status)
+		current_item = item_name
 	
 @rpc("any_peer", "call_local")
 func give_item():
 	if has_item and animation_concluded:
 		has_item = false
 		item.visible = false
-		given_item.emit(pendrive_stats)
+		given_usb_stick.emit(pendrive_stats)
 		pendrive_stats = null
+
+@rpc("any_peer", "call_local")
+func interact_with_deployer():
+	if has_item and current_item == "usb_stick":
+		Global.update_usb_stick_number(+1)
+		has_item = false #Colocar tudo isso em uma func
+		current_item = ""
+		item.visible = false
+		pendrive_stats = RobotStats.new()
+	elif not has_item and Global.usb_stick_number > 0:
+		Global.update_usb_stick_number(-1)
+		has_item = true
+		item.texture = usb_stick_img
+		item.visible = true
+		pendrive_stats = Global.copy_robot_stats(Global.robot_status)

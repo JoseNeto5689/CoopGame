@@ -33,7 +33,7 @@ func _ready() -> void:
 		players.add_child(new_player)
 	
 	for player in $Players.get_children():
-		player.given_item.connect(check_robot_in_conveyor_belt)
+		player.given_usb_stick.connect(check_robot_in_conveyor_belt)
 		animation_concluded.connect(player.set_animation_status)
 	
 	if multiplayer.is_server():
@@ -63,7 +63,6 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 func _on_pc_work_concluded(pc_id: int) -> void:
 	var computer = find_computer_by_id(pc_id)
 	computer.reset.rpc()
-	computer.explode()
 	Global.update_robot_stats(pc_id)
 
 func _on_timer_timeout() -> void:
@@ -81,12 +80,12 @@ func _on_conveyor_belt_animation_started() -> void:
 
 func _on_player_enter_deployer_area(player_id: int) -> void:
 	var player = find_player_by_id(player_id)
-	player.interacting.connect(player.get_item.rpc)
+	player.interacting.connect(player.interact_with_deployer.rpc)
 
 func _on_player_exit_deployer_area(player_id) -> void:
 	var player = find_player_by_id(player_id)
-	if player.interacting.is_connected(player.get_item.rpc):
-		player.interacting.disconnect(player.get_item.rpc)
+	if player.interacting.is_connected(player.interact_with_deployer.rpc):
+		player.interacting.disconnect(player.interact_with_deployer.rpc)
 
 
 func _on_enter_robot_area(body: Node2D) -> void:
@@ -120,9 +119,9 @@ func find_computer_by_id(id: int) -> Node2D:
 	return null
 
 
-func _on_market_item_buyed(item: String, player_id: int) -> void:
-	match item:
-		"usb_stick":
-			if (Global.money >= 5):
-				Global.update_money(-5)
-				Global.update_usb_stick_number(+1)
+func _on_market_item_buyed(item: String, player_id: int, value: int) -> void:
+	if Global.money < value:
+		return
+	Global.update_money(-value)
+	var player = find_player_by_id(player_id)
+	player.get_item.rpc(item)
