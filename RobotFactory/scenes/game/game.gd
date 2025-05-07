@@ -33,7 +33,7 @@ func _ready() -> void:
 		players.add_child(new_player)
 	
 	for player in $Players.get_children():
-		player.given_pendrive.connect(check_robot_in_conveyor_belt)
+		player.given_item.connect(check_robot_in_conveyor_belt)
 		animation_concluded.connect(player.set_animation_status)
 	
 	if multiplayer.is_server():
@@ -63,10 +63,11 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 func _on_pc_work_concluded(pc_id: int) -> void:
 	var computer = find_computer_by_id(pc_id)
 	computer.reset.rpc()
+	computer.explode()
 	Global.update_robot_stats(pc_id)
 
 func _on_timer_timeout() -> void:
-	$ConveyorBelt.spawn_robot(Global.robot_list[robot_index][0])
+	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
 	robot_index+=1
 	
 
@@ -80,28 +81,29 @@ func _on_conveyor_belt_animation_started() -> void:
 
 func _on_player_enter_deployer_area(player_id: int) -> void:
 	var player = find_player_by_id(player_id)
-	player.interacting.connect(player.get_pendrive.rpc)
+	player.interacting.connect(player.get_item.rpc)
 
 func _on_player_exit_deployer_area(player_id) -> void:
 	var player = find_player_by_id(player_id)
-	if player.interacting.is_connected(player.get_pendrive.rpc):
-		player.interacting.disconnect(player.get_pendrive.rpc)
+	if player.interacting.is_connected(player.get_item.rpc):
+		player.interacting.disconnect(player.get_item.rpc)
 
 
 func _on_enter_robot_area(body: Node2D) -> void:
 	var player = find_player_by_id(body.id)
-	player.interacting.connect(player.give_pendrive.rpc)
+	player.interacting.connect(player.give_item.rpc)
 	
 func _on_exit_robot_area(body: Node2D) -> void:
 	var player = find_player_by_id(body.id)
-	player.interacting.disconnect(player.give_pendrive.rpc)
+	player.interacting.disconnect(player.give_item.rpc)
 	
 
 func check_robot_in_conveyor_belt(robot_stats: RobotStats):
 	Global.update_robot_stats(0)
-	if Global.check_robot_stats(robot_stats, Global.robot_list[robot_index -1][1]):
+	if Global.check_robot_stats(robot_stats, Global.get_robot_stats(robot_index - 1)):
 		$ConveyorBelt.robot_ok()
-		$ConveyorBelt.spawn_robot(Global.robot_list[robot_index][0])
+		$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
+		Global.update_money(+10)
 		robot_index+=1
 
 func find_player_by_id(id: int) -> Node2D:
@@ -118,7 +120,9 @@ func find_computer_by_id(id: int) -> Node2D:
 	return null
 
 
-func _on_market_pendrive_buyed() -> void:
-	if (Global.money >= 5):
-		Global.update_money(-5)
-		Global.update_usb_stick_number(+1)
+func _on_market_item_buyed(item: String, player_id: int) -> void:
+	match item:
+		"usb_stick":
+			if (Global.money >= 5):
+				Global.update_money(-5)
+				Global.update_usb_stick_number(+1)

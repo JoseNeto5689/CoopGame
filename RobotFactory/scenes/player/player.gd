@@ -7,10 +7,10 @@ extends CharacterBody2D
 @onready var sprites = $AnimatedSprite2D
 @onready var name_label = $PlayerName
 @onready var camera = $PlayerCamera
-@onready var pendrive = $PenDrive
+@onready var item = $Item
 
 var pendrive_stats : RobotStats
-var has_pendrive := false
+var has_item := false
 
 var last_direction := Vector2.ZERO
 var buttons_pressed := []
@@ -23,7 +23,7 @@ var animation_concluded := false
 
 signal interacting
 signal stop_interacting
-signal given_pendrive(robot_stats: RobotStats)
+signal given_item(robot_stats: RobotStats)
 
 #endregion
 
@@ -106,17 +106,17 @@ func set_animation_status(status: bool):
 	animation_concluded = status
 
 @rpc("any_peer", "call_local")
-func get_pendrive():
-	if not has_pendrive and animation_concluded and Global.usb_stick_number > 0:
+func get_item():
+	if not has_item and animation_concluded and Global.usb_stick_number > 0:
 		Global.update_usb_stick_number(-1)
-		has_pendrive = true
-		pendrive.visible = true
-		pendrive_stats = Global.robot_status
+		has_item = true
+		item.visible = true
+		pendrive_stats = Global.copy_robot_stats(Global.robot_status)
 	
 @rpc("any_peer", "call_local")
-func give_pendrive():
-	if has_pendrive and animation_concluded:
-		has_pendrive = false
-		pendrive.visible = false
-		given_pendrive.emit(pendrive_stats)
+func give_item():
+	if has_item and animation_concluded:
+		has_item = false
+		item.visible = false
+		given_item.emit(pendrive_stats)
 		pendrive_stats = null

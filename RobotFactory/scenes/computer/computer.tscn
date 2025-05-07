@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://tx64gjx52y3"]
+[gd_scene load_steps=21 format=3 uid="uid://tx64gjx52y3"]
 
 [ext_resource type="Script" uid="uid://wd31uttu17sr" path="res://scenes/computer/computer.gd" id="1_srgvo"]
+[ext_resource type="Shader" uid="uid://b870mj1svnhk" path="res://assets/shaders/blink.gdshader" id="2_8it8f"]
 [ext_resource type="Texture2D" uid="uid://cc0shbq15u3n1" path="res://assets/sprites/own/pc_4_0001.png" id="2_srgvo"]
 [ext_resource type="Texture2D" uid="uid://b4hyg3tusa4e0" path="res://assets/sprites/light/2d_light.webp" id="4_5o8iy"]
 [ext_resource type="PackedScene" uid="uid://djqygmt1j4djo" path="res://scenes/progress bar/progress_bar.tscn" id="4_8d7te"]
@@ -13,6 +14,11 @@
 [ext_resource type="Texture2D" uid="uid://dnap5c0bf6svx" path="res://assets/sprites/explosion/10.png" id="11_ymmt0"]
 [ext_resource type="Texture2D" uid="uid://dewgpm8nevv2a" path="res://assets/sprites/explosion/11.png" id="12_p8ue4"]
 [ext_resource type="Texture2D" uid="uid://dcf4kpgfhljpr" path="res://assets/sprites/explosion/12.png" id="13_re0mp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jrk3l"]
+shader = ExtResource("2_8it8f")
+shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_intensity = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8d7te"]
 size = Vector2(38, 20)
@@ -69,6 +75,7 @@ time_for_conclude = 5
 
 [node name="ComputerSprite" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_jrk3l")
 position = Vector2(0, 2)
 texture = ExtResource("2_srgvo")
 
@@ -128,7 +135,7 @@ sdf_collision = false
 
 [node name="Explosion1" type="AnimatedSprite2D" parent="Explosions"]
 visible = false
-position = Vector2(10.5647, -6.87937)
+position = Vector2(10, -7)
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_hh48c")
 animation = &"boom"
@@ -137,7 +144,8 @@ frame_progress = 1.0
 
 [node name="Explosion2" type="AnimatedSprite2D" parent="Explosions"]
 visible = false
-position = Vector2(-12.5303, -1.597)
+position = Vector2(-12, -1)
+rotation = -0.785398
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_hh48c")
 animation = &"boom"
@@ -146,7 +154,8 @@ frame_progress = 1.0
 
 [node name="Explosion3" type="AnimatedSprite2D" parent="Explosions"]
 visible = false
-position = Vector2(2.45692, 10.5647)
+position = Vector2(2, 10)
+rotation = 0.785398
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_hh48c")
 animation = &"boom"

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://goci0fy1omcp"]
+
+[ext_resource type="Texture2D" uid="uid://cty8hx8fkvew0" path="res://assets/sprites/light/light.png" id="1_yqcxc"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_dfepl"]
+closed = false
+polygon = PackedVector2Array(-170, 45, 0, -4, 170, 45)
+
+[node name="WallLight" type="Node2D"]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(4.76837e-07, 3.8147e-06)
+scale = Vector2(0.8, 0.4)
+energy = 0.7
+blend_mode = 2
+shadow_enabled = true
+shadow_filter = 2
+texture = ExtResource("1_yqcxc")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_dfepl")

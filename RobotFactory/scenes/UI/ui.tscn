@@ -156,7 +156,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HUD"]
 texture_filter = 1
-position = Vector2(304.826, 21.0555)
+position = Vector2(305, 21)
 scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_cketn")
 autoplay = "default"
@@ -194,5 +194,5 @@ metadata/_edit_use_anchors_ = true
 
 [node name="SmallPendrive" type="Sprite2D" parent="HUD"]
 texture_filter = 1
-position = Vector2(305.086, 43.3692)
+position = Vector2(305, 44)
 texture = ExtResource("2_yb1mt")

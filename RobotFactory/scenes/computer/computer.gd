@@ -18,6 +18,7 @@ var tween_turning_off : Tween
 var is_animation_concluded := false
 var working := false
 var concluded := false
+var broken := false
 
 func _ready() -> void:
 	timer.wait_time = time_for_conclude
@@ -57,7 +58,7 @@ func _on_timer_timeout() -> void:
 
 @rpc("any_peer", "call_local")
 func increase_progress():
-	if is_animation_concluded:
+	if is_animation_concluded and not broken:
 		#$PointLight2D.enabled = true
 		if(get_percentage() == 0):
 			change_progress(0)
@@ -84,7 +85,17 @@ func reset():
 func animation_changed(status: bool):
 	is_animation_concluded = status
 
+func change_blink_intensity(new_value: float):
+	$ComputerSprite.material.set_shader_parameter("blink_intensity", new_value)
+
+func fix_pc():
+	broken = false
+	var tween = create_tween()
+	tween.tween_method(change_blink_intensity, 1.0, 0.0, 0.3)
+
 func explode():
+	broken = true
+	stop_progress()
 	var explosions = $Explosions.get_children()
 	for explosion:AnimatedSprite2D in explosions:
 		explosion.show()
@@ -92,4 +103,4 @@ func explode():
 		explosion.animation_finished.connect(func() :
 			explosion.hide()
 		)
-		await get_tree().create_timer(0.2).timeout 
+		await get_tree().create_timer(0.15).timeout 

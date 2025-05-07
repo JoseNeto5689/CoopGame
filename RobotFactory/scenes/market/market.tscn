@@ -1,9 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://4xnw1sko17cx"]
+[gd_scene load_steps=23 format=3 uid="uid://4xnw1sko17cx"]
 
 [ext_resource type="Texture2D" uid="uid://b81w35lek466e" path="res://assets/sprites/npc/Male4.png" id="1_1or4p"]
 [ext_resource type="Script" uid="uid://b55rad5nu38ma" path="res://scenes/market/market.gd" id="1_cgn7w"]
-[ext_resource type="Texture2D" uid="uid://dtd6b425walav" path="res://assets/sprites/own/Pendrives/Cores do Pendrive_0002.png" id="2_uiuro"]
+[ext_resource type="Texture2D" uid="uid://dtd6b425walav" path="res://assets/sprites/own/pendrives/Cores do Pendrive_0002.png" id="2_uiuro"]
 [ext_resource type="Texture2D" uid="uid://b3xw0100fgls1" path="res://assets/sprites/coin/coin_spin-Sheet.png" id="3_apks8"]
+[ext_resource type="Texture2D" uid="uid://dbh8i4ay3rscr" path="res://assets/sprites/own/ToolBox v2.png" id="5_e5foy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uiuro"]
 atlas = ExtResource("1_1or4p")
@@ -109,7 +110,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_apks8"]
-size = Vector2(23.2018, 23.3799)
+size = Vector2(23.2018, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e5foy"]
+size = Vector2(24, 19)
 
 [node name="Market" type="Node2D"]
 script = ExtResource("1_cgn7w")
@@ -120,12 +124,14 @@ sprite_frames = SubResource("SpriteFrames_cum83")
 autoplay = "default"
 frame_progress = 0.778837
 
-[node name="CoresDoPendrive0002" type="Sprite2D" parent="."]
+[node name="Pendrive" type="Node2D" parent="."]
+
+[node name="Pendrive" type="Sprite2D" parent="Pendrive"]
 texture_filter = 1
 position = Vector2(-17, 36)
 texture = ExtResource("2_uiuro")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="Pendrive"]
 offset_left = -29.1573
 offset_top = 44.2893
 offset_right = -16.1573
@@ -135,18 +141,49 @@ label_settings = SubResource("LabelSettings_cgn7w")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Pendrive"]
 position = Vector2(-12, 53)
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_j0f5q")
 autoplay = "default"
 frame_progress = 0.954156
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="Pendrive"]
 collision_layer = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-17.6942, 42.0157)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pendrive/Area2D"]
+position = Vector2(-17.6942, 39.5)
 shape = SubResource("RectangleShape2D_apks8")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[node name="ToolKit" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="ToolKit"]
+texture_filter = 1
+position = Vector2(18, 35)
+texture = ExtResource("5_e5foy")
+
+[node name="Label" type="Label" parent="ToolKit"]
+offset_left = 7.0
+offset_top = 44.0
+offset_right = 20.0
+offset_bottom = 61.0
+text = "5"
+label_settings = SubResource("LabelSettings_cgn7w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="ToolKit"]
+position = Vector2(24, 52)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_j0f5q")
+autoplay = "default"
+frame_progress = 0.954156
+
+[node name="Area2D" type="Area2D" parent="ToolKit"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ToolKit/Area2D"]
+position = Vector2(18, 39)
+shape = SubResource("RectangleShape2D_e5foy")
+
+[connection signal="body_entered" from="Pendrive/Area2D" to="." method="_on_buy_pendrive"]
+[connection signal="body_entered" from="ToolKit/Area2D" to="." method="_on_buy_toolkit"]

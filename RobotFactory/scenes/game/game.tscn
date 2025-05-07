@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=20 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
@@ -13,7 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://cbnqodshx2kif" path="res://scenes/conveyor_belt/conveyor_belt_implemented.tscn" id="13_vaxfo"]
 [ext_resource type="PackedScene" uid="uid://1bgp4wmb7bh7" path="res://scenes/deployer/deployer.tscn" id="14_ftsea"]
 [ext_resource type="PackedScene" uid="uid://4xnw1sko17cx" path="res://scenes/market/market.tscn" id="14_otnwt"]
+[ext_resource type="PackedScene" uid="uid://goci0fy1omcp" path="res://scenes/wall_light/wall_light.tscn" id="15_3xj4h"]
 [ext_resource type="Texture2D" uid="uid://calkw8w2mvhn" path="res://assets/sprites/own/pc_2_0002.png" id="15_gc57s"]
+[ext_resource type="Texture2D" uid="uid://cty8hx8fkvew0" path="res://assets/sprites/light/light.png" id="16_5v6r0"]
 [ext_resource type="Texture2D" uid="uid://bm5yx8xawkmbk" path="res://assets/sprites/own/pc_1_0002.png" id="17_8b66f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vaxfo"]
@@ -88,9 +90,71 @@ position = Vector2(537, 111)
 
 [node name="Players" type="Node" parent="."]
 
+[node name="Lights" type="Node" parent="."]
+
+[node name="WallLight" parent="Lights" instance=ExtResource("15_3xj4h")]
+visible = false
+position = Vector2(327, 21)
+
+[node name="PointLight2D" type="PointLight2D" parent="Lights"]
+visible = false
+position = Vector2(391.412, 166.4)
+scale = Vector2(0.4, 0.4)
+blend_mode = 2
+texture = ExtResource("16_5v6r0")
+
+[node name="PointLight2D3" type="PointLight2D" parent="Lights"]
+visible = false
+position = Vector2(519.411, 166.4)
+scale = Vector2(0.4, 0.4)
+blend_mode = 2
+texture = ExtResource("16_5v6r0")
+
+[node name="PointLight2D4" type="PointLight2D" parent="Lights"]
+visible = false
+position = Vector2(109.811, 166.4)
+scale = Vector2(0.4, 0.4)
+blend_mode = 2
+texture = ExtResource("16_5v6r0")
+
+[node name="PointLight2D2" type="PointLight2D" parent="Lights"]
+visible = false
+position = Vector2(259.811, 166.4)
+scale = Vector2(0.4, 0.4)
+blend_mode = 2
+texture = ExtResource("16_5v6r0")
+
+[node name="PointLight2D5" type="PointLight2D" parent="Lights"]
+visible = false
+position = Vector2(391.412, 304.8)
+scale = Vector2(0.4, 0.4)
+blend_mode = 2
+texture = ExtResource("16_5v6r0")
+
+[node name="PointLight2D6" type="PointLight2D" parent="Lights"]
+visible = false
+position = Vector2(519.411, 304.8)
+scale = Vector2(0.4, 0.4)
+blend_mode = 2
+texture = ExtResource("16_5v6r0")
+
+[node name="PointLight2D7" type="PointLight2D" parent="Lights"]
+visible = false
+position = Vector2(109.811, 304.8)
+scale = Vector2(0.4, 0.4)
+blend_mode = 2
+texture = ExtResource("16_5v6r0")
+
+[node name="PointLight2D8" type="PointLight2D" parent="Lights"]
+visible = false
+position = Vector2(259.811, 304.8)
+scale = Vector2(0.4, 0.4)
+blend_mode = 2
+texture = ExtResource("16_5v6r0")
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 visible = false
-color = Color(0.0605304, 0.0605303, 0.0605303, 1)
+color = Color(0.10748, 0.10748, 0.10748, 1)
 
 [node name="UI" parent="." instance=ExtResource("4_kelw5")]
 
@@ -116,5 +180,5 @@ autostart = true
 [connection signal="work_concluded" from="Computers/PC_4" to="." method="_on_pc_work_concluded"]
 [connection signal="enter_deployer_area" from="Deployer" to="." method="_on_player_enter_deployer_area"]
 [connection signal="exit_deployer_area" from="Deployer" to="." method="_on_player_exit_deployer_area"]
-[connection signal="pendrive_buyed" from="Market" to="." method="_on_market_pendrive_buyed"]
+[connection signal="item_buyed" from="Market" to="." method="_on_market_item_buyed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

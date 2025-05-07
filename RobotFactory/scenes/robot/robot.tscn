@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://d4f5l5h647twd"]
+[gd_scene load_steps=31 format=3 uid="uid://d4f5l5h647twd"]
 
 [ext_resource type="Script" uid="uid://cxgvrotvfomsq" path="res://scenes/robot/robot.gd" id="1_eqtul"]
 [ext_resource type="Texture2D" uid="uid://cbr7ofjn1iwlq" path="res://assets/sprites/basic cute robot/ballbot/1/ballred1.png" id="2_0abj3"]
@@ -26,7 +26,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1gelo"]
 shader = ExtResource("2_15li0")
-shader_parameter/blink_color = Color(1, 1, 1, 1)
+shader_parameter/blink_color = Color(0, 0, 0, 1)
 shader_parameter/blink_intensity = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eqtul"]
@@ -150,6 +150,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_15li0"]
+polygon = PackedVector2Array(-13, -7, -7, -7, -7, -13, 7, -13, 7, -7, 13, -7, 16, -4, 16, 0, 21, 0, 25, 4, 25, 7, 17, 12, 11, 23, -11, 23, -17, 12, -25, 7, -25, 4, -21, 0, -16, 0, -16, -4)
+
 [node name="Robot" type="PathFollow2D"]
 script = ExtResource("1_eqtul")
 
@@ -158,3 +161,6 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_1gelo")
 sprite_frames = SubResource("SpriteFrames_a3dwq")
 animation = &"gun_robot_red"
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_15li0")

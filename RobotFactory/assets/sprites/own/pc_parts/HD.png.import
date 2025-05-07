@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7rd744iwnxft"
-path="res://.godot/imported/Cores do Pendrive_0003.png-75ff0d178685305c38b505c3a3e24545.ctex"
+uid="uid://dfe7fhtbu38lf"
+path="res://.godot/imported/HD.png-854adbdab98919b9f2e05228904d1428.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/own/Pendrives/Cores do Pendrive_0003.png"
-dest_files=["res://.godot/imported/Cores do Pendrive_0003.png-75ff0d178685305c38b505c3a3e24545.ctex"]
+source_file="res://assets/sprites/own/pc_parts/HD.png"
+dest_files=["res://.godot/imported/HD.png-854adbdab98919b9f2e05228904d1428.ctex"]
 
 [params]
 

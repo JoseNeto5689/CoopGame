@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bxn4imo72mrow" path="res://assets/sprites/characters_modern/Adam_idle_anim_16x16.png" id="1_r4f7e"]
 [ext_resource type="Script" uid="uid://bhohfmsi6m0p" path="res://scenes/player/player.gd" id="1_t82pu"]
 [ext_resource type="Texture2D" uid="uid://gxbibxclujo1" path="res://assets/sprites/characters_modern/Adam_run_16x16.png" id="3_nm7kv"]
-[ext_resource type="Texture2D" uid="uid://dd7ki14jdwdwx" path="res://assets/sprites/own/Pendrives/Cores do Pendrive_0001.png" id="4_p47bc"]
+[ext_resource type="Texture2D" uid="uid://dd7ki14jdwdwx" path="res://assets/sprites/own/pendrives/Cores do Pendrive_0001.png" id="4_p47bc"]
 [ext_resource type="Texture2D" uid="uid://cty8hx8fkvew0" path="res://assets/sprites/light/light.png" id="5_p47bc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_srqhr"]
@@ -431,7 +431,7 @@ position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 10.0
 
-[node name="PenDrive" type="Sprite2D" parent="."]
+[node name="Item" type="Sprite2D" parent="."]
 visible = false
 texture_filter = 1
 material = SubResource("CanvasItemMaterial_p47bc")
@@ -441,13 +441,14 @@ texture = ExtResource("4_p47bc")
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 visible = false
 occluder = SubResource("OccluderPolygon2D_lvxji")
+occluder_light_mask = 2
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 visible = false
 visibility_layer = 2
 position = Vector2(1.19209e-07, 0.999999)
-scale = Vector2(0.2, 0.2)
-energy = 0.4
+scale = Vector2(0.15, 0.15)
+energy = 0.8
 blend_mode = 2
 range_item_cull_mask = 5
 texture = ExtResource("5_p47bc")
