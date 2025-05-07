@@ -56,3 +56,7 @@ https://nyknck.itch.io/explosion
 https://osmanfrat.itch.io/coin
 
 https://szadiart.itch.io/3-direction-npc-characters
+
+https://blue00.itch.io/electronics-pixel-pack
+
+https://anokolisa.itch.io/free-pixel-art-asset-pack-topdown-tileset-rpg-16x16-sprites
