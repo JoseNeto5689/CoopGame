@@ -12,6 +12,7 @@ signal work_concluded(pc_id: int)
 
 signal player_entered_pc(id: int, pc_id: int)
 signal player_exited_pc(id: int, pc_id: int)
+signal pc_fixed()
 
 var tween_turning_off : Tween
 
@@ -88,11 +89,17 @@ func animation_changed(status: bool):
 func change_blink_intensity(new_value: float):
 	$ComputerSprite.material.set_shader_parameter("blink_intensity", new_value)
 
-func fix_pc():
-	broken = false
-	var tween = create_tween()
-	tween.tween_method(change_blink_intensity, 1.0, 0.0, 0.3)
-
+@rpc("any_peer", "call_local")
+func fix_pc(callback: Callable, player, computer):
+	return func():
+		if(broken):
+			broken = false
+			pc_fixed.emit()
+			var tween = create_tween()
+			tween.tween_method(self.change_blink_intensity, 1.0, 0.0, 0.3)
+			callback.call(player, computer)
+			 
+@rpc("any_peer", "call_local")
 func explode():
 	broken = true
 	stop_progress()

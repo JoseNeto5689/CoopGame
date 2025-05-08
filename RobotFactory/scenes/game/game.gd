@@ -10,7 +10,7 @@ signal animation_concluded(status: bool)
 var robot_index = 0
 
 var in_animation = true
-
+	
 func _ready() -> void:
 	Global.usb_number_changed.connect(ui.update_pendrive.rpc)
 	Global.money_changed.connect(ui.update_money.rpc)
@@ -46,8 +46,17 @@ func _on_pc_player_entered_pc(id: int, pc_id: int) -> void:
 		ui.show_interact()
 		var computer = find_computer_by_id(pc_id)
 		computer.show_progress_bar()
-		player.interacting.connect(computer.increase_progress.rpc)
-		player.stop_interacting.connect(computer.stop_progress.rpc)
+		if (computer.broken and player.current_item == "toolkit"):
+			player.interacting.connect(computer.fix_pc(swap_interaction, player, computer))
+			computer.pc_fixed.connect(player.clear_item.rpc)
+		else:
+			player.interacting.connect(computer.increase_progress.rpc)
+			player.stop_interacting.connect(computer.stop_progress.rpc)
+
+func swap_interaction(player, computer):
+	print(1)
+	player.interacting.connect(computer.increase_progress.rpc)
+	player.stop_interacting.connect(computer.stop_progress.rpc)
 
 func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 	var player = find_player_by_id(id)
@@ -56,13 +65,18 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 		ui.hide_interact()
 		var computer = find_computer_by_id(pc_id)
 		computer.hide_progress_bar()
-		player.interacting.disconnect(computer.increase_progress.rpc)
-		player.stop_interacting.disconnect(computer.stop_progress.rpc)
+		if (player.interacting.is_connected(computer.fix_pc.rpc)):
+			player.interacting.disconnect(computer.fix_pc.rpc)
+			computer.pc_fixed.disconnect(player.clear_item.rpc)
+		else:
+			player.interacting.disconnect(computer.increase_progress.rpc)
+			player.stop_interacting.disconnect(computer.stop_progress.rpc)
 		
 
 func _on_pc_work_concluded(pc_id: int) -> void:
 	var computer = find_computer_by_id(pc_id)
 	computer.reset.rpc()
+	computer.explode()
 	Global.update_robot_stats(pc_id)
 
 func _on_timer_timeout() -> void:
@@ -71,10 +85,12 @@ func _on_timer_timeout() -> void:
 	
 
 func _on_conveyor_belt_animation_concluded() -> void:
+	in_animation = false
 	animation_concluded.emit(true)
 
 
 func _on_conveyor_belt_animation_started() -> void:
+	in_animation = true
 	animation_concluded.emit(false)
 
 
@@ -120,7 +136,7 @@ func find_computer_by_id(id: int) -> Node2D:
 
 
 func _on_market_item_buyed(item: String, player_id: int, value: int) -> void:
-	if Global.money < value:
+	if Global.money < value or in_animation:
 		return
 	Global.update_money(-value)
 	var player = find_player_by_id(player_id)

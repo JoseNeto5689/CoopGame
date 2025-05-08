@@ -1,8 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://tx64gjx52y3"]
+[gd_scene load_steps=20 format=3 uid="uid://tx64gjx52y3"]
 
 [ext_resource type="Script" uid="uid://wd31uttu17sr" path="res://scenes/computer/computer.gd" id="1_srgvo"]
-[ext_resource type="Shader" uid="uid://b870mj1svnhk" path="res://assets/shaders/blink.gdshader" id="2_8it8f"]
-[ext_resource type="Texture2D" uid="uid://cc0shbq15u3n1" path="res://assets/sprites/own/pc_4_0001.png" id="2_srgvo"]
+[ext_resource type="Material" uid="uid://nrk8667qynar" path="res://resources/computer_shader.tres" id="2_8it8f"]
+[ext_resource type="Texture2D" uid="uid://k02jbmi3ud0a" path="res://assets/sprites/own/pc_1_0001.png" id="3_8it8f"]
 [ext_resource type="Texture2D" uid="uid://b4hyg3tusa4e0" path="res://assets/sprites/light/2d_light.webp" id="4_5o8iy"]
 [ext_resource type="PackedScene" uid="uid://djqygmt1j4djo" path="res://scenes/progress bar/progress_bar.tscn" id="4_8d7te"]
 [ext_resource type="Texture2D" uid="uid://c0nqpddj13sjt" path="res://assets/sprites/explosion/4.png" id="5_gh4r0"]
@@ -14,11 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://dnap5c0bf6svx" path="res://assets/sprites/explosion/10.png" id="11_ymmt0"]
 [ext_resource type="Texture2D" uid="uid://dewgpm8nevv2a" path="res://assets/sprites/explosion/11.png" id="12_p8ue4"]
 [ext_resource type="Texture2D" uid="uid://dcf4kpgfhljpr" path="res://assets/sprites/explosion/12.png" id="13_re0mp"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jrk3l"]
-shader = ExtResource("2_8it8f")
-shader_parameter/blink_color = Color(1, 1, 1, 1)
-shader_parameter/blink_intensity = 0.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8d7te"]
 size = Vector2(38, 20)
@@ -75,9 +70,9 @@ time_for_conclude = 5
 
 [node name="ComputerSprite" type="Sprite2D" parent="."]
 texture_filter = 1
-material = SubResource("ShaderMaterial_jrk3l")
+material = ExtResource("2_8it8f")
 position = Vector2(0, 2)
-texture = ExtResource("2_srgvo")
+texture = ExtResource("3_8it8f")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 visible = false

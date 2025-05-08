@@ -155,3 +155,9 @@ func interact_with_deployer():
 		item.texture = usb_stick_img
 		item.visible = true
 		pendrive_stats = Global.copy_robot_stats(Global.robot_status)
+
+@rpc("any_peer", "call_local")
+func clear_item():
+	current_item = ""
+	has_item = false
+	item.visible = false
