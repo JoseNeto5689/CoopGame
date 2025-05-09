@@ -13,6 +13,7 @@ signal work_concluded(pc_id: int)
 signal player_entered_pc(id: int, pc_id: int)
 signal player_exited_pc(id: int, pc_id: int)
 signal pc_fixed()
+signal item_used
 
 var tween_turning_off : Tween
 
@@ -20,6 +21,8 @@ var is_animation_concluded := false
 var working := false
 var concluded := false
 var broken := false
+
+var players_interacting = []
 
 func _ready() -> void:
 	timer.wait_time = time_for_conclude
@@ -48,10 +51,12 @@ func hide_progress_bar():
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if "id" in body:
 		player_entered_pc.emit(body.id, pc_id)
+	players_interacting.append(body.id)
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if "id" in body:
 		player_exited_pc.emit(body.id, pc_id)
+	players_interacting.erase(body.id)
 
 func _on_timer_timeout() -> void:
 	concluded = true
@@ -90,14 +95,14 @@ func change_blink_intensity(new_value: float):
 	$ComputerSprite.material.set_shader_parameter("blink_intensity", new_value)
 
 @rpc("any_peer", "call_local")
-func fix_pc(callback: Callable, player, computer):
-	return func():
-		if(broken):
-			broken = false
-			pc_fixed.emit()
-			var tween = create_tween()
-			tween.tween_method(self.change_blink_intensity, 1.0, 0.0, 0.3)
-			callback.call(player, computer)
+func fix_pc():
+	if(broken):
+		item_used.emit()
+		var tween = create_tween()
+		tween.tween_method(self.change_blink_intensity, 1.0, 0.0, 0.3)
+		await tween.finished
+		broken = false
+		pc_fixed.emit(players_interacting, pc_id)
 			 
 @rpc("any_peer", "call_local")
 func explode():

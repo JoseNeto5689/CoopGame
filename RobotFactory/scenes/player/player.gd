@@ -112,8 +112,6 @@ func _process(delta: float) -> void:
 func set_animation_status(status: bool):
 	animation_concluded = status
 
-		
-		
 @rpc("any_peer", "call_local")
 func get_item(item_name : String):
 	if not has_item and animation_concluded:

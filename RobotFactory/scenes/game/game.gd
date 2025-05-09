@@ -47,16 +47,28 @@ func _on_pc_player_entered_pc(id: int, pc_id: int) -> void:
 		var computer = find_computer_by_id(pc_id)
 		computer.show_progress_bar()
 		if (computer.broken and player.current_item == "toolkit"):
-			player.interacting.connect(computer.fix_pc(swap_interaction, player, computer))
-			computer.pc_fixed.connect(player.clear_item.rpc)
+			player.interacting.connect(computer.fix_pc.rpc)
+			computer.item_used.connect(player.clear_item.rpc)
+			computer.pc_fixed.connect(swap_interaction.rpc)
 		else:
 			player.interacting.connect(computer.increase_progress.rpc)
 			player.stop_interacting.connect(computer.stop_progress.rpc)
+			
 
-func swap_interaction(player, computer):
-	print(1)
-	player.interacting.connect(computer.increase_progress.rpc)
-	player.stop_interacting.connect(computer.stop_progress.rpc)
+@rpc("any_peer", "call_local")
+func swap_interaction(players_interacting: Array, computer_id):
+	var computer = find_computer_by_id(computer_id)
+	for player_id in players_interacting:
+		var player = find_player_by_id(player_id)
+		if not player.interacting.is_connected(computer.increase_progress.rpc):
+			player.interacting.connect(computer.increase_progress.rpc)
+			player.stop_interacting.connect(computer.stop_progress.rpc)
+		if player.interacting.is_connected(computer.fix_pc.rpc):
+			player.interacting.disconnect(computer.fix_pc.rpc)
+			computer.item_used.disconnect(player.clear_item.rpc)
+			computer.pc_fixed.disconnect(swap_interaction.rpc)
+			
+			
 
 func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 	var player = find_player_by_id(id)
@@ -67,7 +79,12 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 		computer.hide_progress_bar()
 		if (player.interacting.is_connected(computer.fix_pc.rpc)):
 			player.interacting.disconnect(computer.fix_pc.rpc)
-			computer.pc_fixed.disconnect(player.clear_item.rpc)
+			computer.item_used.disconnect(player.clear_item.rpc)
+			computer.pc_fixed.disconnect(swap_interaction.rpc)
+		elif player.interacting.is_connected(computer.fix_pc.rpc):
+			player.interacting.disconnect(computer.fix_pc.rpc)
+			computer.item_used.disconnect(player.clear_item.rpc)
+			computer.pc_fixed.disconnect(swap_interaction.rpc)
 		else:
 			player.interacting.disconnect(computer.increase_progress.rpc)
 			player.stop_interacting.disconnect(computer.stop_progress.rpc)
