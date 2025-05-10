@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=21 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dasows03n4uqd" path="res://assets/sprites/own/pc_3_0001.png" id="12_3xj4h"]
 [ext_resource type="Texture2D" uid="uid://bjadbo2vechr4" path="res://assets/sprites/own/pc_2_0001.png" id="12_vaxfo"]
 [ext_resource type="Texture2D" uid="uid://dbvic5c5jiuto" path="res://assets/sprites/own/pc_3_0002.png" id="13_pg2xm"]
+[ext_resource type="PackedScene" uid="uid://c2q1253bulhsu" path="res://scenes/button/button_next.tscn" id="13_uyinl"]
 [ext_resource type="PackedScene" uid="uid://cbnqodshx2kif" path="res://scenes/conveyor_belt/conveyor_belt_implemented.tscn" id="13_vaxfo"]
 [ext_resource type="PackedScene" uid="uid://1bgp4wmb7bh7" path="res://scenes/deployer/deployer.tscn" id="14_ftsea"]
 [ext_resource type="PackedScene" uid="uid://4xnw1sko17cx" path="res://scenes/market/market.tscn" id="14_otnwt"]
@@ -36,17 +37,14 @@ zoom = Vector2(0.45, 0.45)
 [node name="ConveyorBelt" parent="." instance=ExtResource("13_vaxfo")]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="ConveyorBelt"]
-visible = false
 collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ConveyorBelt/StaticBody2D"]
-visible = false
-position = Vector2(313, 35.5)
+position = Vector2(313, 35)
 shape = SubResource("RectangleShape2D_vaxfo")
 
 [node name="Area2D" type="Area2D" parent="ConveyorBelt"]
-visible = false
 position = Vector2(327.322, 77.6742)
 collision_layer = 0
 
@@ -80,6 +78,9 @@ position = Vector2(256, 199)
 pc_id = 4
 texture_on = ExtResource("17_8b66f")
 texture_off = ExtResource("11_5jirj")
+
+[node name="ButtonNext" parent="." instance=ExtResource("13_uyinl")]
+position = Vector2(360, 80)
 
 [node name="Deployer" parent="." instance=ExtResource("14_ftsea")]
 texture_filter = 1
@@ -178,6 +179,9 @@ autostart = true
 [connection signal="player_entered_pc" from="Computers/PC_4" to="." method="_on_pc_player_entered_pc"]
 [connection signal="player_exited_pc" from="Computers/PC_4" to="." method="_on_pc_player_exited_pc"]
 [connection signal="work_concluded" from="Computers/PC_4" to="." method="_on_pc_work_concluded"]
+[connection signal="button_has_been_pressed" from="ButtonNext" to="." method="_on_button_next_button_has_been_pressed"]
+[connection signal="player_entered_button_area" from="ButtonNext" to="." method="_on_button_next_player_entered_button_area"]
+[connection signal="player_exited_button_area" from="ButtonNext" to="." method="_on_button_next_player_exited_button_area"]
 [connection signal="enter_deployer_area" from="Deployer" to="." method="_on_player_enter_deployer_area"]
 [connection signal="exit_deployer_area" from="Deployer" to="." method="_on_player_exit_deployer_area"]
 [connection signal="item_buyed" from="Market" to="." method="_on_market_item_buyed"]

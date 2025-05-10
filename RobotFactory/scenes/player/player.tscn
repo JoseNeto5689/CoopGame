@@ -410,10 +410,11 @@ properties/1/spawn = true
 properties/1/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 1
 collision_mask = 5
 motion_mode = 1
 script = ExtResource("1_t82pu")
-SPEED = 100
+SPEED = 140
 usb_stick_img = ExtResource("4_p47bc")
 gpu_img = ExtResource("3_5gtgg")
 hd_img = ExtResource("4_h17s1")
@@ -436,8 +437,7 @@ frame_progress = 0.566033
 [node name="PlayerCamera" type="Camera2D" parent="."]
 limit_left = 0
 limit_top = 0
-position_smoothing_enabled = true
-rotation_smoothing_enabled = true
+position_smoothing_speed = 20.0
 rotation_smoothing_speed = 10.0
 
 [node name="Item" type="Sprite2D" parent="."]

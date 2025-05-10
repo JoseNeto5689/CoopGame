@@ -12,7 +12,7 @@ signal work_concluded(pc_id: int)
 
 signal player_entered_pc(id: int, pc_id: int)
 signal player_exited_pc(id: int, pc_id: int)
-signal pc_fixed()
+signal pc_fixed
 signal item_used
 
 var tween_turning_off : Tween
@@ -116,3 +116,11 @@ func explode():
 			explosion.hide()
 		)
 		await get_tree().create_timer(0.15).timeout 
+
+
+func _enter_area_behind_pc(body: Node2D) -> void:
+	body.z_index -= 1
+
+
+func _exit_area_behind_pc(body: Node2D) -> void:
+	body.z_index += 1

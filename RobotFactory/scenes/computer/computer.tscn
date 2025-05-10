@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://tx64gjx52y3"]
+[gd_scene load_steps=21 format=3 uid="uid://tx64gjx52y3"]
 
 [ext_resource type="Script" uid="uid://wd31uttu17sr" path="res://scenes/computer/computer.gd" id="1_srgvo"]
 [ext_resource type="Material" uid="uid://nrk8667qynar" path="res://resources/computer_shader.tres" id="2_8it8f"]
@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://dcf4kpgfhljpr" path="res://assets/sprites/explosion/12.png" id="13_re0mp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8d7te"]
-size = Vector2(38, 20)
+size = Vector2(38, 12.0649)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5o8iy"]
 size = Vector2(38, 19)
@@ -63,7 +63,11 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8it8f"]
+size = Vector2(37.5663, 7.60578)
+
 [node name="PC" type="Node2D"]
+z_index = 1
 script = ExtResource("1_srgvo")
 pc_id = 1
 time_for_conclude = 5
@@ -75,13 +79,12 @@ position = Vector2(0, 2)
 texture = ExtResource("3_8it8f")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-visible = false
 position = Vector2(0, 2)
 collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(0, -7)
+position = Vector2(0, -3.03246)
 shape = SubResource("RectangleShape2D_8d7te")
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -157,6 +160,15 @@ animation = &"boom"
 frame = 8
 frame_progress = 1.0
 
+[node name="BehindPC" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BehindPC"]
+position = Vector2(0.0799484, -11.2347)
+shape = SubResource("RectangleShape2D_8it8f")
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="BehindPC" to="." method="_enter_area_behind_pc"]
+[connection signal="body_exited" from="BehindPC" to="." method="_exit_area_behind_pc"]

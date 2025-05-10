@@ -36,6 +36,8 @@ func _ready() -> void:
 		player.given_usb_stick.connect(check_robot_in_conveyor_belt)
 		animation_concluded.connect(player.set_animation_status)
 	
+	animation_concluded.connect($ButtonNext.animation_changed)
+	
 	if multiplayer.is_server():
 		Global.sync_robots()
 		
@@ -158,3 +160,18 @@ func _on_market_item_buyed(item: String, player_id: int, value: int) -> void:
 	Global.update_money(-value)
 	var player = find_player_by_id(player_id)
 	player.get_item.rpc(item)
+
+
+func _on_button_next_player_entered_button_area(player_id: int) -> void:
+	var player = find_player_by_id(player_id)
+	player.interacting.connect($ButtonNext.button_pressed.rpc)
+
+
+func _on_button_next_button_has_been_pressed() -> void:
+	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
+	robot_index+=1
+
+
+func _on_button_next_player_exited_button_area(player_id: int) -> void:
+	var player = find_player_by_id(player_id)
+	player.interacting.disconnect($ButtonNext.button_pressed.rpc)

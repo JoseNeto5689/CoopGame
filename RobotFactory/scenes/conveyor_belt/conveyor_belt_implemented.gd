@@ -35,14 +35,15 @@ func _process(delta: float) -> void:
 	if last_robot and last_robot.progress_ratio >= 0.99:
 		last_robot.queue_free()
 	if last_robot:
-		last_robot.progress_ratio += progress * delta
+		last_robot.progress_ratio += (progress * delta)
 	if actual_robot:
-		actual_robot.progress_ratio += progress * delta
+		actual_robot.progress_ratio += (progress * delta)
 	$ConveyorBelt.change_speed(speed)
 
 
 func _on_animation_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "stop":
+		actual_robot.progress_ratio = str(actual_robot.progress_ratio, 1).to_float()
 		animation_concluded.emit()
 
 
