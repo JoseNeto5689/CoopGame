@@ -1,16 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://goci0fy1omcp"]
+[gd_scene load_steps=4 format=3 uid="uid://goci0fy1omcp"]
 
 [ext_resource type="Texture2D" uid="uid://cty8hx8fkvew0" path="res://assets/sprites/light/light.png" id="1_yqcxc"]
+[ext_resource type="Texture2D" uid="uid://dit7vhmhiud8c" path="res://assets/sprites/own/WallLight.png" id="2_dfepl"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_dfepl"]
 closed = false
-polygon = PackedVector2Array(-170, 45, 0, -4, 170, 45)
+polygon = PackedVector2Array(-170, 45, -7, -3, 6, -3, 170, 45)
 
 [node name="WallLight" type="Node2D"]
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(4.76837e-07, 3.8147e-06)
-scale = Vector2(0.8, 0.4)
+scale = Vector2(0.8, 0.6)
 energy = 0.7
 blend_mode = 2
 shadow_enabled = true
@@ -19,3 +20,8 @@ texture = ExtResource("1_yqcxc")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_dfepl")
+
+[node name="WallLight" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-0.447884, 1.04532)
+texture = ExtResource("2_dfepl")

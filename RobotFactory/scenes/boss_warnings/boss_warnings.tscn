@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cybk1aahnf1jq"]
+[gd_scene load_steps=13 format=3 uid="uid://cybk1aahnf1jq"]
 
 [ext_resource type="Script" uid="uid://bjt4wv131fvjp" path="res://scenes/boss_warnings/boss_warnings.gd" id="1_og720"]
 [ext_resource type="Texture2D" uid="uid://2v47qqehysxb" path="res://assets/sprites/boss/BossIdle/BossIdle_02.png" id="2_2lsfo"]
@@ -7,10 +7,11 @@
 [ext_resource type="Texture2D" uid="uid://dnvg6oxeilof0" path="res://assets/sprites/boss/BossWalking/BossWalking_02.png" id="5_w2f3r"]
 [ext_resource type="Texture2D" uid="uid://bccenea60oiy" path="res://assets/sprites/boss/BossWalking/BossWalking_03.png" id="6_lfeoe"]
 [ext_resource type="Texture2D" uid="uid://danujv8niomjk" path="res://assets/sprites/boss/BossWalking/BossWalking_04.png" id="7_7tbnk"]
+[ext_resource type="FontFile" uid="uid://0qcucxdtrel5" path="res://assets/fonts/Font.ttf" id="8_w2f3r"]
 
 [sub_resource type="Curve2D" id="Curve2D_6bc43"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 300, 0)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 350, 0)
 }
 point_count = 2
 
@@ -45,14 +46,17 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_w2f3r"]
+light_mode = 1
+
 [sub_resource type="LabelSettings" id="LabelSettings_2lsfo"]
-font_size = 8
+font = ExtResource("8_w2f3r")
+font_size = 10
 
 [node name="BossWarnings" type="Node2D"]
 script = ExtResource("1_og720")
 
 [node name="Path2D" type="Path2D" parent="."]
-position = Vector2(44.7063, 70.1641)
 curve = SubResource("Curve2D_6bc43")
 
 [node name="Boss" type="PathFollow2D" parent="Path2D"]
@@ -62,9 +66,10 @@ texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_t43n5")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.831219
+frame_progress = 0.542145
 
 [node name="Label" type="Label" parent="Path2D/Boss"]
+material = SubResource("CanvasItemMaterial_w2f3r")
 offset_left = -61.0
 offset_top = -29.0
 offset_right = 61.0

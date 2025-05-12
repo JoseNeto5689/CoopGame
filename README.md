@@ -64,3 +64,7 @@ https://anokolisa.itch.io/free-pixel-art-asset-pack-topdown-tileset-rpg-16x16-sp
 https://chottoinc.itch.io/buttons-pixel-art
 
 https://opengameart.org/content/clicker-game
+
+https://poppyworks.itch.io/silver
+
+https://opengameart.org/content/top-down-basic-construction

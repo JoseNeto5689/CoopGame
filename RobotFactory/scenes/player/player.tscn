@@ -447,16 +447,14 @@ material = SubResource("CanvasItemMaterial_p47bc")
 position = Vector2(0, -22)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-visible = false
 occluder = SubResource("OccluderPolygon2D_lvxji")
 occluder_light_mask = 2
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-visible = false
 visibility_layer = 2
 position = Vector2(1.19209e-07, 0.999999)
-scale = Vector2(0.15, 0.15)
-energy = 0.8
+scale = Vector2(0.2, 0.2)
+energy = 0.5
 blend_mode = 2
 range_item_cull_mask = 5
 texture = ExtResource("5_p47bc")

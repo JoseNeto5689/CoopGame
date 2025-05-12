@@ -16,8 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://4xnw1sko17cx" path="res://scenes/market/market.tscn" id="14_otnwt"]
 [ext_resource type="PackedScene" uid="uid://goci0fy1omcp" path="res://scenes/wall_light/wall_light.tscn" id="15_3xj4h"]
 [ext_resource type="Texture2D" uid="uid://calkw8w2mvhn" path="res://assets/sprites/own/pc_2_0002.png" id="15_gc57s"]
-[ext_resource type="Texture2D" uid="uid://cty8hx8fkvew0" path="res://assets/sprites/light/light.png" id="16_5v6r0"]
 [ext_resource type="Texture2D" uid="uid://bm5yx8xawkmbk" path="res://assets/sprites/own/pc_1_0002.png" id="17_8b66f"]
+[ext_resource type="PackedScene" uid="uid://bmjjt2lmp61ft" path="res://scenes/top_light/top_light.tscn" id="18_10c2w"]
 [ext_resource type="PackedScene" uid="uid://cybk1aahnf1jq" path="res://scenes/boss_warnings/boss_warnings.tscn" id="19_10c2w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vaxfo"]
@@ -34,6 +34,24 @@ position = Vector2(319, 193)
 zoom = Vector2(0.45, 0.45)
 
 [node name="Map" parent="." instance=ExtResource("1_3pj57")]
+metadata/_edit_lock_ = true
+
+[node name="Lights" type="Node" parent="."]
+
+[node name="WallLight" parent="Lights" instance=ExtResource("15_3xj4h")]
+position = Vector2(327, 21)
+
+[node name="TopLight" parent="Lights" instance=ExtResource("18_10c2w")]
+position = Vector2(183, 150)
+
+[node name="TopLight2" parent="Lights" instance=ExtResource("18_10c2w")]
+position = Vector2(448, 150)
+
+[node name="TopLight3" parent="Lights" instance=ExtResource("18_10c2w")]
+position = Vector2(447, 297)
+
+[node name="TopLight4" parent="Lights" instance=ExtResource("18_10c2w")]
+position = Vector2(183, 297)
 
 [node name="ConveyorBelt" parent="." instance=ExtResource("13_vaxfo")]
 
@@ -56,26 +74,26 @@ shape = SubResource("RectangleShape2D_ftsea")
 [node name="Computers" type="Node" parent="."]
 
 [node name="PC_1" parent="Computers" instance=ExtResource("3_0sr1o")]
-position = Vector2(160, 248)
+position = Vector2(157, 254)
 time_for_conclude = 2
 texture_on = ExtResource("11_10c2w")
 texture_off = ExtResource("11_otnwt")
 
 [node name="PC_2" parent="Computers" instance=ExtResource("3_0sr1o")]
-position = Vector2(251, 247)
+position = Vector2(224, 256)
 pc_id = 2
 time_for_conclude = 2
 texture_on = ExtResource("13_pg2xm")
 texture_off = ExtResource("12_3xj4h")
 
 [node name="PC_3" parent="Computers" instance=ExtResource("3_0sr1o")]
-position = Vector2(157, 312)
+position = Vector2(157, 320)
 pc_id = 3
 texture_on = ExtResource("15_gc57s")
 texture_off = ExtResource("12_vaxfo")
 
 [node name="PC_4" parent="Computers" instance=ExtResource("3_0sr1o")]
-position = Vector2(251, 312)
+position = Vector2(224, 320)
 pc_id = 4
 texture_on = ExtResource("17_8b66f")
 texture_off = ExtResource("11_5jirj")
@@ -85,83 +103,20 @@ position = Vector2(360, 80)
 
 [node name="Deployer" parent="." instance=ExtResource("14_ftsea")]
 texture_filter = 1
-position = Vector2(400, 281)
+position = Vector2(183, 150)
 
 [node name="Market" parent="." instance=ExtResource("14_otnwt")]
-position = Vector2(537, 226)
+position = Vector2(447, 241)
 
 [node name="BossWarnings" parent="." instance=ExtResource("19_10c2w")]
-position = Vector2(-70, 64)
+position = Vector2(-32, 211)
 walking_time = 7
 text_speed = 0.1
 
 [node name="Players" type="Node" parent="."]
 
-[node name="Lights" type="Node" parent="."]
-
-[node name="WallLight" parent="Lights" instance=ExtResource("15_3xj4h")]
-visible = false
-position = Vector2(327, 21)
-
-[node name="PointLight2D" type="PointLight2D" parent="Lights"]
-visible = false
-position = Vector2(391.412, 166.4)
-scale = Vector2(0.4, 0.4)
-blend_mode = 2
-texture = ExtResource("16_5v6r0")
-
-[node name="PointLight2D3" type="PointLight2D" parent="Lights"]
-visible = false
-position = Vector2(519.411, 166.4)
-scale = Vector2(0.4, 0.4)
-blend_mode = 2
-texture = ExtResource("16_5v6r0")
-
-[node name="PointLight2D4" type="PointLight2D" parent="Lights"]
-visible = false
-position = Vector2(109.811, 166.4)
-scale = Vector2(0.4, 0.4)
-blend_mode = 2
-texture = ExtResource("16_5v6r0")
-
-[node name="PointLight2D2" type="PointLight2D" parent="Lights"]
-visible = false
-position = Vector2(259.811, 166.4)
-scale = Vector2(0.4, 0.4)
-blend_mode = 2
-texture = ExtResource("16_5v6r0")
-
-[node name="PointLight2D5" type="PointLight2D" parent="Lights"]
-visible = false
-position = Vector2(391.412, 304.8)
-scale = Vector2(0.4, 0.4)
-blend_mode = 2
-texture = ExtResource("16_5v6r0")
-
-[node name="PointLight2D6" type="PointLight2D" parent="Lights"]
-visible = false
-position = Vector2(519.411, 304.8)
-scale = Vector2(0.4, 0.4)
-blend_mode = 2
-texture = ExtResource("16_5v6r0")
-
-[node name="PointLight2D7" type="PointLight2D" parent="Lights"]
-visible = false
-position = Vector2(109.811, 304.8)
-scale = Vector2(0.4, 0.4)
-blend_mode = 2
-texture = ExtResource("16_5v6r0")
-
-[node name="PointLight2D8" type="PointLight2D" parent="Lights"]
-visible = false
-position = Vector2(259.811, 304.8)
-scale = Vector2(0.4, 0.4)
-blend_mode = 2
-texture = ExtResource("16_5v6r0")
-
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-color = Color(0.10748, 0.10748, 0.10748, 1)
+color = Color(0.0253638, 0.0253638, 0.0253638, 1)
 
 [node name="UI" parent="." instance=ExtResource("4_kelw5")]
 

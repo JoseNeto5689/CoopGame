@@ -156,11 +156,10 @@ func find_computer_by_id(id: int) -> Node2D:
 
 
 func _on_market_item_buyed(item: String, player_id: int, value: int) -> void:
-	if Global.money < value or in_animation:
-		return
-	Global.update_money(-value)
 	var player = find_player_by_id(player_id)
-	player.get_item.rpc(item)
+	if Global.money >= value and not in_animation and not player.has_item:
+		Global.update_money(-value)
+		player.get_item.rpc(item)
 
 
 func _on_button_next_player_entered_button_area(player_id: int) -> void:
