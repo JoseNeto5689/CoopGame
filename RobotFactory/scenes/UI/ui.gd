@@ -16,6 +16,12 @@ func show_hud():
 func hide_hud():
 	$HUD.hide()
 
+func show_game_over():
+	$GameOver.show()
+	
+func hide_game_over():
+	$GameOver.hide()
+
 @rpc("any_peer", "call_local")
 func update_pendrive():
 	$HUD/PendriveNumber.text = str(Global.usb_stick_number)

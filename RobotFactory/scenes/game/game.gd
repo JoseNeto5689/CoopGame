@@ -95,10 +95,11 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 func _on_pc_work_concluded(pc_id: int) -> void:
 	var computer = find_computer_by_id(pc_id)
 	computer.reset.rpc()
-	computer.explode()
 	Global.update_robot_stats(pc_id)
 
 func _on_timer_timeout() -> void:
+	$BossWarnings.send("Trabalhem pilantras")
+	await $BossWarnings.concluded
 	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
 	robot_index+=1
 	
@@ -175,3 +176,9 @@ func _on_button_next_button_has_been_pressed() -> void:
 func _on_button_next_player_exited_button_area(player_id: int) -> void:
 	var player = find_player_by_id(player_id)
 	player.interacting.disconnect($ButtonNext.button_pressed.rpc)
+
+
+func _on_game_duration_timeout() -> void:
+	#get_tree().paused = true
+	#$UI.show_game_over()
+	pass

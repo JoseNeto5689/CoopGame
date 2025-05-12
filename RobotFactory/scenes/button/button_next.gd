@@ -32,8 +32,6 @@ func button_pressed():
 		button_has_been_pressed.emit()
 		await get_tree().create_timer(0.3).timeout 
 		button_press(false)
-	
-
 
 func _on_button_area_body_exited(body: Node2D) -> void:
 	player_exited_button_area.emit(body.id)
