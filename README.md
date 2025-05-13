@@ -68,3 +68,5 @@ https://opengameart.org/content/clicker-game
 https://poppyworks.itch.io/silver
 
 https://opengameart.org/content/top-down-basic-construction
+
+https://fightswithbears.itch.io/2d-health-and-ammo-pickups

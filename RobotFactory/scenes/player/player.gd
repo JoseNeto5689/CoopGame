@@ -9,6 +9,7 @@ extends CharacterBody2D
 @export var hd_img : CompressedTexture2D
 @export var ram_img : CompressedTexture2D
 @export var toolkit_img : CompressedTexture2D
+@export var med_kit_img : CompressedTexture2D
 
 @onready var sprites = $AnimatedSprite2D
 @onready var name_label = $PlayerName
@@ -18,6 +19,7 @@ extends CharacterBody2D
 var pendrive_stats : RobotStats = RobotStats.new()
 var has_item := false
 var current_item := ""
+var dead = false
 
 var last_direction := Vector2.ZERO
 var buttons_pressed := []
@@ -83,10 +85,10 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(id)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if (event.is_action_pressed("interact")):
+	if (event.is_action_pressed("interact") and not dead):
 		holding_interaction = true
 		interacting.emit()
-	elif (event.is_action_released("interact")):
+	elif (event.is_action_released("interact") and not dead):
 		holding_interaction = false
 		stop_interacting.emit()
 
@@ -98,7 +100,7 @@ func _ready() -> void:
 		camera.make_current()
 
 func _process(delta: float) -> void:
-	if not is_multiplayer_authority():
+	if not is_multiplayer_authority() or dead:
 		return
 	var direction = get_direction()
 	set_animation(direction)
@@ -128,6 +130,8 @@ func get_item(item_name : String):
 				item.texture = ram_img
 			"toolkit":
 				item.texture = toolkit_img
+			"medkit":
+				item.texture = med_kit_img
 		item.visible = true
 		current_item = item_name
 	
@@ -165,3 +169,18 @@ func update_camera_limits(list: Array):
 	$PlayerCamera.limit_top = list[1]
 	$PlayerCamera.limit_right = list[2]
 	$PlayerCamera.limit_bottom = list[3]
+
+func die():
+	position.y += 10
+	position.x = int(position.x)
+	position.y = int(position.y)
+	dead = true
+	$DeadBody/CollisionShape2D.disabled = false
+	$CollisionShape2D.disabled = true
+	$AnimatedSprite2D.play("dead")
+	
+func revive():
+	dead = false
+	$DeadBody/CollisionShape2D.disabled = true
+	$CollisionShape2D.disabled = false
+	$AnimatedSprite2D.play("adam_idle_front")

@@ -4,7 +4,7 @@ var players: Array = []
 var robot_list = []
 var robot_status := RobotStats.new()
 
-var money := 5
+var money := 20
 var usb_stick_number := 1
 
 signal usb_number_changed
@@ -77,9 +77,12 @@ func copy_robot_stats(robot_stats: RobotStats):
 	new_robot_stats.protection = robot_stats.protection
 	return new_robot_stats
 
+@rpc("any_peer", "call_local")
 func update_money(value: int):
+	print(1)
 	money_changed.emit()
 	money += value
+	
 	
 func update_usb_stick_number(value: int):
 	usb_number_changed.emit()

@@ -51,7 +51,7 @@ light_mode = 1
 
 [sub_resource type="LabelSettings" id="LabelSettings_2lsfo"]
 font = ExtResource("8_w2f3r")
-font_size = 10
+font_size = 14
 
 [node name="BossWarnings" type="Node2D"]
 script = ExtResource("1_og720")

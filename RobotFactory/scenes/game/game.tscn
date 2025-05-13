@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=23 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
@@ -20,6 +20,9 @@
 [ext_resource type="PackedScene" uid="uid://bmjjt2lmp61ft" path="res://scenes/top_light/top_light.tscn" id="18_10c2w"]
 [ext_resource type="PackedScene" uid="uid://cybk1aahnf1jq" path="res://scenes/boss_warnings/boss_warnings.tscn" id="19_10c2w"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_10c2w"]
+size = Vector2(7, 16)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vaxfo"]
 size = Vector2(610, 71)
 
@@ -36,7 +39,15 @@ zoom = Vector2(0.45, 0.45)
 [node name="Map" parent="." instance=ExtResource("1_3pj57")]
 metadata/_edit_lock_ = true
 
-[node name="Lights" type="Node" parent="."]
+[node name="BlockExit" type="StaticBody2D" parent="Map"]
+position = Vector2(6, 215)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Map/BlockExit"]
+position = Vector2(6.5, 1)
+shape = SubResource("RectangleShape2D_10c2w")
+
+[node name="Lights" type="Node2D" parent="."]
+visible = false
 
 [node name="WallLight" parent="Lights" instance=ExtResource("15_3xj4h")]
 position = Vector2(327, 21)
@@ -74,7 +85,7 @@ collision_layer = 0
 position = Vector2(0.171021, 0)
 shape = SubResource("RectangleShape2D_ftsea")
 
-[node name="Computers" type="Node" parent="."]
+[node name="Computers" type="Node2D" parent="."]
 
 [node name="PC_1" parent="Computers" instance=ExtResource("3_0sr1o")]
 position = Vector2(157, 254)
@@ -112,13 +123,14 @@ position = Vector2(183, 150)
 position = Vector2(447, 241)
 
 [node name="BossWarnings" parent="." instance=ExtResource("19_10c2w")]
-position = Vector2(-32, 211)
+position = Vector2(-32, 204)
 walking_time = 7
 text_speed = 0.1
 
 [node name="Players" type="Node" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0.0253638, 0.0253638, 0.0253638, 1)
 
 [node name="UI" parent="." instance=ExtResource("4_kelw5")]

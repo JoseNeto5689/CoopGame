@@ -14,6 +14,7 @@ signal player_entered_pc(id: int, pc_id: int)
 signal player_exited_pc(id: int, pc_id: int)
 signal pc_fixed
 signal item_used
+signal pc_exploded(list: Array)
 
 var tween_turning_off : Tween
 
@@ -23,6 +24,7 @@ var concluded := false
 var broken := false
 
 var players_interacting = []
+var players_in_death_zone = []
 
 func _ready() -> void:
 	timer.wait_time = time_for_conclude
@@ -109,14 +111,19 @@ func explode():
 	broken = true
 	stop_progress()
 	var explosions = $Explosions.get_children()
+	$DeathZone/CollisionShape2D.disabled = false
 	for explosion:AnimatedSprite2D in explosions:
 		explosion.show()
 		explosion.play("boom")
 		explosion.animation_finished.connect(func() :
 			explosion.hide()
 		)
-		await get_tree().create_timer(0.15).timeout 
-
+		await get_tree().create_timer(0.15).timeout
+	pc_exploded.emit(players_in_death_zone)
+	players_in_death_zone = []
+	await get_tree().create_timer(0.8).timeout
+	$DeathZone/CollisionShape2D.disabled = true
+	
 
 func _enter_area_behind_pc(body: Node2D) -> void:
 	body.z_index -= 1
@@ -124,3 +131,11 @@ func _enter_area_behind_pc(body: Node2D) -> void:
 
 func _exit_area_behind_pc(body: Node2D) -> void:
 	body.z_index += 1
+
+
+func _on_death_zone_body_entered(body: Node2D) -> void:
+	players_in_death_zone.append(body.id)
+
+
+func _on_death_zone_body_exited(body: Node2D) -> void:
+	players_in_death_zone.erase(body.id)

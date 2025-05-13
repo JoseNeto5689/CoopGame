@@ -27,7 +27,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1gelo"]
 shader = ExtResource("2_15li0")
 shader_parameter/blink_color = Color(0, 0, 0, 1)
-shader_parameter/blink_intensity = 1.0
+shader_parameter/blink_intensity = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eqtul"]
 atlas = ExtResource("13_k6xon")

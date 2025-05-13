@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://dyt3fsimfa1ds"]
+[gd_scene load_steps=67 format=3 uid="uid://dyt3fsimfa1ds"]
 
 [ext_resource type="Texture2D" uid="uid://bxn4imo72mrow" path="res://assets/sprites/characters_modern/Adam_idle_anim_16x16.png" id="1_r4f7e"]
 [ext_resource type="Script" uid="uid://bhohfmsi6m0p" path="res://scenes/player/player.gd" id="1_t82pu"]
@@ -9,9 +9,14 @@
 [ext_resource type="Texture2D" uid="uid://r1fqepdqw8b4" path="res://assets/sprites/own/pc_parts/RAM.png" id="5_je7p5"]
 [ext_resource type="Texture2D" uid="uid://cty8hx8fkvew0" path="res://assets/sprites/light/light.png" id="5_p47bc"]
 [ext_resource type="Texture2D" uid="uid://dbh8i4ay3rscr" path="res://assets/sprites/own/ToolBox v2.png" id="6_fm80t"]
+[ext_resource type="Texture2D" uid="uid://dk4obn7gwhqb1" path="res://assets/sprites/health_kit/MedKit.png" id="7_je7p5"]
+[ext_resource type="Texture2D" uid="uid://csxj8n8ik1ii7" path="res://assets/sprites/own/Dead.png" id="9_h17s1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h17s1"]
+size = Vector2(24, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_srqhr"]
-size = Vector2(14, 21.0911)
+size = Vector2(14, 21)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gmlin"]
 atlas = ExtResource("1_r4f7e")
@@ -390,6 +395,14 @@ animations = [{
 "loop": true,
 "name": &"adam_running_right",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_h17s1")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 0.0
 }]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p47bc"]
@@ -420,6 +433,14 @@ gpu_img = ExtResource("3_5gtgg")
 hd_img = ExtResource("4_h17s1")
 ram_img = ExtResource("5_je7p5")
 toolkit_img = ExtResource("6_fm80t")
+med_kit_img = ExtResource("7_je7p5")
+
+[node name="DeadBody" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeadBody"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_h17s1")
+disabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 0.5)
@@ -430,13 +451,14 @@ shape = SubResource("RectangleShape2D_srqhr")
 light_mask = 4
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_5sp3m")
-animation = &"adam_idle_front"
+animation = &"dead"
 autoplay = "adam_idle_front"
-frame_progress = 0.566033
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
-limit_left = 8
+limit_left = 0
 limit_top = 0
+limit_right = 0
+limit_bottom = 0
 position_smoothing_speed = 20.0
 rotation_smoothing_speed = 10.0
 
@@ -447,10 +469,12 @@ material = SubResource("CanvasItemMaterial_p47bc")
 position = Vector2(0, -22)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
 occluder = SubResource("OccluderPolygon2D_lvxji")
 occluder_light_mask = 2
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 visibility_layer = 2
 position = Vector2(1.19209e-07, 0.999999)
 scale = Vector2(0.2, 0.2)

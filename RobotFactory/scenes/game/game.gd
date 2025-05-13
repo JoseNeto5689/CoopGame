@@ -23,6 +23,7 @@ func _ready() -> void:
 	var limits = map.get_map_limits()
 	for pc in $Computers.get_children():
 		animation_concluded.connect(pc.animation_changed)
+		pc.pc_exploded.connect(kill_players)
 	#Verificar se tamanho da lista de player bate com o tanto de spawn points
 	var order = 0
 	for player in Global.players:
@@ -97,11 +98,12 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 func _on_pc_work_concluded(pc_id: int) -> void:
 	var computer = find_computer_by_id(pc_id)
 	computer.reset.rpc()
+	computer.explode()
 	Global.update_robot_stats(pc_id)
 
 func _on_timer_timeout() -> void:
-	$BossWarnings.send("Trabalhem pilantras")
-	await $BossWarnings.concluded
+	#$BossWarnings.send("Trabalhem pilantras")
+	#await $BossWarnings.concluded
 	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
 	robot_index+=1
 	
@@ -160,7 +162,7 @@ func find_computer_by_id(id: int) -> Node2D:
 func _on_market_item_buyed(item: String, player_id: int, value: int) -> void:
 	var player = find_player_by_id(player_id)
 	if Global.money >= value and not in_animation and not player.has_item:
-		Global.update_money(-value)
+		Global.update_money.rpc(-value)
 		player.get_item.rpc(item)
 
 
@@ -178,6 +180,10 @@ func _on_button_next_player_exited_button_area(player_id: int) -> void:
 	var player = find_player_by_id(player_id)
 	player.interacting.disconnect($ButtonNext.button_pressed.rpc)
 
+func kill_players(list: Array):
+	for player_id in list:
+		var player = find_player_by_id(player_id)
+		player.die()
 
 func _on_game_duration_timeout() -> void:
 	#get_tree().paused = true

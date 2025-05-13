@@ -8,3 +8,7 @@ func _on_buy_pendrive(body: Node2D) -> void:
 
 func _on_buy_toolkit(body: Node2D) -> void:
 	item_buyed.emit("toolkit", body.id, 5)
+	
+
+func _on_buy_medkit(body: Node2D) -> void:
+	item_buyed.emit("medkit", body.id, 5)
