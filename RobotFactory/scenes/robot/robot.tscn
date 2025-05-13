@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cxgvrotvfomsq" path="res://scenes/robot/robot.gd" id="1_eqtul"]
 [ext_resource type="Texture2D" uid="uid://cbr7ofjn1iwlq" path="res://assets/sprites/basic cute robot/ballbot/1/ballred1.png" id="2_0abj3"]
-[ext_resource type="Shader" uid="uid://d3f8t6rou0738" path="res://assets/shaders/shadow.gdshader" id="2_15li0"]
+[ext_resource type="Shader" uid="uid://b870mj1svnhk" path="res://assets/shaders/blink.gdshader" id="2_15li0"]
 [ext_resource type="Texture2D" uid="uid://bdgnrosvpr16g" path="res://assets/sprites/basic cute robot/ballbot/1/ballred2.png" id="3_ujdmv"]
 [ext_resource type="Texture2D" uid="uid://dl7pphlbbojmm" path="res://assets/sprites/basic cute robot/ballbot/1/ballred3.png" id="4_jhdl5"]
 [ext_resource type="Texture2D" uid="uid://bbqnb6pby8o1y" path="res://assets/sprites/basic cute robot/ballbot/1/ballred4.png" id="5_36p58"]
@@ -26,7 +26,8 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1gelo"]
 shader = ExtResource("2_15li0")
-shader_parameter/blackness = 0.0
+shader_parameter/blink_color = Color(0, 0, 0, 1)
+shader_parameter/blink_intensity = 1.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eqtul"]
 atlas = ExtResource("13_k6xon")

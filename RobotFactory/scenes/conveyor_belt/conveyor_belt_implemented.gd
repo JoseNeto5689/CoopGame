@@ -10,9 +10,13 @@ var last_robot :PathFollow2D
 
 var stopped = false
 var restart = false
+var is_dark = false
 
 signal animation_started
 signal animation_concluded
+
+func change_to_dark_scene():
+	is_dark = true
 
 func spawn_robot(robot_sprite: String):
 	if actual_robot:
@@ -21,6 +25,8 @@ func spawn_robot(robot_sprite: String):
 		stopped = false
 	var spawned_robot = robot.instantiate()
 	spawned_robot.change_sprite(robot_sprite)
+	if is_dark:
+		spawned_robot.add_shadow()
 	$LineProduction.add_child(spawned_robot)
 	actual_robot = spawned_robot
 	
@@ -52,5 +58,6 @@ func _on_animation_animation_started(anim_name: StringName) -> void:
 		animation_started.emit()
 
 func robot_ok():
+	actual_robot.remove_shadow()
 	var tween = create_tween()
 	tween.tween_method(actual_robot.change_blink_intensity, 1.0, 0.0, 0.3)

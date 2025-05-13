@@ -53,6 +53,9 @@ position = Vector2(447, 297)
 [node name="TopLight4" parent="Lights" instance=ExtResource("18_10c2w")]
 position = Vector2(183, 297)
 
+[node name="TopLight5" parent="Lights" instance=ExtResource("18_10c2w")]
+position = Vector2(321, 217)
+
 [node name="ConveyorBelt" parent="." instance=ExtResource("13_vaxfo")]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="ConveyorBelt"]

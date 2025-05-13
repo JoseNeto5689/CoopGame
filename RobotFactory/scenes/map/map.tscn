@@ -6,6 +6,7 @@
 [ext_resource type="TileSet" uid="uid://dmom3audbhgxe" path="res://assets/tilemaps/walls.tres" id="2_tqkkf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fcby6"]
+resource_name = "Room Builder"
 texture = ExtResource("1_ph54e")
 3:0/0 = 0
 4:0/0 = 0

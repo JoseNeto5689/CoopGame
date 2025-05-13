@@ -20,6 +20,7 @@ func _ready() -> void:
 	
 	var player_preloaded = preload("res://scenes/player/player.tscn")
 	var spawn_points: Array = map.get_spawn_points()
+	var limits = map.get_map_limits()
 	for pc in $Computers.get_children():
 		animation_concluded.connect(pc.animation_changed)
 	#Verificar se tamanho da lista de player bate com o tanto de spawn points
@@ -29,6 +30,7 @@ func _ready() -> void:
 		new_player.id = int(player.id)
 		new_player.player_name = player.name
 		new_player.spawn_position = spawn_points[order]
+		new_player.update_camera_limits(limits)
 		order+=1
 		players.add_child(new_player)
 	

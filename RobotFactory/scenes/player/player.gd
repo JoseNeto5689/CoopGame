@@ -159,3 +159,9 @@ func clear_item():
 	current_item = ""
 	has_item = false
 	item.visible = false
+	
+func update_camera_limits(list: Array):
+	$PlayerCamera.limit_left = list[0]
+	$PlayerCamera.limit_top = list[1]
+	$PlayerCamera.limit_right = list[2]
+	$PlayerCamera.limit_bottom = list[3]

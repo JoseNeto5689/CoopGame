@@ -435,7 +435,7 @@ autoplay = "adam_idle_front"
 frame_progress = 0.566033
 
 [node name="PlayerCamera" type="Camera2D" parent="."]
-limit_left = 0
+limit_left = 8
 limit_top = 0
 position_smoothing_speed = 20.0
 rotation_smoothing_speed = 10.0
