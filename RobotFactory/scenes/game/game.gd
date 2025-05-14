@@ -38,12 +38,26 @@ func _ready() -> void:
 	for player in $Players.get_children():
 		player.given_usb_stick.connect(check_robot_in_conveyor_belt)
 		animation_concluded.connect(player.set_animation_status)
+		player.player_entered_heal_zone.connect(player_entered_heal_zone)
+		player.player_exited_heal_zone.connect(player_exited_heal_zone)
 	
 	animation_concluded.connect($ButtonNext.animation_changed)
 	
 	if multiplayer.is_server():
 		Global.sync_robots()
 		
+func player_entered_heal_zone(dead_player_id: int, player_id: int):
+	var dead_player = find_player_by_id(dead_player_id)
+	var player = find_player_by_id(player_id)
+	player.interacting.connect(player.heal_player.rpc)
+	player.healing_player.connect(dead_player.revive.rpc)
+	
+func player_exited_heal_zone(dead_player_id: int, player_id: int):
+	var dead_player = find_player_by_id(dead_player_id)
+	var player = find_player_by_id(player_id)
+	player.interacting.disconnect(player.heal_player.rpc)
+	player.healing_player.disconnect(dead_player.revive.rpc)
+
 func _on_pc_player_entered_pc(id: int, pc_id: int) -> void:
 	var player = find_player_by_id(id)
 	if multiplayer.get_unique_id() == id:
@@ -103,7 +117,7 @@ func _on_pc_work_concluded(pc_id: int) -> void:
 
 func _on_timer_timeout() -> void:
 	#$BossWarnings.send("Trabalhem pilantras")
-	#await $BossWarnings.concluded
+	#aaawait $BossWarnings.concluded
 	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
 	robot_index+=1
 	

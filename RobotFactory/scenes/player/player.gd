@@ -33,6 +33,9 @@ var animation_concluded := false
 signal interacting
 signal stop_interacting
 signal given_usb_stick(robot_stats: RobotStats)
+signal player_entered_heal_zone(dead_player_id: int, player_id: int)
+signal player_exited_heal_zone(dead_player_id: int, player_id: int)
+signal healing_player
 
 #endregion
 
@@ -171,16 +174,34 @@ func update_camera_limits(list: Array):
 	$PlayerCamera.limit_bottom = list[3]
 
 func die():
-	position.y += 10
+	last_direction = Vector2.ZERO
+	buttons_pressed = []
 	position.x = int(position.x)
 	position.y = int(position.y)
 	dead = true
 	$DeadBody/CollisionShape2D.disabled = false
 	$CollisionShape2D.disabled = true
+	$HealZone/CollisionShape2D.disabled = false
 	$AnimatedSprite2D.play("dead")
-	
+
+@rpc("any_peer", "call_local")
 func revive():
+	position.y += 5
 	dead = false
 	$DeadBody/CollisionShape2D.disabled = true
 	$CollisionShape2D.disabled = false
+	$HealZone/CollisionShape2D.disabled = true
 	$AnimatedSprite2D.play("adam_idle_front")
+
+@rpc("any_peer", "call_local")
+func heal_player():
+	if current_item == "medkit":
+		item.visible = false
+		current_item = ""
+		healing_player.emit()
+
+func _on_heal_zone_body_entered(body: Node2D) -> void:
+	player_entered_heal_zone.emit(id,body.id)
+
+func _on_heal_zone_body_exited(body: Node2D) -> void:
+	player_exited_heal_zone.emit(id,body.id)
