@@ -79,11 +79,15 @@ func copy_robot_stats(robot_stats: RobotStats):
 
 @rpc("any_peer", "call_local")
 func update_money(value: int):
-	print(1)
+	if multiplayer.is_server():
+		money += value
+		update_players_money.rpc(money)
+
+@rpc("any_peer", "call_remote")
+func update_players_money(value: int):
+	money = value
 	money_changed.emit()
-	money += value
-	
-	
+
 func update_usb_stick_number(value: int):
 	usb_number_changed.emit()
 	usb_stick_number += value

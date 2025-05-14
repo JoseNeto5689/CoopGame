@@ -176,6 +176,7 @@ func update_camera_limits(list: Array):
 func die():
 	last_direction = Vector2.ZERO
 	buttons_pressed = []
+	position.y += 10
 	position.x = int(position.x)
 	position.y = int(position.y)
 	dead = true
@@ -186,7 +187,7 @@ func die():
 
 @rpc("any_peer", "call_local")
 func revive():
-	position.y += 5
+	position.y -= 5
 	dead = false
 	$DeadBody/CollisionShape2D.disabled = true
 	$CollisionShape2D.disabled = false
@@ -198,6 +199,7 @@ func heal_player():
 	if current_item == "medkit":
 		item.visible = false
 		current_item = ""
+		has_item = false
 		healing_player.emit()
 
 func _on_heal_zone_body_entered(body: Node2D) -> void:
