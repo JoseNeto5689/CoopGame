@@ -180,6 +180,7 @@ func die():
 	position.x = int(position.x)
 	position.y = int(position.y)
 	dead = true
+	$Item.hide()
 	$DeadBody/CollisionShape2D.disabled = false
 	$CollisionShape2D.disabled = true
 	$HealZone/CollisionShape2D.disabled = false
@@ -189,6 +190,8 @@ func die():
 func revive():
 	position.y -= 5
 	dead = false
+	if (has_item):
+		item.show()
 	$DeadBody/CollisionShape2D.disabled = true
 	$CollisionShape2D.disabled = false
 	$HealZone/CollisionShape2D.disabled = true
