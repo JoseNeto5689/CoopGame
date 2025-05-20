@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cybk1aahnf1jq"]
+[gd_scene load_steps=15 format=3 uid="uid://cybk1aahnf1jq"]
 
 [ext_resource type="Script" uid="uid://bjt4wv131fvjp" path="res://scenes/boss_warnings/boss_warnings.gd" id="1_og720"]
 [ext_resource type="Texture2D" uid="uid://2v47qqehysxb" path="res://assets/sprites/boss/BossIdle/BossIdle_02.png" id="2_2lsfo"]
@@ -53,7 +53,14 @@ light_mode = 1
 font = ExtResource("8_w2f3r")
 font_size = 14
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2f3r"]
+size = Vector2(17, 17.5678)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lfeoe"]
+size = Vector2(17, 12.3631)
+
 [node name="BossWarnings" type="Node2D"]
+z_index = 1
 script = ExtResource("1_og720")
 
 [node name="Path2D" type="Path2D" parent="."]
@@ -78,4 +85,21 @@ label_settings = SubResource("LabelSettings_2lsfo")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Area2D" type="Area2D" parent="Path2D/Boss"]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/Boss/Area2D"]
+position = Vector2(-2.5, -6.21609)
+shape = SubResource("RectangleShape2D_w2f3r")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Path2D/Boss"]
+motion_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/Boss/CharacterBody2D"]
+position = Vector2(-2.5, 3.81846)
+shape = SubResource("RectangleShape2D_lfeoe")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[connection signal="body_entered" from="Path2D/Boss/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Path2D/Boss/Area2D" to="." method="_on_area_2d_body_exited"]

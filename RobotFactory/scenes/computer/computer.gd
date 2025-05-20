@@ -22,9 +22,12 @@ var is_animation_concluded := false
 var working := false
 var concluded := false
 var broken := false
-
 var players_interacting = []
 var players_in_death_zone = []
+
+@export var missing_ram := false
+@export var missing_gpu := false
+@export var missing_hd := false
 
 func _ready() -> void:
 	timer.wait_time = time_for_conclude

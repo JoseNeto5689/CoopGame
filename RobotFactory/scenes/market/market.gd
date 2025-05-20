@@ -11,6 +11,15 @@ func _on_buy_toolkit(body: Node2D) -> void:
 
 func _on_buy_medkit(body: Node2D) -> void:
 	call_deferred("buy_item", "medkit", body.id, 5)
+	
+func _on_buy_gpu(body: Node2D) -> void:
+	call_deferred("buy_item", "gpu", body.id, 5, )
+
+func _on_buy_ram(body: Node2D) -> void:
+	call_deferred("buy_item", "ram", body.id, 5)
+
+func _on_buy_hd(body: Node2D) -> void:
+	call_deferred("buy_item", "hd", body.id, 5)
 
 func buy_item(item_name: String, player_id: int, value: int):
 	item_buyed.emit(item_name, player_id, value)

@@ -10,6 +10,7 @@ signal animation_concluded(status: bool)
 var robot_index = 0
 
 var in_animation = true
+var is_dark := false
 	
 func _ready() -> void:
 	Global.usb_number_changed.connect(ui.update_pendrive.rpc)
@@ -112,12 +113,13 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 func _on_pc_work_concluded(pc_id: int) -> void:
 	var computer = find_computer_by_id(pc_id)
 	computer.reset.rpc()
-	computer.explode()
+	if pc_id ==2:
+		computer.explode()
 	Global.update_robot_stats(pc_id)
 
 func _on_timer_timeout() -> void:
-	#$BossWarnings.send("Trabalhem pilantras")
-	#aaawait $BossWarnings.concluded
+	$BossWarnings.send("Trabalhem pilantras")
+	await $BossWarnings.concluded
 	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
 	robot_index+=1
 	
@@ -200,7 +202,52 @@ func kill_players(list: Array):
 		var player = find_player_by_id(player_id)
 		player.die()
 
-func _on_game_duration_timeout() -> void:
-	#get_tree().paused = true
-	#$UI.show_game_over()
-	pass
+
+func _on_hazard_release() -> void:
+	return
+	if multiplayer.is_server():
+		if not is_dark:
+			become_dark.rpc()
+		else:
+			return_to_light.rpc()
+		
+
+@rpc("any_peer", "call_local")
+func explode_random_pc() -> bool:
+	var local_computers := []
+	for computer in $Computers.get_children():
+		if not computer.broken:
+			local_computers.append(computer.pc_id)
+	if local_computers.size() == 0:
+		print("Todos os computadores estao quebrados")
+		return false
+	var random_id = randi_range(0, local_computers.size()-1)
+	var computer = find_computer_by_id(local_computers[random_id])
+	computer.explode()
+	return true
+
+@rpc("any_peer", "call_local")
+func become_dark() -> bool:
+	if is_dark:
+		return false
+	is_dark = true
+	var tween = create_tween()
+	await tween.tween_property($CanvasModulate, "color", Color(0.05, 0.05, 0.05), 1).finished
+	await get_tree().create_timer(0.5).timeout
+	for player in $Players.get_children():
+		player.turn_on_lights()
+	await get_tree().create_timer(0.5).timeout
+	$Lights.show()
+	return true
+	
+@rpc("any_peer", "call_local")
+func return_to_light() -> bool:
+	if not is_dark:
+		return false
+	is_dark = false
+	for player in $Players.get_children():
+		player.turn_off_lights()
+	$Lights.hide()
+	var tween = create_tween()
+	tween.tween_property($CanvasModulate, "color", Color(1,1,1), 3).finished
+	return true

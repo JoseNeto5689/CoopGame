@@ -39,3 +39,11 @@ func send(message: String):
 	await tween.tween_property($Path2D/Boss, "progress_ratio", 0, walking_time).finished
 	sprite.hide()
 	concluded.emit()
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	body.z_index -=1
+
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	body.z_index +=1

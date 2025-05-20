@@ -204,6 +204,15 @@ func heal_player():
 		current_item = ""
 		has_item = false
 		healing_player.emit()
+		
+
+func turn_off_lights():
+	$LightOccluder2D.hide()
+	$PointLight2D.hide()
+
+func turn_on_lights():
+	$LightOccluder2D.show()
+	$PointLight2D.show()
 
 func _on_heal_zone_body_entered(body: Node2D) -> void:
 	player_entered_heal_zone.emit(id,body.id)

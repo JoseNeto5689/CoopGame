@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bojsyo4cu8qtk"]
+
+[ext_resource type="Script" uid="uid://bk0aw3db02yrx" path="res://scenes/game_timer/timer.gd" id="1_u46mu"]
+
+[node name="GameTimer" type="Timer"]
+one_shot = true
+autostart = true
+script = ExtResource("1_u46mu")
+number_of_hazards = 10
+game_duration = 100.0

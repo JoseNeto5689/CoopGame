@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=24 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://bm5yx8xawkmbk" path="res://assets/sprites/own/pc_1_0002.png" id="17_8b66f"]
 [ext_resource type="PackedScene" uid="uid://bmjjt2lmp61ft" path="res://scenes/top_light/top_light.tscn" id="18_10c2w"]
 [ext_resource type="PackedScene" uid="uid://cybk1aahnf1jq" path="res://scenes/boss_warnings/boss_warnings.tscn" id="19_10c2w"]
+[ext_resource type="PackedScene" uid="uid://bojsyo4cu8qtk" path="res://scenes/game_timer/timer.tscn" id="20_pg2xm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_10c2w"]
 size = Vector2(7, 16)
@@ -132,8 +133,6 @@ text_speed = 0.1
 [node name="Players" type="Node" parent="."]
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-color = Color(0.0253638, 0.0253638, 0.0253638, 1)
 
 [node name="UI" parent="." instance=ExtResource("4_kelw5")]
 
@@ -141,10 +140,7 @@ color = Color(0.0253638, 0.0253638, 0.0253638, 1)
 one_shot = true
 autostart = true
 
-[node name="GameDuration" type="Timer" parent="."]
-wait_time = 10.0
-one_shot = true
-autostart = true
+[node name="GameTimer" parent="." instance=ExtResource("20_pg2xm")]
 
 [connection signal="animation_concluded" from="ConveyorBelt" to="." method="_on_conveyor_belt_animation_concluded"]
 [connection signal="animation_started" from="ConveyorBelt" to="." method="_on_conveyor_belt_animation_started"]
@@ -169,4 +165,4 @@ autostart = true
 [connection signal="exit_deployer_area" from="Deployer" to="." method="_on_player_exit_deployer_area"]
 [connection signal="item_buyed" from="Market" to="." method="_on_market_item_buyed"]
 [connection signal="timeout" from="RobotDelay" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="GameDuration" to="." method="_on_game_duration_timeout"]
+[connection signal="hazard_time" from="GameTimer" to="." method="_on_hazard_release"]

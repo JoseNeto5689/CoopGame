@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://4xnw1sko17cx"]
+[gd_scene load_steps=31 format=3 uid="uid://4xnw1sko17cx"]
 
 [ext_resource type="Texture2D" uid="uid://b81w35lek466e" path="res://assets/sprites/npc/Male4.png" id="1_1or4p"]
 [ext_resource type="Script" uid="uid://b55rad5nu38ma" path="res://scenes/market/market.gd" id="1_cgn7w"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://b3xw0100fgls1" path="res://assets/sprites/coin/coin_spin-Sheet.png" id="3_apks8"]
 [ext_resource type="Texture2D" uid="uid://dbh8i4ay3rscr" path="res://assets/sprites/own/ToolBox v2.png" id="5_e5foy"]
 [ext_resource type="Texture2D" uid="uid://dk4obn7gwhqb1" path="res://assets/sprites/health_kit/MedKit.png" id="6_cum83"]
+[ext_resource type="Texture2D" uid="uid://r1fqepdqw8b4" path="res://assets/sprites/own/pc_parts/RAM.png" id="7_lsn5p"]
+[ext_resource type="Texture2D" uid="uid://3r7s2gqna6vx" path="res://assets/sprites/own/pc_parts/GPU.png" id="8_3krxk"]
+[ext_resource type="Texture2D" uid="uid://dfe7fhtbu38lf" path="res://assets/sprites/own/pc_parts/HD.png" id="9_uli35"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uiuro"]
 atlas = ExtResource("1_1or4p")
@@ -119,6 +122,15 @@ size = Vector2(24, 18)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4q0km"]
 size = Vector2(22, 18)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g5yo1"]
+size = Vector2(23, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8mv45"]
+size = Vector2(24, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j0f5q"]
+size = Vector2(22, 18)
+
 [node name="Market" type="Node2D"]
 script = ExtResource("1_cgn7w")
 
@@ -224,6 +236,106 @@ position = Vector2(-15, 0)
 position = Vector2(52, 39)
 shape = SubResource("RectangleShape2D_4q0km")
 
+[node name="Ram" type="Node2D" parent="."]
+position = Vector2(-7, 38)
+
+[node name="Ram" type="Sprite2D" parent="Ram"]
+texture_filter = 1
+position = Vector2(-38, 39)
+texture = ExtResource("7_lsn5p")
+
+[node name="Label" type="Label" parent="Ram"]
+offset_left = -50.0
+offset_top = 44.0
+offset_right = -37.0
+offset_bottom = 61.0
+text = "5"
+label_settings = SubResource("LabelSettings_cgn7w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Ram"]
+position = Vector2(-33, 53)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_j0f5q")
+autoplay = "default"
+frame_progress = 0.954156
+
+[node name="Area2D" type="Area2D" parent="Ram"]
+position = Vector2(-21, 0)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ram/Area2D"]
+position = Vector2(-17.6942, 39)
+shape = SubResource("RectangleShape2D_g5yo1")
+
+[node name="Gpu" type="Node2D" parent="."]
+position = Vector2(0, 38)
+
+[node name="Gpu" type="Sprite2D" parent="Gpu"]
+texture_filter = 1
+position = Vector2(0, 38)
+texture = ExtResource("8_3krxk")
+
+[node name="Label" type="Label" parent="Gpu"]
+offset_left = -11.0
+offset_top = 44.0
+offset_right = 2.0
+offset_bottom = 61.0
+text = "5"
+label_settings = SubResource("LabelSettings_cgn7w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Gpu"]
+position = Vector2(6, 52)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_j0f5q")
+autoplay = "default"
+frame_progress = 0.954156
+
+[node name="Area2D" type="Area2D" parent="Gpu"]
+position = Vector2(-18, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Gpu/Area2D"]
+position = Vector2(18, 39)
+shape = SubResource("RectangleShape2D_8mv45")
+
+[node name="HD" type="Node2D" parent="."]
+position = Vector2(11, 38)
+
+[node name="HD" type="Sprite2D" parent="HD"]
+texture_filter = 1
+position = Vector2(37, 39)
+texture = ExtResource("9_uli35")
+
+[node name="Label" type="Label" parent="HD"]
+offset_left = 25.0
+offset_top = 44.0
+offset_right = 38.0
+offset_bottom = 61.0
+text = "5"
+label_settings = SubResource("LabelSettings_cgn7w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="HD"]
+position = Vector2(42, 52)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_j0f5q")
+autoplay = "default"
+frame_progress = 0.954156
+
+[node name="Area2D" type="Area2D" parent="HD"]
+position = Vector2(-15, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HD/Area2D"]
+position = Vector2(52, 39)
+shape = SubResource("RectangleShape2D_j0f5q")
+
 [connection signal="body_entered" from="Pendrive/Area2D" to="." method="_on_buy_pendrive"]
 [connection signal="body_entered" from="ToolKit/Area2D" to="." method="_on_buy_toolkit"]
 [connection signal="body_entered" from="MedKit/Area2D" to="." method="_on_buy_medkit"]
+[connection signal="body_entered" from="Ram/Area2D" to="." method="_on_buy_ram"]
+[connection signal="body_entered" from="Gpu/Area2D" to="." method="_on_buy_gpu"]
+[connection signal="body_entered" from="HD/Area2D" to="." method="_on_buy_hd"]
