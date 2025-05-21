@@ -26,7 +26,7 @@ func _on_button_area_body_entered(body: Node2D) -> void:
 	player_entered_button_area.emit(body.id)
 
 @rpc("any_peer", "call_local")
-func button_pressed():
+func button_pressed(_item: String):
 	if(is_animation_concluded):
 		button_press(true)
 		button_has_been_pressed.emit()

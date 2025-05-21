@@ -30,7 +30,7 @@ var player_name : String
 var holding_interaction := false 
 var animation_concluded := false
 
-signal interacting
+signal interacting(item: String)
 signal stop_interacting
 signal given_usb_stick(robot_stats: RobotStats)
 signal player_entered_heal_zone(dead_player_id: int, player_id: int)
@@ -90,7 +90,7 @@ func _enter_tree() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("interact") and not dead):
 		holding_interaction = true
-		interacting.emit()
+		interacting.emit(current_item)
 	elif (event.is_action_released("interact") and not dead):
 		holding_interaction = false
 		stop_interacting.emit()
@@ -139,7 +139,7 @@ func get_item(item_name : String):
 		current_item = item_name
 	
 @rpc("any_peer", "call_local")
-func give_item():
+func give_item(_item: String):
 	if has_item and animation_concluded:
 		has_item = false
 		item.visible = false
@@ -147,7 +147,7 @@ func give_item():
 		pendrive_stats = null
 
 @rpc("any_peer", "call_local")
-func interact_with_deployer():
+func interact_with_deployer(_item: String):
 	if has_item and current_item == "usb_stick":
 		Global.update_usb_stick_number(+1)
 		has_item = false #Colocar tudo isso em uma func
@@ -198,7 +198,7 @@ func revive():
 	$AnimatedSprite2D.play("adam_idle_front")
 
 @rpc("any_peer", "call_local")
-func heal_player():
+func heal_player(_item: String):
 	if current_item == "medkit":
 		item.visible = false
 		current_item = ""

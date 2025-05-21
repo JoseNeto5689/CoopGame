@@ -21,13 +21,37 @@ var tween_turning_off : Tween
 var is_animation_concluded := false
 var working := false
 var concluded := false
-var broken := false
 var players_interacting = []
 var players_in_death_zone = []
+
+@export var broken := false
 
 @export var missing_ram := false
 @export var missing_gpu := false
 @export var missing_hd := false
+
+@rpc("any_peer", "call_local")
+func fix_missing_part(part_name: String):
+	var fixed = false
+	match part_name:
+		"ram":
+			missing_ram = false
+			fixed = true
+			item_used.emit()
+		"gpu":
+			missing_gpu = false
+			fixed = true
+			item_used.emit()
+		"hd":
+			missing_hd = false
+			fixed = true
+			item_used.emit()
+	if fixed and not missing_gpu and not missing_hd and not missing_ram:
+		var tween = create_tween()
+		tween.tween_method(self.change_blink_intensity, 1.0, 0.0, 0.3)
+		await tween.finished
+		pc_fixed.emit(players_interacting, pc_id)
+		broken = false
 
 func _ready() -> void:
 	timer.wait_time = time_for_conclude
@@ -68,7 +92,7 @@ func _on_timer_timeout() -> void:
 	work_concluded.emit(pc_id)
 
 @rpc("any_peer", "call_local")
-func increase_progress():
+func increase_progress(_item: String):
 	if is_animation_concluded and not broken:
 		#$PointLight2D.enabled = true
 		if(get_percentage() == 0):
@@ -100,7 +124,7 @@ func change_blink_intensity(new_value: float):
 	$ComputerSprite.material.set_shader_parameter("blink_intensity", new_value)
 
 @rpc("any_peer", "call_local")
-func fix_pc():
+func fix_pc(_item: String):
 	if(broken):
 		item_used.emit()
 		var tween = create_tween()

@@ -66,8 +66,12 @@ func _on_pc_player_entered_pc(id: int, pc_id: int) -> void:
 		ui.show_interact()
 		var computer = find_computer_by_id(pc_id)
 		computer.show_progress_bar()
-		if (computer.broken and player.current_item == "toolkit"):
+		if (computer.broken and player.current_item == "toolkit" and not computer.missing_ram and not computer.missing_gpu and not computer.missing_hd):
 			player.interacting.connect(computer.fix_pc.rpc)
+			computer.item_used.connect(player.clear_item.rpc)
+			computer.pc_fixed.connect(swap_interaction.rpc)
+		elif (computer.missing_ram and player.current_item == "ram") or (computer.missing_gpu and player.current_item == "gpu") or (computer.missing_hd and player.current_item == "hd"):
+			player.interacting.connect(computer.fix_missing_part.rpc)
 			computer.item_used.connect(player.clear_item.rpc)
 			computer.pc_fixed.connect(swap_interaction.rpc)
 		else:
@@ -87,8 +91,10 @@ func swap_interaction(players_interacting: Array, computer_id):
 			player.interacting.disconnect(computer.fix_pc.rpc)
 			computer.item_used.disconnect(player.clear_item.rpc)
 			computer.pc_fixed.disconnect(swap_interaction.rpc)
-			
-			
+		if player.interacting.is_connected(computer.fix_missing_part.rpc):
+			player.interacting.disconnect(computer.fix_missing_part.rpc)
+			computer.item_used.disconnect(player.clear_item.rpc)
+			computer.pc_fixed.disconnect(swap_interaction.rpc)
 
 func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 	var player = find_player_by_id(id)
@@ -105,7 +111,12 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 			player.interacting.disconnect(computer.fix_pc.rpc)
 			computer.item_used.disconnect(player.clear_item.rpc)
 			computer.pc_fixed.disconnect(swap_interaction.rpc)
+		elif player.interacting.is_connected(computer.fix_missing_part.rpc):
+			player.interacting.disconnect(computer.fix_missing_part.rpc)
+			computer.item_used.disconnect(player.clear_item.rpc)
+			computer.pc_fixed.disconnect(swap_interaction.rpc)
 		else:
+			computer.stop_progress.rpc()
 			player.interacting.disconnect(computer.increase_progress.rpc)
 			player.stop_interacting.disconnect(computer.stop_progress.rpc)
 		
@@ -118,8 +129,8 @@ func _on_pc_work_concluded(pc_id: int) -> void:
 	Global.update_robot_stats(pc_id)
 
 func _on_timer_timeout() -> void:
-	$BossWarnings.send("Trabalhem pilantras")
-	await $BossWarnings.concluded
+	#$BossWarnings.send("Trabalhem pilantras")
+	#await $BossWarnings.concluded
 	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
 	robot_index+=1
 	
@@ -210,8 +221,7 @@ func _on_hazard_release() -> void:
 			become_dark.rpc()
 		else:
 			return_to_light.rpc()
-		
-
+			
 @rpc("any_peer", "call_local")
 func explode_random_pc() -> bool:
 	var local_computers := []

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=25 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://1bgp4wmb7bh7" path="res://scenes/deployer/deployer.tscn" id="14_ftsea"]
 [ext_resource type="PackedScene" uid="uid://4xnw1sko17cx" path="res://scenes/market/market.tscn" id="14_otnwt"]
 [ext_resource type="PackedScene" uid="uid://goci0fy1omcp" path="res://scenes/wall_light/wall_light.tscn" id="15_3xj4h"]
+[ext_resource type="Texture2D" uid="uid://mkfespwxcrnm" path="res://assets/sprites/office_pixel_art/desk-with-pc.png" id="15_8b66f"]
 [ext_resource type="Texture2D" uid="uid://calkw8w2mvhn" path="res://assets/sprites/own/pc_2_0002.png" id="15_gc57s"]
 [ext_resource type="Texture2D" uid="uid://bm5yx8xawkmbk" path="res://assets/sprites/own/pc_1_0002.png" id="17_8b66f"]
 [ext_resource type="PackedScene" uid="uid://bmjjt2lmp61ft" path="res://scenes/top_light/top_light.tscn" id="18_10c2w"]
@@ -115,6 +116,17 @@ pc_id = 4
 texture_on = ExtResource("17_8b66f")
 texture_off = ExtResource("11_5jirj")
 
+[node name="PC" parent="Computers" instance=ExtResource("3_0sr1o")]
+position = Vector2(300, 285)
+pc_id = 5
+time_for_conclude = 10
+texture_on = ExtResource("15_8b66f")
+texture_off = ExtResource("15_8b66f")
+broken = true
+missing_ram = true
+missing_gpu = true
+missing_hd = true
+
 [node name="ButtonNext" parent="." instance=ExtResource("13_uyinl")]
 position = Vector2(360, 80)
 
@@ -158,6 +170,9 @@ autostart = true
 [connection signal="player_entered_pc" from="Computers/PC_4" to="." method="_on_pc_player_entered_pc"]
 [connection signal="player_exited_pc" from="Computers/PC_4" to="." method="_on_pc_player_exited_pc"]
 [connection signal="work_concluded" from="Computers/PC_4" to="." method="_on_pc_work_concluded"]
+[connection signal="player_entered_pc" from="Computers/PC" to="." method="_on_pc_player_entered_pc"]
+[connection signal="player_exited_pc" from="Computers/PC" to="." method="_on_pc_player_exited_pc"]
+[connection signal="work_concluded" from="Computers/PC" to="." method="_on_pc_work_concluded"]
 [connection signal="button_has_been_pressed" from="ButtonNext" to="." method="_on_button_next_button_has_been_pressed"]
 [connection signal="player_entered_button_area" from="ButtonNext" to="." method="_on_button_next_player_entered_button_area"]
 [connection signal="player_exited_button_area" from="ButtonNext" to="." method="_on_button_next_player_exited_button_area"]
