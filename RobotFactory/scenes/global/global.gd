@@ -88,9 +88,11 @@ func update_players_money(value: int):
 	money = value
 	money_changed.emit()
 
+@rpc("any_peer", "call_local")
 func update_usb_stick_number(value: int):
 	usb_number_changed.emit()
 	usb_stick_number += value
+
 
 func check_robot_stats(robot1 : RobotStats, robot2: RobotStats):
 	if robot1.chaos == robot2.chaos and robot1.charisma == robot2.charisma and robot1.combat == robot2.combat and robot1.energy == robot2.energy and robot1.protection == robot2.protection and robot1.velocity == robot2.velocity:

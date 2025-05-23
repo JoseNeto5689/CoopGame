@@ -36,6 +36,7 @@ signal given_usb_stick(robot_stats: RobotStats)
 signal player_entered_heal_zone(dead_player_id: int, player_id: int)
 signal player_exited_heal_zone(dead_player_id: int, player_id: int)
 signal healing_player
+signal usb_stick_given
 
 #endregion
 
@@ -155,11 +156,17 @@ func interact_with_deployer(_item: String):
 		item.visible = false
 		pendrive_stats = RobotStats.new()
 	elif not has_item and Global.usb_stick_number > 0:
-		Global.update_usb_stick_number(-1)
-		has_item = true
-		item.texture = usb_stick_img
-		item.visible = true
-		pendrive_stats = Global.copy_robot_stats(Global.robot_status)
+		if multiplayer.is_server():
+			usb_stick_given.emit()
+
+@rpc("any_peer", "call_local")
+func finish_deployer_transfer():
+	if multiplayer.is_server():
+		Global.update_usb_stick_number.rpc(-1)
+	has_item = true
+	item.texture = usb_stick_img
+	item.visible = true
+	pendrive_stats = Global.copy_robot_stats(Global.robot_status)
 
 @rpc("any_peer", "call_local")
 func clear_item():

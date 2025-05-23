@@ -148,12 +148,15 @@ func _on_conveyor_belt_animation_started() -> void:
 func _on_player_enter_deployer_area(player_id: int) -> void:
 	var player = find_player_by_id(player_id)
 	player.interacting.connect(player.interact_with_deployer.rpc)
+	player.usb_stick_given.connect($Deployer.play_loading_data_animation.rpc)
+	$Deployer.finished.connect(player.finish_deployer_transfer.rpc)
 
 func _on_player_exit_deployer_area(player_id) -> void:
 	var player = find_player_by_id(player_id)
 	if player.interacting.is_connected(player.interact_with_deployer.rpc):
 		player.interacting.disconnect(player.interact_with_deployer.rpc)
-
+		player.usb_stick_given.disconnect($Deployer.play_loading_data_animation.rpc)
+	$Deployer.finished.disconnect(player.finish_deployer_transfer.rpc)
 
 func _on_enter_robot_area(body: Node2D) -> void:
 	var player = find_player_by_id(body.id)
@@ -215,12 +218,12 @@ func kill_players(list: Array):
 
 
 func _on_hazard_release() -> void:
-	return
-	if multiplayer.is_server():
-		if not is_dark:
-			become_dark.rpc()
-		else:
-			return_to_light.rpc()
+	pass
+	#if multiplayer.is_server():
+		#if not is_dark:
+			#become_dark.rpc()
+		#else:
+			#return_to_light.rpc()
 			
 @rpc("any_peer", "call_local")
 func explode_random_pc() -> bool:
@@ -259,5 +262,5 @@ func return_to_light() -> bool:
 		player.turn_off_lights()
 	$Lights.hide()
 	var tween = create_tween()
-	tween.tween_property($CanvasModulate, "color", Color(1,1,1), 3).finished
+	tween.tween_property($CanvasModulate, "color", Color(1,1,1), 3)
 	return true
