@@ -24,3 +24,10 @@ func play_loading_data_animation():
 	sprites.play("default")
 	if multiplayer.is_server():
 		finished.emit()
+
+@rpc("any_peer", "call_local")
+func check_usb_number():
+	if Global.usb_stick_number == 0:
+		$Balloon.show()
+	else:
+		$Balloon.hide()

@@ -116,6 +116,11 @@ func stop_progress():
 func reset():
 	working = false
 	concluded = false
+	
+@rpc("any_peer", "call_local")
+func reset_progress():
+	timer.stop()
+	change_progress(0)
 
 func animation_changed(status: bool):
 	is_animation_concluded = status

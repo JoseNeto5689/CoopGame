@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=26 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://bmjjt2lmp61ft" path="res://scenes/top_light/top_light.tscn" id="18_10c2w"]
 [ext_resource type="PackedScene" uid="uid://cybk1aahnf1jq" path="res://scenes/boss_warnings/boss_warnings.tscn" id="19_10c2w"]
 [ext_resource type="PackedScene" uid="uid://bojsyo4cu8qtk" path="res://scenes/game_timer/timer.tscn" id="20_pg2xm"]
+[ext_resource type="PackedScene" uid="uid://c03ixpu8dtpxf" path="res://scenes/status_television/status_television.tscn" id="22_8b66f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_10c2w"]
 size = Vector2(7, 16)
@@ -141,6 +142,9 @@ position = Vector2(447, 241)
 position = Vector2(-32, 204)
 walking_time = 7
 text_speed = 0.1
+
+[node name="StatusTelevision" parent="." instance=ExtResource("22_8b66f")]
+position = Vector2(437, 95)
 
 [node name="Players" type="Node" parent="."]
 

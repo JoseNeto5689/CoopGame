@@ -23,7 +23,7 @@ var dead = false
 
 var last_direction := Vector2.ZERO
 var buttons_pressed := []
-
+var can_move := true
 var spawn_position := Vector2.ZERO
 var id : int
 var player_name : String
@@ -104,7 +104,7 @@ func _ready() -> void:
 		camera.make_current()
 
 func _process(delta: float) -> void:
-	if not is_multiplayer_authority() or dead:
+	if not is_multiplayer_authority() or dead or not can_move:
 		return
 	var direction = get_direction()
 	set_animation(direction)
@@ -156,6 +156,7 @@ func interact_with_deployer(_item: String):
 		item.visible = false
 		pendrive_stats = RobotStats.new()
 	elif not has_item and Global.usb_stick_number > 0:
+		can_move = false
 		if multiplayer.is_server():
 			usb_stick_given.emit()
 
@@ -163,6 +164,7 @@ func interact_with_deployer(_item: String):
 func finish_deployer_transfer():
 	if multiplayer.is_server():
 		Global.update_usb_stick_number.rpc(-1)
+	can_move = true
 	has_item = true
 	item.texture = usb_stick_img
 	item.visible = true

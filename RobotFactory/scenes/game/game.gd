@@ -14,6 +14,7 @@ var is_dark := false
 	
 func _ready() -> void:
 	Global.usb_number_changed.connect(ui.update_pendrive.rpc)
+	Global.usb_number_changed.connect($Deployer.check_usb_number.rpc)
 	Global.money_changed.connect(ui.update_money.rpc)
 	
 	if multiplayer.is_server():
@@ -127,11 +128,13 @@ func _on_pc_work_concluded(pc_id: int) -> void:
 	if pc_id ==2:
 		computer.explode()
 	Global.update_robot_stats(pc_id)
+	$StatusTelevision.set_robot_progress(Global.robot_status)
 
 func _on_timer_timeout() -> void:
 	#$BossWarnings.send("Trabalhem pilantras")
 	#await $BossWarnings.concluded
 	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
+	$StatusTelevision.set_robot_status(Global.get_robot_stats(robot_index))
 	robot_index+=1
 	
 
@@ -172,6 +175,8 @@ func check_robot_in_conveyor_belt(robot_stats: RobotStats):
 	if Global.check_robot_stats(robot_stats, Global.get_robot_stats(robot_index - 1)):
 		$ConveyorBelt.robot_ok()
 		$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
+		$StatusTelevision.set_robot_progress(RobotStats.new())
+		$StatusTelevision.set_robot_status(Global.get_robot_stats(robot_index))
 		Global.update_money(+10)
 		robot_index+=1
 
@@ -193,9 +198,26 @@ func _on_market_item_buyed(item: String, player_id: int, value: int) -> void:
 	var player = find_player_by_id(player_id)
 	if Global.money >= value and not in_animation and not player.has_item:
 		Global.update_money(-value)
+		if item == "coffe":
+			increase_player_speed.rpc()
+			return
+		elif item == "wifi":
+			reduce_computer_time.rpc()
+			return
 		player.get_item(item)
 	return
 
+@rpc("any_peer", "call_local")
+func increase_player_speed():
+	for player in $Players.get_children():
+		player.SPEED += 20
+		
+@rpc("any_peer", "call_local")
+func reduce_computer_time():
+	for computer in $Computers.get_children():
+		computer.reset_progress()
+		computer.time_for_conclude -= 3
+		
 
 func _on_button_next_player_entered_button_area(player_id: int) -> void:
 	var player = find_player_by_id(player_id)

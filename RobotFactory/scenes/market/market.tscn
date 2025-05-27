@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://4xnw1sko17cx"]
+[gd_scene load_steps=33 format=3 uid="uid://4xnw1sko17cx"]
 
 [ext_resource type="Texture2D" uid="uid://b81w35lek466e" path="res://assets/sprites/npc/Male4.png" id="1_1or4p"]
 [ext_resource type="Script" uid="uid://b55rad5nu38ma" path="res://scenes/market/market.gd" id="1_cgn7w"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://r1fqepdqw8b4" path="res://assets/sprites/own/pc_parts/RAM.png" id="7_lsn5p"]
 [ext_resource type="Texture2D" uid="uid://3r7s2gqna6vx" path="res://assets/sprites/own/pc_parts/GPU.png" id="8_3krxk"]
 [ext_resource type="Texture2D" uid="uid://dfe7fhtbu38lf" path="res://assets/sprites/own/pc_parts/HD.png" id="9_uli35"]
+[ext_resource type="Texture2D" uid="uid://b5t0lfhv37rt8" path="res://assets/sprites/upgrades/BetterWifi.png" id="10_3krxk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uiuro"]
 atlas = ExtResource("1_1or4p")
@@ -130,6 +131,9 @@ size = Vector2(24, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j0f5q"]
 size = Vector2(22, 18)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lsn5p"]
+load_path = "res://.godot/imported/CoffeeMug.png-e7281aadfaa4086e56c81a27c99f4386.ctex"
 
 [node name="Market" type="Node2D"]
 script = ExtResource("1_cgn7w")
@@ -333,9 +337,75 @@ position = Vector2(-15, 0)
 position = Vector2(52, 39)
 shape = SubResource("RectangleShape2D_j0f5q")
 
+[node name="Coffe" type="Node2D" parent="."]
+position = Vector2(-59, 79)
+
+[node name="Coffe" type="Sprite2D" parent="Coffe"]
+texture_filter = 1
+position = Vector2(37, 39)
+texture = SubResource("CompressedTexture2D_lsn5p")
+
+[node name="Label" type="Label" parent="Coffe"]
+offset_left = 25.0
+offset_top = 44.0
+offset_right = 38.0
+offset_bottom = 61.0
+text = "5"
+label_settings = SubResource("LabelSettings_cgn7w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Coffe"]
+position = Vector2(42, 52)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_j0f5q")
+autoplay = "default"
+frame_progress = 0.954156
+
+[node name="Area2D" type="Area2D" parent="Coffe"]
+position = Vector2(-15, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Coffe/Area2D"]
+position = Vector2(52, 39)
+shape = SubResource("RectangleShape2D_j0f5q")
+
+[node name="Wifi" type="Node2D" parent="."]
+position = Vector2(-12, 79)
+
+[node name="Wifi" type="Sprite2D" parent="Wifi"]
+texture_filter = 1
+position = Vector2(37, 39)
+texture = ExtResource("10_3krxk")
+
+[node name="Label" type="Label" parent="Wifi"]
+offset_left = 25.0
+offset_top = 44.0
+offset_right = 38.0
+offset_bottom = 61.0
+text = "5"
+label_settings = SubResource("LabelSettings_cgn7w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Wifi"]
+position = Vector2(42, 52)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_j0f5q")
+autoplay = "default"
+frame_progress = 0.954156
+
+[node name="Area2D" type="Area2D" parent="Wifi"]
+position = Vector2(-15, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wifi/Area2D"]
+position = Vector2(52, 39)
+shape = SubResource("RectangleShape2D_j0f5q")
+
 [connection signal="body_entered" from="Pendrive/Area2D" to="." method="_on_buy_pendrive"]
 [connection signal="body_entered" from="ToolKit/Area2D" to="." method="_on_buy_toolkit"]
 [connection signal="body_entered" from="MedKit/Area2D" to="." method="_on_buy_medkit"]
 [connection signal="body_entered" from="Ram/Area2D" to="." method="_on_buy_ram"]
 [connection signal="body_entered" from="Gpu/Area2D" to="." method="_on_buy_gpu"]
 [connection signal="body_entered" from="HD/Area2D" to="." method="_on_buy_hd"]
+[connection signal="body_entered" from="Coffe/Area2D" to="." method="_on_buy_coffe"]
+[connection signal="body_entered" from="Wifi/Area2D" to="." method="_on_buy_wifi"]
