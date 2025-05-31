@@ -20,6 +20,12 @@ func _on_buy_ram(body: Node2D) -> void:
 func _on_buy_hd(body: Node2D) -> void:
 	call_deferred("buy_item", "hd", body.id, 5)
 	
+func _on_buy_ssd(body: Node2D) -> void:
+	call_deferred("buy_item", "ssd", body.id, 5)
+	
+func _on_buy_cpu(body: Node2D) -> void:
+	call_deferred("buy_item", "cpu", body.id, 5)
+	
 func _on_buy_coffe(body: Node2D) -> void:
 	call_deferred("buy_item", "coffe", body.id, 5)
 	

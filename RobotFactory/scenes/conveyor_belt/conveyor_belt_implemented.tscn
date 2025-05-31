@@ -5,7 +5,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_8pk2l"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -128, 64, 0, 0, 0, 0, 768, 64)
+"points": PackedVector2Array(0, 0, 0, 0, -330, 60, 0, 0, 0, 0, 1240, 60)
 }
 point_count = 2
 
@@ -99,14 +99,14 @@ _data = {
 &"stop": SubResource("Animation_1lnr2")
 }
 
-[node name="ConveyorBelt" type="Node"]
+[node name="ConveyorBelt" type="Node2D"]
 script = ExtResource("1_1lnr2")
 
 [node name="ConveyorBelt" parent="." instance=ExtResource("1_xyl1u")]
-position = Vector2(312, 72)
+position = Vector2(-139, -70)
 
 [node name="LineProduction" type="Path2D" parent="."]
-position = Vector2(0, -14)
+position = Vector2(-419, -72)
 curve = SubResource("Curve2D_8pk2l")
 
 [node name="Animation" type="AnimationPlayer" parent="."]

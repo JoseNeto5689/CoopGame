@@ -10,6 +10,8 @@ extends CharacterBody2D
 @export var ram_img : CompressedTexture2D
 @export var toolkit_img : CompressedTexture2D
 @export var med_kit_img : CompressedTexture2D
+@export var ssd_img : CompressedTexture2D
+@export var cpu_img : CompressedTexture2D
 
 @onready var sprites = $AnimatedSprite2D
 @onready var name_label = $PlayerName
@@ -136,6 +138,11 @@ func get_item(item_name : String):
 				item.texture = toolkit_img
 			"medkit":
 				item.texture = med_kit_img
+			"ssd":
+				item.texture = ssd_img
+			"cpu":
+				item.texture = cpu_img
+				
 		item.visible = true
 		current_item = item_name
 	
@@ -156,9 +163,11 @@ func interact_with_deployer(_item: String):
 		item.visible = false
 		pendrive_stats = RobotStats.new()
 	elif not has_item and Global.usb_stick_number > 0:
+		$AnimatedSprite2D.play("adam_idle_back")
+		buttons_pressed = []
+		last_direction = Vector2.ZERO
 		can_move = false
-		if multiplayer.is_server():
-			usb_stick_given.emit()
+		usb_stick_given.emit(id)
 
 @rpc("any_peer", "call_local")
 func finish_deployer_transfer():

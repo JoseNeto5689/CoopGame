@@ -9,21 +9,37 @@
 script = ExtResource("1_wx4rt")
 
 [node name="ConveyorBeltStart" parent="." instance=ExtResource("1_ysxht")]
-position = Vector2(-368, 0)
+position = Vector2(-546, 75)
 
 [node name="ConveyorBeltMiddle" parent="." instance=ExtResource("2_wx4rt")]
-position = Vector2(-288, 0)
+position = Vector2(-466, 75)
 
 [node name="ConveyorBeltMiddle2" parent="." instance=ExtResource("2_wx4rt")]
-position = Vector2(-144, 0)
+position = Vector2(-322, 75)
 
 [node name="ConveyorBeltMiddle3" parent="." instance=ExtResource("2_wx4rt")]
+position = Vector2(-178, 75)
 
 [node name="ConveyorBeltMiddle4" parent="." instance=ExtResource("2_wx4rt")]
-position = Vector2(144, 0)
+position = Vector2(-34, 75)
 
 [node name="ConveyorBeltMiddle5" parent="." instance=ExtResource("2_wx4rt")]
-position = Vector2(288, 0)
+position = Vector2(110, 75)
+
+[node name="ConveyorBeltMiddle6" parent="." instance=ExtResource("2_wx4rt")]
+position = Vector2(254, 75)
+
+[node name="ConveyorBeltMiddle7" parent="." instance=ExtResource("2_wx4rt")]
+position = Vector2(398, 75)
+
+[node name="ConveyorBeltMiddle8" parent="." instance=ExtResource("2_wx4rt")]
+position = Vector2(542, 75)
+
+[node name="ConveyorBeltMiddle9" parent="." instance=ExtResource("2_wx4rt")]
+position = Vector2(686, 75)
+
+[node name="ConveyorBeltMiddle10" parent="." instance=ExtResource("2_wx4rt")]
+position = Vector2(830, 75)
 
 [node name="ConveyorBeltEnd" parent="." instance=ExtResource("3_tyefu")]
-position = Vector2(368, 0)
+position = Vector2(910, 75)

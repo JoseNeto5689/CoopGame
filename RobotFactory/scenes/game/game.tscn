@@ -27,7 +27,7 @@
 size = Vector2(7, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vaxfo"]
-size = Vector2(610, 71)
+size = Vector2(1388, 71)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ftsea"]
 size = Vector2(32.9989, 13.7307)
@@ -40,7 +40,6 @@ position = Vector2(319, 193)
 zoom = Vector2(0.45, 0.45)
 
 [node name="Map" parent="." instance=ExtResource("1_3pj57")]
-metadata/_edit_lock_ = true
 
 [node name="BlockExit" type="StaticBody2D" parent="Map"]
 position = Vector2(6, 215)
@@ -73,17 +72,19 @@ position = Vector2(183, 297)
 position = Vector2(321, 217)
 
 [node name="ConveyorBelt" parent="." instance=ExtResource("13_vaxfo")]
+position = Vector2(656, 60)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="ConveyorBelt"]
+position = Vector2(-281, -60)
 collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ConveyorBelt/StaticBody2D"]
-position = Vector2(313, 35)
+position = Vector2(329, 35)
 shape = SubResource("RectangleShape2D_vaxfo")
 
 [node name="Area2D" type="Area2D" parent="ConveyorBelt"]
-position = Vector2(327.322, 77.6742)
+position = Vector2(46.322, 17.6742)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ConveyorBelt/Area2D"]
@@ -129,14 +130,14 @@ missing_gpu = true
 missing_hd = true
 
 [node name="ButtonNext" parent="." instance=ExtResource("13_uyinl")]
-position = Vector2(360, 80)
+position = Vector2(729, 80)
 
 [node name="Deployer" parent="." instance=ExtResource("14_ftsea")]
 texture_filter = 1
-position = Vector2(183, 150)
+position = Vector2(170, 488)
 
 [node name="Market" parent="." instance=ExtResource("14_otnwt")]
-position = Vector2(447, 241)
+position = Vector2(1099, 150)
 
 [node name="BossWarnings" parent="." instance=ExtResource("19_10c2w")]
 position = Vector2(-32, 204)
@@ -144,7 +145,7 @@ walking_time = 7
 text_speed = 0.1
 
 [node name="StatusTelevision" parent="." instance=ExtResource("22_8b66f")]
-position = Vector2(437, 95)
+position = Vector2(797, 60)
 
 [node name="Players" type="Node" parent="."]
 

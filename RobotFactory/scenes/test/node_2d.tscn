@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3drwefytyuqr"]
+
+[ext_resource type="Texture2D" uid="uid://b4hyg3tusa4e0" path="res://assets/sprites/light/2d_light.webp" id="1_0d5ir"]
+[ext_resource type="Texture2D" uid="uid://dnes3tnthdmqd" path="res://assets/sprites/droids/Droid03Attack.png" id="2_i04x1"]
+[ext_resource type="Texture2D" uid="uid://bk32h7cp8gj3u" path="res://assets/sprites/conveyers/conv/conveyer belt all-0001.png" id="3_ge8i8"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = ExtResource("1_0d5ir")
+texture_scale = 0.5
+
+[node name="Droid03Attack" type="Sprite2D" parent="."]
+position = Vector2(141, 120)
+texture = ExtResource("2_i04x1")
+
+[node name="ConveyerBeltAll-0001" type="Sprite2D" parent="."]
+position = Vector2(133, 45)
+texture = ExtResource("3_ge8i8")

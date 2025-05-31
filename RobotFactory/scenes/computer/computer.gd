@@ -29,6 +29,8 @@ var players_in_death_zone = []
 @export var missing_ram := false
 @export var missing_gpu := false
 @export var missing_hd := false
+@export var missing_cpu := false
+@export var missing_ssd := false
 
 @rpc("any_peer", "call_local")
 func fix_missing_part(part_name: String):
@@ -46,7 +48,15 @@ func fix_missing_part(part_name: String):
 			missing_hd = false
 			fixed = true
 			item_used.emit()
-	if fixed and not missing_gpu and not missing_hd and not missing_ram:
+		"cpu":
+			missing_cpu = false
+			fixed = true
+			item_used.emit()
+		"ssd":
+			missing_cpu = false
+			fixed = true
+			item_used.emit()
+	if fixed and not missing_gpu and not missing_hd and not missing_ram and not missing_cpu and not missing_ssd:
 		var tween = create_tween()
 		tween.tween_method(self.change_blink_intensity, 1.0, 0.0, 0.3)
 		await tween.finished
@@ -118,9 +128,11 @@ func reset():
 	concluded = false
 	
 @rpc("any_peer", "call_local")
-func reset_progress():
+func change_speed(new_speed: int):
 	timer.stop()
 	change_progress(0)
+	time_for_conclude = new_speed
+	timer.wait_time = new_speed
 
 func animation_changed(status: bool):
 	is_animation_concluded = status

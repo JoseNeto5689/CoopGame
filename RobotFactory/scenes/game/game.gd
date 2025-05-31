@@ -44,6 +44,7 @@ func _ready() -> void:
 		player.player_exited_heal_zone.connect(player_exited_heal_zone)
 	
 	animation_concluded.connect($ButtonNext.animation_changed)
+	$Deployer.finished.connect(_on_deployer_finished)
 	
 	if multiplayer.is_server():
 		Global.sync_robots()
@@ -149,17 +150,21 @@ func _on_conveyor_belt_animation_started() -> void:
 
 
 func _on_player_enter_deployer_area(player_id: int) -> void:
-	var player = find_player_by_id(player_id)
-	player.interacting.connect(player.interact_with_deployer.rpc)
-	player.usb_stick_given.connect($Deployer.play_loading_data_animation.rpc)
-	$Deployer.finished.connect(player.finish_deployer_transfer.rpc)
+	if multiplayer.get_unique_id() == player_id:
+		var player = find_player_by_id(player_id)
+		player.interacting.connect(player.interact_with_deployer.rpc)
+		player.usb_stick_given.connect($Deployer.play_loading_data_animation.rpc)
+
+func _on_deployer_finished(player_id):
+	if multiplayer.is_server():
+		var player = find_player_by_id(player_id)
+		player.finish_deployer_transfer.rpc()
 
 func _on_player_exit_deployer_area(player_id) -> void:
 	var player = find_player_by_id(player_id)
 	if player.interacting.is_connected(player.interact_with_deployer.rpc):
 		player.interacting.disconnect(player.interact_with_deployer.rpc)
 		player.usb_stick_given.disconnect($Deployer.play_loading_data_animation.rpc)
-	$Deployer.finished.disconnect(player.finish_deployer_transfer.rpc)
 
 func _on_enter_robot_area(body: Node2D) -> void:
 	var player = find_player_by_id(body.id)
@@ -215,8 +220,7 @@ func increase_player_speed():
 @rpc("any_peer", "call_local")
 func reduce_computer_time():
 	for computer in $Computers.get_children():
-		computer.reset_progress()
-		computer.time_for_conclude -= 3
+		computer.change_speed(2)
 		
 
 func _on_button_next_player_entered_button_area(player_id: int) -> void:

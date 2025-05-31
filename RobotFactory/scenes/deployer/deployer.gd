@@ -18,12 +18,12 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	sprites.play("default")
 
 @rpc("any_peer", "call_local")
-func play_loading_data_animation():
+func play_loading_data_animation(id):
 	sprites.play("loading_data")
 	await get_tree().create_timer(2.5).timeout
 	sprites.play("default")
-	if multiplayer.is_server():
-		finished.emit()
+	print(id)
+	finished.emit(id)
 
 @rpc("any_peer", "call_local")
 func check_usb_number():

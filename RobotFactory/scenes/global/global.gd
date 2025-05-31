@@ -65,6 +65,8 @@ func update_robot_stats(pc_id: int):
 		robot_status.velocity += 1
 	elif pc_id == 4:
 		robot_status.energy += 1
+	elif pc_id == 5:
+		robot_status.charisma += 1
 		
 
 func copy_robot_stats(robot_stats: RobotStats):
