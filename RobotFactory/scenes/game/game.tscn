@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=27 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://bmjjt2lmp61ft" path="res://scenes/top_light/top_light.tscn" id="18_10c2w"]
 [ext_resource type="PackedScene" uid="uid://cybk1aahnf1jq" path="res://scenes/boss_warnings/boss_warnings.tscn" id="19_10c2w"]
 [ext_resource type="PackedScene" uid="uid://bojsyo4cu8qtk" path="res://scenes/game_timer/timer.tscn" id="20_pg2xm"]
+[ext_resource type="PackedScene" uid="uid://yxjyufd0eebl" path="res://scenes/engineer/engineer.tscn" id="21_3jaai"]
 [ext_resource type="PackedScene" uid="uid://c03ixpu8dtpxf" path="res://scenes/status_television/status_television.tscn" id="22_8b66f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_10c2w"]
@@ -54,22 +55,25 @@ shape = SubResource("RectangleShape2D_10c2w")
 visible = false
 
 [node name="WallLight" parent="Lights" instance=ExtResource("15_3xj4h")]
-position = Vector2(327, 21)
+position = Vector2(702, 21)
 
 [node name="TopLight" parent="Lights" instance=ExtResource("18_10c2w")]
-position = Vector2(183, 150)
+position = Vector2(280, 280)
 
 [node name="TopLight2" parent="Lights" instance=ExtResource("18_10c2w")]
-position = Vector2(448, 150)
+position = Vector2(721, 281)
 
 [node name="TopLight3" parent="Lights" instance=ExtResource("18_10c2w")]
-position = Vector2(447, 297)
+position = Vector2(1185, 286)
 
 [node name="TopLight4" parent="Lights" instance=ExtResource("18_10c2w")]
-position = Vector2(183, 297)
+position = Vector2(281, 716)
 
 [node name="TopLight5" parent="Lights" instance=ExtResource("18_10c2w")]
-position = Vector2(321, 217)
+position = Vector2(722, 717)
+
+[node name="TopLight6" parent="Lights" instance=ExtResource("18_10c2w")]
+position = Vector2(1186, 722)
 
 [node name="ConveyorBelt" parent="." instance=ExtResource("13_vaxfo")]
 position = Vector2(656, 60)
@@ -91,18 +95,18 @@ collision_layer = 0
 position = Vector2(0.171021, 0)
 shape = SubResource("RectangleShape2D_ftsea")
 
+[node name="Players" type="Node" parent="."]
+
 [node name="Computers" type="Node2D" parent="."]
 
 [node name="PC_1" parent="Computers" instance=ExtResource("3_0sr1o")]
 position = Vector2(157, 254)
-time_for_conclude = 2
 texture_on = ExtResource("11_10c2w")
 texture_off = ExtResource("11_otnwt")
 
 [node name="PC_2" parent="Computers" instance=ExtResource("3_0sr1o")]
 position = Vector2(224, 256)
 pc_id = 2
-time_for_conclude = 2
 texture_on = ExtResource("13_pg2xm")
 texture_off = ExtResource("12_3xj4h")
 
@@ -134,7 +138,7 @@ position = Vector2(729, 80)
 
 [node name="Deployer" parent="." instance=ExtResource("14_ftsea")]
 texture_filter = 1
-position = Vector2(170, 488)
+position = Vector2(197, 136)
 
 [node name="Market" parent="." instance=ExtResource("14_otnwt")]
 position = Vector2(1099, 150)
@@ -147,7 +151,8 @@ text_speed = 0.1
 [node name="StatusTelevision" parent="." instance=ExtResource("22_8b66f")]
 position = Vector2(797, 60)
 
-[node name="Players" type="Node" parent="."]
+[node name="Engineer" parent="." instance=ExtResource("21_3jaai")]
+position = Vector2(475, 291)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 
@@ -184,5 +189,7 @@ autostart = true
 [connection signal="enter_deployer_area" from="Deployer" to="." method="_on_player_enter_deployer_area"]
 [connection signal="exit_deployer_area" from="Deployer" to="." method="_on_player_exit_deployer_area"]
 [connection signal="item_buyed" from="Market" to="." method="_on_market_item_buyed"]
+[connection signal="player_start_interact" from="Engineer" to="." method="_on_engineer_player_start_interact"]
+[connection signal="player_stop_interact" from="Engineer" to="." method="_on_engineer_player_stop_interact"]
 [connection signal="timeout" from="RobotDelay" to="." method="_on_timer_timeout"]
 [connection signal="hazard_time" from="GameTimer" to="." method="_on_hazard_release"]

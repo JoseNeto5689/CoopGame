@@ -116,7 +116,6 @@ func increase_progress(_item: String):
 	
 @rpc("any_peer", "call_local")
 func stop_progress():
-	#$PointLight2D.enabled = false
 	working = false
 	timer.paused = true
 	tween_turning_off = create_tween()
@@ -128,11 +127,13 @@ func reset():
 	concluded = false
 	
 @rpc("any_peer", "call_local")
-func change_speed(new_speed: int):
+func reduce_speed(speed: int):
+	var tween = create_tween()
+	tween.tween_method(self.change_blink_intensity, 1.0, 0.0, 0.3)
 	timer.stop()
 	change_progress(0)
-	time_for_conclude = new_speed
-	timer.wait_time = new_speed
+	time_for_conclude -= speed
+	timer.wait_time = time_for_conclude
 
 func animation_changed(status: bool):
 	is_animation_concluded = status

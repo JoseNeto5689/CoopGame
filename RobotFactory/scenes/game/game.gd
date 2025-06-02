@@ -220,7 +220,7 @@ func increase_player_speed():
 @rpc("any_peer", "call_local")
 func reduce_computer_time():
 	for computer in $Computers.get_children():
-		computer.change_speed(2)
+		computer.reduce_speed(1)
 		
 
 func _on_button_next_player_entered_button_area(player_id: int) -> void:
@@ -290,3 +290,33 @@ func return_to_light() -> bool:
 	var tween = create_tween()
 	tween.tween_property($CanvasModulate, "color", Color(1,1,1), 3)
 	return true
+
+
+func _on_engineer_player_start_interact(player_id: int, item: String) -> void:
+	var player = find_player_by_id(player_id)
+	if item == player.current_item:
+		player.interacting.connect(upgrade_random_pc_server.rpc)
+		player.interacting.connect(player.reset_item.rpc)
+		player.interacting.connect(reset_engineer.rpc)
+
+@rpc("any_peer", "call_remote")
+func upgrade_random_pc_server(_item):
+	if multiplayer.is_server():
+		var random_id = randi_range(1, 4)
+		upgrade_random_pc_local.rpc(random_id)
+
+@rpc("any_peer", "call_local")
+func upgrade_random_pc_local(id):
+	var computer = find_computer_by_id(id)
+	computer.reduce_speed(0.5)
+
+@rpc("any_peer", "call_local")
+func reset_engineer(_item):
+	$Engineer.change_item_needed("")
+
+func _on_engineer_player_stop_interact(player_id: int, item: String) -> void:
+	var player = find_player_by_id(player_id)
+	if player.interacting.is_connected(upgrade_random_pc_server.rpc):
+		player.interacting.disconnect(upgrade_random_pc_server.rpc)
+		player.interacting.disconnect(player.reset_item.rpc)
+		player.interacting.disconnect(reset_engineer.rpc)

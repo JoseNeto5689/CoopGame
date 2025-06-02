@@ -185,6 +185,12 @@ func clear_item():
 	has_item = false
 	item.visible = false
 	
+@rpc("any_peer", "call_local")
+func reset_item(_item):
+	current_item = ""
+	has_item = false
+	item.visible = false
+	
 func update_camera_limits(list: Array):
 	$PlayerCamera.limit_left = list[0]
 	$PlayerCamera.limit_top = list[1]
