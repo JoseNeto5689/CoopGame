@@ -163,6 +163,7 @@ one_shot = true
 autostart = true
 
 [node name="GameTimer" parent="." instance=ExtResource("20_pg2xm")]
+number_of_upgrades = 10
 
 [connection signal="animation_concluded" from="ConveyorBelt" to="." method="_on_conveyor_belt_animation_concluded"]
 [connection signal="animation_started" from="ConveyorBelt" to="." method="_on_conveyor_belt_animation_started"]
@@ -193,3 +194,4 @@ autostart = true
 [connection signal="player_stop_interact" from="Engineer" to="." method="_on_engineer_player_stop_interact"]
 [connection signal="timeout" from="RobotDelay" to="." method="_on_timer_timeout"]
 [connection signal="hazard_time" from="GameTimer" to="." method="_on_hazard_release"]
+[connection signal="upgrade_time" from="GameTimer" to="." method="_on_game_timer_upgrade_time"]

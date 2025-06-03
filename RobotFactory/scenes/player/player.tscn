@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://dyt3fsimfa1ds"]
+[gd_scene load_steps=71 format=3 uid="uid://dyt3fsimfa1ds"]
 
 [ext_resource type="Texture2D" uid="uid://bxn4imo72mrow" path="res://assets/sprites/characters_modern/Adam_idle_anim_16x16.png" id="1_r4f7e"]
 [ext_resource type="Script" uid="uid://bhohfmsi6m0p" path="res://scenes/player/player.gd" id="1_t82pu"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dk4obn7gwhqb1" path="res://assets/sprites/health_kit/MedKit.png" id="7_je7p5"]
 [ext_resource type="Texture2D" uid="uid://cb0y8n6h2o5kk" path="res://assets/sprites/own/pc_parts/CPU.png" id="9_gx1jg"]
 [ext_resource type="Texture2D" uid="uid://csxj8n8ik1ii7" path="res://assets/sprites/own/Dead.png" id="9_h17s1"]
+[ext_resource type="Texture2D" uid="uid://bptdwfwae0lxn" path="res://assets/sprites/own/GetItem.png" id="13_ugbui"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h17s1"]
 size = Vector2(24, 11)
@@ -405,6 +406,14 @@ animations = [{
 "loop": true,
 "name": &"dead",
 "speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_ugbui")
+}],
+"loop": true,
+"name": &"get_item",
+"speed": 5.0
 }]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_p47bc"]
@@ -460,7 +469,7 @@ shape = SubResource("RectangleShape2D_srqhr")
 light_mask = 4
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_5sp3m")
-animation = &"dead"
+animation = &"get_item"
 autoplay = "adam_idle_front"
 
 [node name="PlayerCamera" type="Camera2D" parent="."]

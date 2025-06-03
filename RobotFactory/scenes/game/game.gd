@@ -250,7 +250,15 @@ func _on_hazard_release() -> void:
 			#become_dark.rpc()
 		#else:
 			#return_to_light.rpc()
-			
+		
+
+func _on_game_timer_upgrade_time() -> void:
+	if multiplayer.is_server() and $Engineer.item_needed == "":
+		var parts := ["gpu", "hd", "ram", "ssd", "cpu"]
+		var part = parts.pick_random()
+		$Engineer.change_item_needed.rpc(part)
+
+
 @rpc("any_peer", "call_local")
 func explode_random_pc() -> bool:
 	var local_computers := []
@@ -316,6 +324,8 @@ func reset_engineer(_item):
 
 func _on_engineer_player_stop_interact(player_id: int, item: String) -> void:
 	var player = find_player_by_id(player_id)
+	print(player.current_item)
+	print(item)
 	if player.interacting.is_connected(upgrade_random_pc_server.rpc):
 		player.interacting.disconnect(upgrade_random_pc_server.rpc)
 		player.interacting.disconnect(player.reset_item.rpc)

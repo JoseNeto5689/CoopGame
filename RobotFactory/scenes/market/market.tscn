@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://4xnw1sko17cx"]
+[gd_scene load_steps=39 format=3 uid="uid://4xnw1sko17cx"]
 
 [ext_resource type="Texture2D" uid="uid://b81w35lek466e" path="res://assets/sprites/npc/Male4.png" id="1_1or4p"]
 [ext_resource type="Script" uid="uid://b55rad5nu38ma" path="res://scenes/market/market.gd" id="1_cgn7w"]
@@ -117,25 +117,37 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_apks8"]
-size = Vector2(23, 18)
+size = Vector2(9, 8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e5foy"]
-size = Vector2(24, 18)
+size = Vector2(10, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4q0km"]
-size = Vector2(22, 18)
+size = Vector2(12, 9)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j00fo"]
+size = Vector2(12, 9)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g5yo1"]
-size = Vector2(23, 18)
+size = Vector2(14, 4)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8mv45"]
-size = Vector2(24, 18)
+size = Vector2(11, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j0f5q"]
-size = Vector2(22, 18)
+size = Vector2(10, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hpbqe"]
+size = Vector2(11, 9)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lsn5p"]
 load_path = "res://.godot/imported/CoffeeMug.png-e7281aadfaa4086e56c81a27c99f4386.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ja3q5"]
+size = Vector2(10, 10.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pywlm"]
+size = Vector2(11, 6)
 
 [node name="Market" type="Node2D"]
 script = ExtResource("1_cgn7w")
@@ -155,7 +167,6 @@ position = Vector2(-64, 37)
 texture = ExtResource("2_uiuro")
 
 [node name="Label" type="Label" parent="Pendrive"]
-anchors_preset = -1
 offset_left = -77.0
 offset_top = 45.0
 offset_right = -64.0
@@ -178,7 +189,7 @@ position = Vector2(-21, 0)
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pendrive/Area2D"]
-position = Vector2(-44.6942, 40)
+position = Vector2(-43.5, 37)
 shape = SubResource("RectangleShape2D_apks8")
 
 [node name="ToolKit" type="Node2D" parent="."]
@@ -210,7 +221,7 @@ frame_progress = 0.954156
 position = Vector2(-18, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToolKit/Area2D"]
-position = Vector2(-7, 39)
+position = Vector2(-7, 37)
 shape = SubResource("RectangleShape2D_e5foy")
 
 [node name="MedKit" type="Node2D" parent="."]
@@ -241,7 +252,7 @@ frame_progress = 0.954156
 position = Vector2(-15, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MedKit/Area2D"]
-position = Vector2(27, 39)
+position = Vector2(27, 37.5)
 shape = SubResource("RectangleShape2D_4q0km")
 
 [node name="HD" type="Node2D" parent="."]
@@ -272,8 +283,8 @@ frame_progress = 0.954156
 position = Vector2(-15, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HD/Area2D"]
-position = Vector2(27, 39)
-shape = SubResource("RectangleShape2D_4q0km")
+position = Vector2(27, 36.5)
+shape = SubResource("RectangleShape2D_j00fo")
 
 [node name="Ram" type="Node2D" parent="."]
 position = Vector2(-52, 38)
@@ -305,7 +316,7 @@ position = Vector2(-21, 0)
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ram/Area2D"]
-position = Vector2(-19.6942, 40)
+position = Vector2(-19, 40)
 shape = SubResource("RectangleShape2D_g5yo1")
 
 [node name="Gpu" type="Node2D" parent="."]
@@ -337,7 +348,7 @@ frame_progress = 0.954156
 position = Vector2(-18, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Gpu/Area2D"]
-position = Vector2(18, 39)
+position = Vector2(18.5, 39.5)
 shape = SubResource("RectangleShape2D_8mv45")
 
 [node name="SSD" type="Node2D" parent="."]
@@ -369,7 +380,7 @@ frame_progress = 0.954156
 position = Vector2(-15, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SSD/Area2D"]
-position = Vector2(52, 39)
+position = Vector2(51.5, 39)
 shape = SubResource("RectangleShape2D_j0f5q")
 
 [node name="CPU" type="Node2D" parent="."]
@@ -401,8 +412,8 @@ frame_progress = 0.954156
 position = Vector2(-15, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CPU/Area2D"]
-position = Vector2(52, 39)
-shape = SubResource("RectangleShape2D_j0f5q")
+position = Vector2(52, 39.5)
+shape = SubResource("RectangleShape2D_hpbqe")
 
 [node name="Coffe" type="Node2D" parent="."]
 position = Vector2(-92, 80)
@@ -433,8 +444,8 @@ frame_progress = 0.954156
 position = Vector2(-15, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Coffe/Area2D"]
-position = Vector2(74, 34)
-shape = SubResource("RectangleShape2D_j0f5q")
+position = Vector2(73, 34.75)
+shape = SubResource("RectangleShape2D_ja3q5")
 
 [node name="Wifi" type="Node2D" parent="."]
 position = Vector2(-25, 79)
@@ -466,7 +477,7 @@ position = Vector2(-15, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wifi/Area2D"]
 position = Vector2(74, 34)
-shape = SubResource("RectangleShape2D_j0f5q")
+shape = SubResource("RectangleShape2D_pywlm")
 
 [connection signal="body_entered" from="Pendrive/Area2D" to="." method="_on_buy_pendrive"]
 [connection signal="body_entered" from="ToolKit/Area2D" to="." method="_on_buy_toolkit"]

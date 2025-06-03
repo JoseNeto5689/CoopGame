@@ -145,6 +145,13 @@ func get_item(item_name : String):
 				
 		item.visible = true
 		current_item = item_name
+		$AnimatedSprite2D.play("get_item")
+		can_move = false
+		await get_tree().create_timer(1).timeout
+		buttons_pressed = []
+		last_direction = Vector2.ZERO
+		$AnimatedSprite2D.play("adam_idle_front")
+		can_move = true
 	
 @rpc("any_peer", "call_local")
 func give_item(_item: String):
@@ -173,11 +180,14 @@ func interact_with_deployer(_item: String):
 func finish_deployer_transfer():
 	if multiplayer.is_server():
 		Global.update_usb_stick_number.rpc(-1)
-	can_move = true
+	$AnimatedSprite2D.play("get_item")
 	has_item = true
 	item.texture = usb_stick_img
 	item.visible = true
 	pendrive_stats = Global.copy_robot_stats(Global.robot_status)
+	await get_tree().create_timer(0.5).timeout
+	$AnimatedSprite2D.play("adam_idle_front")
+	can_move = true
 
 @rpc("any_peer", "call_local")
 func clear_item():
