@@ -37,7 +37,7 @@ size = Vector2(32.9989, 13.7307)
 script = ExtResource("1_7h61r")
 
 [node name="HostCamera" type="Camera2D" parent="."]
-position = Vector2(319, 193)
+position = Vector2(379, 272)
 zoom = Vector2(0.45, 0.45)
 
 [node name="Map" parent="." instance=ExtResource("1_3pj57")]
@@ -95,8 +95,6 @@ collision_layer = 0
 position = Vector2(0.171021, 0)
 shape = SubResource("RectangleShape2D_ftsea")
 
-[node name="Players" type="Node" parent="."]
-
 [node name="Computers" type="Node2D" parent="."]
 
 [node name="PC_1" parent="Computers" instance=ExtResource("3_0sr1o")]
@@ -133,6 +131,8 @@ missing_ram = true
 missing_gpu = true
 missing_hd = true
 
+[node name="Players" type="Node" parent="."]
+
 [node name="ButtonNext" parent="." instance=ExtResource("13_uyinl")]
 position = Vector2(729, 80)
 
@@ -141,7 +141,7 @@ texture_filter = 1
 position = Vector2(197, 136)
 
 [node name="Market" parent="." instance=ExtResource("14_otnwt")]
-position = Vector2(1099, 150)
+position = Vector2(522, 250)
 
 [node name="BossWarnings" parent="." instance=ExtResource("19_10c2w")]
 position = Vector2(-32, 204)
@@ -152,7 +152,7 @@ text_speed = 0.1
 position = Vector2(797, 60)
 
 [node name="Engineer" parent="." instance=ExtResource("21_3jaai")]
-position = Vector2(475, 291)
+position = Vector2(300, 216)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 

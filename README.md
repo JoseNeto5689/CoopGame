@@ -72,3 +72,7 @@ https://opengameart.org/content/top-down-basic-construction
 https://fightswithbears.itch.io/2d-health-and-ammo-pickups
 
 https://skalding.itch.io/coffee-cup-001
+
+https://opengameart.org/content/8-bitnes-explosion-sound-effecs
+
+https://mixkit.co/free-sound-effects/type/

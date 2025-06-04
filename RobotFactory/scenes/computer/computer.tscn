@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://tx64gjx52y3"]
+[gd_scene load_steps=24 format=3 uid="uid://tx64gjx52y3"]
 
 [ext_resource type="Script" uid="uid://wd31uttu17sr" path="res://scenes/computer/computer.gd" id="1_srgvo"]
 [ext_resource type="Material" uid="uid://nrk8667qynar" path="res://resources/computer_shader.tres" id="2_8it8f"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://djqygmt1j4djo" path="res://scenes/progress bar/progress_bar.tscn" id="4_8d7te"]
 [ext_resource type="Texture2D" uid="uid://c0nqpddj13sjt" path="res://assets/sprites/explosion/4.png" id="5_gh4r0"]
 [ext_resource type="Texture2D" uid="uid://dsrposf2qh061" path="res://assets/sprites/explosion/5.png" id="6_8it8f"]
+[ext_resource type="AudioStream" uid="uid://b86ek1hsjad28" path="res://assets/sounds/explosions/Explosion.wav" id="6_jrk3l"]
+[ext_resource type="AudioStream" uid="uid://dyh043soccky7" path="res://assets/sounds/typing/mixkit-slow-typing-on-a-keyboard-2532.wav" id="7_8xmrj"]
 [ext_resource type="Texture2D" uid="uid://dam65crfyia8h" path="res://assets/sprites/explosion/6.png" id="7_jrk3l"]
 [ext_resource type="Texture2D" uid="uid://dtatj7in5ksgr" path="res://assets/sprites/explosion/7.png" id="8_8xmrj"]
 [ext_resource type="Texture2D" uid="uid://ckf71yln7kfh2" path="res://assets/sprites/explosion/8.png" id="9_lmu87"]
@@ -133,6 +135,17 @@ visible = false
 position = Vector2(3.56697, 1.06692)
 occluder = SubResource("OccluderPolygon2D_twnhc")
 sdf_collision = false
+
+[node name="ExplosionSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_jrk3l")
+volume_db = -2.0
+
+[node name="TypingSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_8xmrj")
+volume_db = 2.0
+pitch_scale = 0.8
+
+[node name="PowerUpSound" type="AudioStreamPlayer2D" parent="."]
 
 [node name="Explosions" type="Node2D" parent="."]
 

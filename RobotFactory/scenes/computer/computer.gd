@@ -108,7 +108,7 @@ func increase_progress(_item: String):
 		if(get_percentage() == 0):
 			change_progress(0)
 		working = true
-		
+		$TypingSound.play()
 		if tween_turning_off:
 			tween_turning_off.kill()
 			
@@ -117,6 +117,7 @@ func increase_progress(_item: String):
 @rpc("any_peer", "call_local")
 func stop_progress():
 	working = false
+	$TypingSound.stop()
 	timer.paused = true
 	tween_turning_off = create_tween()
 	tween_turning_off.tween_property(pc_sprite, "texture", texture_off, 0.2)
@@ -160,6 +161,7 @@ func explode():
 	for explosion:AnimatedSprite2D in explosions:
 		explosion.show()
 		explosion.play("boom")
+		$ExplosionSound.play()
 		explosion.animation_finished.connect(func() :
 			explosion.hide()
 		)
