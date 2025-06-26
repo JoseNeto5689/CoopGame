@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwkrysajdoi78"]
+
+[ext_resource type="Script" uid="uid://bm5gxxwfixpsy" path="res://scenes/global/api.gd" id="1_3my6v"]
+
+[node name="API Calls" type="Node2D"]
+script = ExtResource("1_3my6v")

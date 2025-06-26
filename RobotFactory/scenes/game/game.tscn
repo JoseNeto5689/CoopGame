@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=29 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
@@ -22,7 +22,9 @@
 [ext_resource type="PackedScene" uid="uid://cybk1aahnf1jq" path="res://scenes/boss_warnings/boss_warnings.tscn" id="19_10c2w"]
 [ext_resource type="PackedScene" uid="uid://bojsyo4cu8qtk" path="res://scenes/game_timer/timer.tscn" id="20_pg2xm"]
 [ext_resource type="PackedScene" uid="uid://yxjyufd0eebl" path="res://scenes/engineer/engineer.tscn" id="21_3jaai"]
+[ext_resource type="PackedScene" uid="uid://oyo2vtegcgjw" path="res://scenes/trash/trash.tscn" id="22_1iff4"]
 [ext_resource type="PackedScene" uid="uid://c03ixpu8dtpxf" path="res://scenes/status_television/status_television.tscn" id="22_8b66f"]
+[ext_resource type="AudioStream" uid="uid://c3yr2n7maaol2" path="res://assets/sounds/ambience/funky-tic-80-loop.wav" id="25_4vuph"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_10c2w"]
 size = Vector2(7, 16)
@@ -154,6 +156,15 @@ position = Vector2(797, 60)
 [node name="Engineer" parent="." instance=ExtResource("21_3jaai")]
 position = Vector2(300, 216)
 
+[node name="Trash" parent="." instance=ExtResource("22_1iff4")]
+position = Vector2(81, 293)
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("25_4vuph")
+volume_db = -7.0
+autoplay = true
+panning_strength = 0.0
+
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 
 [node name="UI" parent="." instance=ExtResource("4_kelw5")]
@@ -192,6 +203,8 @@ number_of_upgrades = 10
 [connection signal="item_buyed" from="Market" to="." method="_on_market_item_buyed"]
 [connection signal="player_start_interact" from="Engineer" to="." method="_on_engineer_player_start_interact"]
 [connection signal="player_stop_interact" from="Engineer" to="." method="_on_engineer_player_stop_interact"]
+[connection signal="trash_entered" from="Trash" to="." method="_on_trash_trash_entered"]
+[connection signal="trash_exited" from="Trash" to="." method="_on_trash_trash_exited"]
 [connection signal="timeout" from="RobotDelay" to="." method="_on_timer_timeout"]
 [connection signal="hazard_time" from="GameTimer" to="." method="_on_hazard_release"]
 [connection signal="upgrade_time" from="GameTimer" to="." method="_on_game_timer_upgrade_time"]

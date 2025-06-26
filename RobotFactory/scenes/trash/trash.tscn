@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://oyo2vtegcgjw"]
+
+[ext_resource type="Texture2D" uid="uid://68y2pse44783" path="res://assets/sprites/office_pixel_art/Trash.png" id="1_e4k28"]
+[ext_resource type="Script" uid="uid://bihn0rfaffl86" path="res://scenes/trash/trash.gd" id="1_ymemc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ymemc"]
+size = Vector2(7, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e4k28"]
+size = Vector2(11, 8)
+
+[node name="Trash" type="Node2D"]
+script = ExtResource("1_ymemc")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_e4k28")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-0.5, -2)
+shape = SubResource("RectangleShape2D_ymemc")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_e4k28")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

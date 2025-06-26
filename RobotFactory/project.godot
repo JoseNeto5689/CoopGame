@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 [autoload]
 
 Global="*res://scenes/global/global.gd"
+API="*res://scenes/global/api.gd"
 
 [display]
 

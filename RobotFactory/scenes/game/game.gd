@@ -16,10 +16,10 @@ func _ready() -> void:
 	Global.usb_number_changed.connect(ui.update_pendrive.rpc)
 	Global.usb_number_changed.connect($Deployer.check_usb_number.rpc)
 	Global.money_changed.connect(ui.update_money.rpc)
-	
 	if multiplayer.is_server():
 		ui.hide_hud()
-	
+		
+	API.send_log(Log.new(1, "Ola"))
 	var player_preloaded = preload("res://scenes/player/player.tscn")
 	var spawn_points: Array = map.get_spawn_points()
 	var limits = map.get_map_limits()
@@ -204,10 +204,12 @@ func _on_market_item_buyed(item: String, player_id: int, value: int) -> void:
 	if Global.money >= value and not in_animation and not player.has_item:
 		Global.update_money(-value)
 		if item == "coffe":
+			player.show_item_purchased.rpc("coffe")
 			increase_player_speed.rpc()
 			return
 		elif item == "wifi":
-			reduce_computer_time.rpc()
+			player.show_item_purchased.rpc("wifi")
+			reduce_computer_time()
 			return
 		player.get_item(item)
 	return
@@ -230,6 +232,8 @@ func _on_button_next_player_entered_button_area(player_id: int) -> void:
 
 func _on_button_next_button_has_been_pressed() -> void:
 	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
+	$StatusTelevision.set_robot_progress(RobotStats.new())
+	$StatusTelevision.set_robot_status(Global.get_robot_stats(robot_index))
 	robot_index+=1
 
 
@@ -330,3 +334,13 @@ func _on_engineer_player_stop_interact(player_id: int, item: String) -> void:
 		player.interacting.disconnect(upgrade_random_pc_server.rpc)
 		player.interacting.disconnect(player.reset_item.rpc)
 		player.interacting.disconnect(reset_engineer.rpc)
+
+
+func _on_trash_trash_entered(player_id: int) -> void:
+	var player = find_player_by_id(player_id)
+	player.interacting.connect(player.reset_item.rpc)
+
+
+func _on_trash_trash_exited(player_id: int) -> void:
+	var player = find_player_by_id(player_id)
+	player.interacting.disconnect(player.reset_item.rpc)

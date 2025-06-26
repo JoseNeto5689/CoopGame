@@ -99,6 +99,13 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 
 func _on_timer_timeout() -> void:
 	concluded = true
+	var tween = create_tween()
+	tween.tween_method(self.change_blink_intensity, 1.0, 0.0, 0.3)
+	$ConcludedSound.play()
+	await tween.finished
+	reset()
+	change_progress(0)
+	stop_progress()
 	work_concluded.emit(pc_id)
 
 @rpc("any_peer", "call_local")
@@ -131,6 +138,7 @@ func reset():
 func reduce_speed(speed: int):
 	var tween = create_tween()
 	tween.tween_method(self.change_blink_intensity, 1.0, 0.0, 0.3)
+	$PowerUpSound.play()
 	timer.stop()
 	change_progress(0)
 	time_for_conclude -= speed
@@ -148,6 +156,7 @@ func fix_pc(_item: String):
 		item_used.emit()
 		var tween = create_tween()
 		tween.tween_method(self.change_blink_intensity, 1.0, 0.0, 0.3)
+		$PowerUpSound.play()
 		await tween.finished
 		broken = false
 		pc_fixed.emit(players_interacting, pc_id)

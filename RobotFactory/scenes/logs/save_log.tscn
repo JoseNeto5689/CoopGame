@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ufqvatuhglqp"]
+
+[ext_resource type="Script" uid="uid://cc4k2lso462d4" path="res://scenes/logs/save_data.gd" id="1_0e8jv"]
+
+[node name="SaveLog" type="Node"]
+script = ExtResource("1_0e8jv")

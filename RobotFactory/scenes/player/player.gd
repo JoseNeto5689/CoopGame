@@ -13,6 +13,9 @@ extends CharacterBody2D
 @export var ssd_img : CompressedTexture2D
 @export var cpu_img : CompressedTexture2D
 
+@export var coffe_img : CompressedTexture2D
+@export var wifi_img : CompressedTexture2D
+
 @onready var sprites = $AnimatedSprite2D
 @onready var name_label = $PlayerName
 @onready var camera = $PlayerCamera
@@ -68,6 +71,7 @@ func get_direction() -> Vector2:
 
 func set_animation(direction: Vector2) -> void: 
 	if(direction == Vector2.ZERO): 
+		$AudioStreamPlayer2D.stop()
 		if(last_direction == Vector2(0,1)):
 			sprites.play("adam_idle_front")
 		if(last_direction == Vector2(0,-1)):
@@ -78,6 +82,8 @@ func set_animation(direction: Vector2) -> void:
 			sprites.play("adam_idle_left")
 	else:
 		last_direction = direction
+		if not $AudioStreamPlayer2D.playing:
+			$AudioStreamPlayer2D.play()
 	if(direction == Vector2(0,1)):
 		sprites.play("adam_running_front")
 	if(direction == Vector2(0,-1)):
@@ -147,12 +153,28 @@ func get_item(item_name : String):
 		current_item = item_name
 		$AnimatedSprite2D.play("get_item")
 		can_move = false
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(0.5).timeout
 		buttons_pressed = []
 		last_direction = Vector2.ZERO
 		$AnimatedSprite2D.play("adam_idle_front")
 		can_move = true
 	
+@rpc("any_peer", "call_local")
+func show_item_purchased(item: String):
+	if item == "coffe":
+		$Item.texture = coffe_img
+	if item == "wifi":
+		$Item.texture = wifi_img
+	$Item.show()
+	$AnimatedSprite2D.play("get_item")
+	can_move = false
+	await get_tree().create_timer(0.5).timeout
+	buttons_pressed = []
+	last_direction = Vector2.ZERO
+	$AnimatedSprite2D.play("adam_idle_front")
+	$Item.hide()
+	can_move = true
+
 @rpc("any_peer", "call_local")
 func give_item(_item: String):
 	if has_item and animation_concluded:

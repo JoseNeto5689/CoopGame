@@ -76,3 +76,9 @@ https://skalding.itch.io/coffee-cup-001
 https://opengameart.org/content/8-bitnes-explosion-sound-effecs
 
 https://mixkit.co/free-sound-effects/type/
+
+https://yourpalrob.itch.io/must-have-horror-sound-effects
+
+https://opengameart.org/content/pressure-0
+
+https://marceles.itch.io/land-of-pixels-laboratory-tileset-pixel-art
