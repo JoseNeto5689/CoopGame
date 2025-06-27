@@ -199,18 +199,21 @@ func find_computer_by_id(id: int) -> Node2D:
 	return null
 
 
-func _on_market_item_buyed(item: String, player_id: int, value: int) -> void:
+func _on_market_item_buyed(item: String, player_id: int, value: int, hide_self: Callable) -> void:
 	var player = find_player_by_id(player_id)
 	if Global.money >= value and not in_animation and not player.has_item:
 		Global.update_money(-value)
 		if item == "coffe":
+			hide_self.call()
 			player.show_item_purchased.rpc("coffe")
 			increase_player_speed.rpc()
 			return
 		elif item == "wifi":
+			hide_self.call()
 			player.show_item_purchased.rpc("wifi")
 			reduce_computer_time()
 			return
+		hide_self.call()
 		player.get_item(item)
 	return
 
