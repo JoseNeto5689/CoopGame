@@ -54,7 +54,6 @@ position = Vector2(6.5, 1)
 shape = SubResource("RectangleShape2D_10c2w")
 
 [node name="Lights" type="Node2D" parent="."]
-visible = false
 
 [node name="WallLight" parent="Lights" instance=ExtResource("15_3xj4h")]
 position = Vector2(702, 21)
@@ -166,6 +165,7 @@ autoplay = true
 panning_strength = 0.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0.167778, 0.215408, 1)
 
 [node name="UI" parent="." instance=ExtResource("4_kelw5")]
 
