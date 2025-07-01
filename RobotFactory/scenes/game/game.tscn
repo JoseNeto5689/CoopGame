@@ -1,7 +1,8 @@
-[gd_scene load_steps=29 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=31 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
+[ext_resource type="Script" uid="uid://dxlnr8luyadpr" path="res://scenes/game/host_camera.gd" id="2_wdnak"]
 [ext_resource type="PackedScene" uid="uid://tx64gjx52y3" path="res://scenes/computer/computer.tscn" id="3_0sr1o"]
 [ext_resource type="PackedScene" uid="uid://daf1bd8e1vvlx" path="res://scenes/UI/ui.tscn" id="4_kelw5"]
 [ext_resource type="Texture2D" uid="uid://k02jbmi3ud0a" path="res://assets/sprites/own/pc_1_0001.png" id="11_5jirj"]
@@ -25,6 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://oyo2vtegcgjw" path="res://scenes/trash/trash.tscn" id="22_1iff4"]
 [ext_resource type="PackedScene" uid="uid://c03ixpu8dtpxf" path="res://scenes/status_television/status_television.tscn" id="22_8b66f"]
 [ext_resource type="AudioStream" uid="uid://c3yr2n7maaol2" path="res://assets/sounds/ambience/funky-tic-80-loop.wav" id="25_4vuph"]
+[ext_resource type="Script" uid="uid://rf2o02nkaag5" path="res://libs/addons/html5_popups/HTML5AcceptDialog.gd" id="27_h48ew"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_10c2w"]
 size = Vector2(7, 16)
@@ -40,7 +42,7 @@ script = ExtResource("1_7h61r")
 
 [node name="HostCamera" type="Camera2D" parent="."]
 position = Vector2(379, 272)
-zoom = Vector2(0.45, 0.45)
+script = ExtResource("2_wdnak")
 
 [node name="Map" parent="." instance=ExtResource("1_3pj57")]
 
@@ -54,6 +56,7 @@ position = Vector2(6.5, 1)
 shape = SubResource("RectangleShape2D_10c2w")
 
 [node name="Lights" type="Node2D" parent="."]
+visible = false
 
 [node name="WallLight" parent="Lights" instance=ExtResource("15_3xj4h")]
 position = Vector2(702, 21)
@@ -99,30 +102,30 @@ shape = SubResource("RectangleShape2D_ftsea")
 [node name="Computers" type="Node2D" parent="."]
 
 [node name="PC_1" parent="Computers" instance=ExtResource("3_0sr1o")]
-position = Vector2(157, 254)
+position = Vector2(59, 243)
 texture_on = ExtResource("11_10c2w")
 texture_off = ExtResource("11_otnwt")
 
 [node name="PC_2" parent="Computers" instance=ExtResource("3_0sr1o")]
-position = Vector2(224, 256)
+position = Vector2(1106, 215)
 pc_id = 2
 texture_on = ExtResource("13_pg2xm")
 texture_off = ExtResource("12_3xj4h")
 
 [node name="PC_3" parent="Computers" instance=ExtResource("3_0sr1o")]
-position = Vector2(157, 320)
+position = Vector2(296, 486)
 pc_id = 3
 texture_on = ExtResource("15_gc57s")
 texture_off = ExtResource("12_vaxfo")
 
 [node name="PC_4" parent="Computers" instance=ExtResource("3_0sr1o")]
-position = Vector2(224, 320)
+position = Vector2(1323, 506)
 pc_id = 4
 texture_on = ExtResource("17_8b66f")
 texture_off = ExtResource("11_5jirj")
 
 [node name="PC" parent="Computers" instance=ExtResource("3_0sr1o")]
-position = Vector2(300, 285)
+position = Vector2(89, 967)
 pc_id = 5
 time_for_conclude = 10
 texture_on = ExtResource("15_8b66f")
@@ -139,13 +142,13 @@ position = Vector2(729, 80)
 
 [node name="Deployer" parent="." instance=ExtResource("14_ftsea")]
 texture_filter = 1
-position = Vector2(197, 136)
+position = Vector2(1110, 685)
 
 [node name="Market" parent="." instance=ExtResource("14_otnwt")]
-position = Vector2(522, 250)
+position = Vector2(1099, 831)
 
 [node name="BossWarnings" parent="." instance=ExtResource("19_10c2w")]
-position = Vector2(-32, 204)
+position = Vector2(-21, 94)
 walking_time = 7
 text_speed = 0.1
 
@@ -153,10 +156,10 @@ text_speed = 0.1
 position = Vector2(797, 60)
 
 [node name="Engineer" parent="." instance=ExtResource("21_3jaai")]
-position = Vector2(300, 216)
+position = Vector2(427, 887)
 
 [node name="Trash" parent="." instance=ExtResource("22_1iff4")]
-position = Vector2(81, 293)
+position = Vector2(852, 807)
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("25_4vuph")
@@ -165,6 +168,7 @@ autoplay = true
 panning_strength = 0.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
 color = Color(0, 0.167778, 0.215408, 1)
 
 [node name="UI" parent="." instance=ExtResource("4_kelw5")]
@@ -175,6 +179,11 @@ autostart = true
 
 [node name="GameTimer" parent="." instance=ExtResource("20_pg2xm")]
 number_of_upgrades = 10
+
+[node name="PlayerDisconnected" type="Node" parent="."]
+script = ExtResource("27_h48ew")
+dialog_text = "Um jogador foi desconectado, cancelando partida."
+metadata/_custom_type_script = "uid://rf2o02nkaag5"
 
 [connection signal="animation_concluded" from="ConveyorBelt" to="." method="_on_conveyor_belt_animation_concluded"]
 [connection signal="animation_started" from="ConveyorBelt" to="." method="_on_conveyor_belt_animation_started"]

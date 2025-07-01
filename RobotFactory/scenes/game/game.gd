@@ -11,15 +11,26 @@ var robot_index = 0
 
 var in_animation = true
 var is_dark := false
+
+var menu := preload("res://scenes/menu/menu.tscn")
+
+@rpc("any_peer", "call_local")
+func _cancel_game(_id):
+	call_deferred("change_to_menu")
+	
+func change_to_menu():
+	get_tree().change_scene_to_packed(menu)
 	
 func _ready() -> void:
+	multiplayer.peer_disconnected.connect(_cancel_game.rpc)
+	
 	Global.usb_number_changed.connect(ui.update_pendrive.rpc)
 	Global.usb_number_changed.connect($Deployer.check_usb_number.rpc)
 	Global.money_changed.connect(ui.update_money.rpc)
 	if multiplayer.is_server():
 		ui.hide_hud()
 		
-	API.send_log(Log.new(1, "Ola"))
+	#API.send_log(Log.new(1, "Ola"))
 	var player_preloaded = preload("res://scenes/player/player.tscn")
 	var spawn_points: Array = map.get_spawn_points()
 	var limits = map.get_map_limits()

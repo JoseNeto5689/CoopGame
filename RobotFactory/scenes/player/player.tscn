@@ -428,16 +428,16 @@ polygon = PackedVector2Array(-6, -8, -4, -10, 3.75106, -10, 5, -9, 6, -8, 7, -6,
 [sub_resource type="LabelSettings" id="LabelSettings_gmlin"]
 font_size = 5
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_gmlin"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_je7p5"]
+size = Vector2(30, 21)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kvlxm"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
 properties/0/replication_mode = 1
 properties/1/path = NodePath("AnimatedSprite2D:animation")
 properties/1/spawn = true
 properties/1/replication_mode = 1
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_je7p5"]
-size = Vector2(30, 21)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
@@ -492,10 +492,12 @@ material = SubResource("CanvasItemMaterial_p47bc")
 position = Vector2(0, -22)
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
 occluder = SubResource("OccluderPolygon2D_lvxji")
 occluder_light_mask = 2
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
+visible = false
 visibility_layer = 2
 position = Vector2(1.19209e-07, 0.999999)
 scale = Vector2(0.2, 0.2)
@@ -514,9 +516,6 @@ label_settings = SubResource("LabelSettings_gmlin")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_gmlin")
-
 [node name="HealZone" type="Area2D" parent="."]
 collision_layer = 8
 
@@ -531,6 +530,9 @@ pitch_scale = 0.9
 
 [node name="AudioListener2D" type="AudioListener2D" parent="."]
 current = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_kvlxm")
 
 [connection signal="body_entered" from="HealZone" to="." method="_on_heal_zone_body_entered"]
 [connection signal="body_exited" from="HealZone" to="." method="_on_heal_zone_body_exited"]

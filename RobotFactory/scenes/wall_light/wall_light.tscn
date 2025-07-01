@@ -6,8 +6,8 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_5xujc"]
 noise_type = 4
-seed = 1
-frequency = 0.7
+seed = 2
+frequency = 0.8
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3lot7"]
 noise = SubResource("FastNoiseLite_5xujc")

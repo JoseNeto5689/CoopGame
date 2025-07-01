@@ -82,3 +82,5 @@ https://yourpalrob.itch.io/must-have-horror-sound-effects
 https://opengameart.org/content/pressure-0
 
 https://marceles.itch.io/land-of-pixels-laboratory-tileset-pixel-art
+
+https://pixelfranek.itch.io/free-textures-of-light
