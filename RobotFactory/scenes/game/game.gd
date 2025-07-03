@@ -8,18 +8,10 @@ extends Node
 signal animation_concluded(status: bool)
 
 var robot_index = 0
-
 var in_animation = true
 var is_dark := false
-
 var menu := preload("res://scenes/menu/menu.tscn")
-
-@rpc("any_peer", "call_local")
-func _cancel_game(_id):
-	call_deferred("change_to_menu")
-	
-func change_to_menu():
-	get_tree().change_scene_to_packed(menu)
+var thread := Thread.new()
 	
 func _ready() -> void:
 	multiplayer.peer_disconnected.connect(_cancel_game.rpc)
@@ -30,7 +22,7 @@ func _ready() -> void:
 	if multiplayer.is_server():
 		ui.hide_hud()
 		
-	#API.send_log(Log.new(1, "Ola"))
+	call_deferred("send_log", Log.new(1, "Ola"))
 	var player_preloaded = preload("res://scenes/player/player.tscn")
 	var spawn_points: Array = map.get_spawn_points()
 	var limits = map.get_map_limits()
@@ -358,3 +350,14 @@ func _on_trash_trash_entered(player_id: int) -> void:
 func _on_trash_trash_exited(player_id: int) -> void:
 	var player = find_player_by_id(player_id)
 	player.interacting.disconnect(player.reset_item.rpc)
+
+
+func send_log(log: Log):
+	API.send_log(log)
+	
+@rpc("any_peer", "call_local")
+func _cancel_game(_id):
+	call_deferred("change_to_menu")
+	
+func change_to_menu():
+	get_tree().change_scene_to_packed(menu)

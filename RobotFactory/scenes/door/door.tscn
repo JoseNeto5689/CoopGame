@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://ccpv55u352ff3"]
+
+[ext_resource type="Texture2D" uid="uid://c75x2q2y83do7" path="res://assets/sprites/own/Door.png" id="1_bu3y2"]
+[ext_resource type="Script" uid="uid://cva54d8h3r4yd" path="res://scenes/door/door.gd" id="1_odsy8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iwle0"]
+size = Vector2(117.69, 50.2415)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_odsy8"]
+size = Vector2(9.5, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u3mo4"]
+size = Vector2(9.5, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bsixq"]
+size = Vector2(3, 41.0805)
+
+[node name="Door" type="Node2D"]
+script = ExtResource("1_odsy8")
+
+[node name="DangerZone" type="Area2D" parent="."]
+position = Vector2(0, 23.634)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DangerZone"]
+position = Vector2(0.0112629, 1.15679)
+shape = SubResource("RectangleShape2D_iwle0")
+
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="Pivot"]
+texture_filter = 1
+position = Vector2(0, 24)
+texture = ExtResource("1_bu3y2")
+
+[node name="Front" type="Area2D" parent="Pivot"]
+position = Vector2(-0.152557, 23.6343)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Front"]
+position = Vector2(6, 1)
+shape = SubResource("RectangleShape2D_odsy8")
+
+[node name="Back" type="Area2D" parent="Pivot"]
+position = Vector2(-0.152557, 23.6343)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Back"]
+position = Vector2(-6, 1)
+shape = SubResource("RectangleShape2D_u3mo4")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Pivot"]
+position = Vector2(-0.152557, 23.6343)
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/StaticBody2D"]
+position = Vector2(0, 3.45973)
+shape = SubResource("RectangleShape2D_bsixq")
+
+[connection signal="body_entered" from="DangerZone" to="." method="_on_danger_zone_body_entered"]
+[connection signal="body_exited" from="DangerZone" to="." method="_on_danger_zone_body_exited"]
+[connection signal="body_entered" from="Pivot/Front" to="." method="_on_front_body_entered"]
+[connection signal="body_exited" from="Pivot/Front" to="." method="_on_front_body_exited"]
+[connection signal="body_entered" from="Pivot/Back" to="." method="_on_back_body_entered"]
+[connection signal="body_exited" from="Pivot/Back" to="." method="_on_back_body_exited"]

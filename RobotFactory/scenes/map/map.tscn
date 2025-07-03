@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://b3g051f07h7dq"]
+[gd_scene load_steps=8 format=4 uid="uid://b3g051f07h7dq"]
 
 [ext_resource type="Script" uid="uid://qd1grei0ih1l" path="res://scenes/map/map.gd" id="1_fcby6"]
 [ext_resource type="Texture2D" uid="uid://b5tltdqyxx5sc" path="res://assets/sprites/interiors/Room_Builder_free_16x16.png" id="1_ph54e"]
 [ext_resource type="TileSet" uid="uid://ch2bykv2x25nm" path="res://assets/tilemaps/terrain.tres" id="1_sxf4j"]
 [ext_resource type="TileSet" uid="uid://dmom3audbhgxe" path="res://assets/tilemaps/walls.tres" id="2_tqkkf"]
+[ext_resource type="PackedScene" uid="uid://ccpv55u352ff3" path="res://scenes/door/door.tscn" id="5_fcby6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fcby6"]
 resource_name = "Room Builder"
@@ -284,3 +285,23 @@ position = Vector2(281, 686)
 
 [node name="Spawn 4" type="Marker2D" parent="SpawnPoints"]
 position = Vector2(352, 684)
+
+[node name="Doors" type="Node" parent="."]
+
+[node name="Door" parent="Doors" instance=ExtResource("5_fcby6")]
+position = Vector2(612, 256)
+
+[node name="Door2" parent="Doors" instance=ExtResource("5_fcby6")]
+position = Vector2(812, 256)
+
+[node name="Door3" parent="Doors" instance=ExtResource("5_fcby6")]
+position = Vector2(612, 464)
+
+[node name="Door4" parent="Doors" instance=ExtResource("5_fcby6")]
+position = Vector2(812, 464)
+
+[node name="Door5" parent="Doors" instance=ExtResource("5_fcby6")]
+position = Vector2(612, 656)
+
+[node name="Door6" parent="Doors" instance=ExtResource("5_fcby6")]
+position = Vector2(812, 656)

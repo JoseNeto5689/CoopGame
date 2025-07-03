@@ -20,30 +20,39 @@ offset_bottom = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="Input" type="LineEdit" parent="CenterContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
+placeholder_text = "Session ID"
 
-[node name="Host" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Host" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "Host"
 
-[node name="Join" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Start" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-text = "Join"
+text = "Start Game"
 
-[node name="Input" type="LineEdit" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="VBoxContainer1" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Input" type="LineEdit" parent="CenterContainer/HBoxContainer/VBoxContainer1"]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "Name"
 
-[node name="Start" type="Button" parent="CenterContainer/VBoxContainer/VBoxContainer"]
+[node name="Join" type="Button" parent="CenterContainer/HBoxContainer/VBoxContainer1"]
 layout_mode = 2
-text = "Start Game"
+text = "        Join        "
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Host" to="." method="_on_host_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Join" to="." method="_on_join_pressed"]
-[connection signal="text_changed" from="CenterContainer/VBoxContainer/VBoxContainer/Input" to="." method="_on_input_text_changed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
+[connection signal="text_changed" from="CenterContainer/HBoxContainer/VBoxContainer2/Input" to="." method="_on_session_changed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/VBoxContainer2/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/VBoxContainer2/Start" to="." method="_on_start_pressed"]
+[connection signal="text_changed" from="CenterContainer/HBoxContainer/VBoxContainer1/Input" to="." method="_on_input_text_changed"]
+[connection signal="pressed" from="CenterContainer/HBoxContainer/VBoxContainer1/Join" to="." method="_on_join_pressed"]
