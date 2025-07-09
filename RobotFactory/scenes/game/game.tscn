@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=32 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
@@ -28,6 +28,8 @@
 [ext_resource type="AudioStream" uid="uid://c3yr2n7maaol2" path="res://assets/sounds/ambience/funky-tic-80-loop.wav" id="25_4vuph"]
 [ext_resource type="Script" uid="uid://rf2o02nkaag5" path="res://libs/addons/html5_popups/HTML5AcceptDialog.gd" id="27_h48ew"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l2dhg"]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_10c2w"]
 size = Vector2(7, 16)
 
@@ -37,7 +39,8 @@ size = Vector2(1388, 71)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ftsea"]
 size = Vector2(32.9989, 13.7307)
 
-[node name="Game" type="Node"]
+[node name="Game" type="Node2D"]
+material = SubResource("ShaderMaterial_l2dhg")
 script = ExtResource("1_7h61r")
 
 [node name="HostCamera" type="Camera2D" parent="."]
@@ -125,7 +128,7 @@ texture_on = ExtResource("17_8b66f")
 texture_off = ExtResource("11_5jirj")
 
 [node name="PC" parent="Computers" instance=ExtResource("3_0sr1o")]
-position = Vector2(89, 967)
+position = Vector2(102, 943)
 pc_id = 5
 time_for_conclude = 10
 texture_on = ExtResource("15_8b66f")
@@ -156,7 +159,7 @@ text_speed = 0.1
 position = Vector2(797, 60)
 
 [node name="Engineer" parent="." instance=ExtResource("21_3jaai")]
-position = Vector2(427, 887)
+position = Vector2(426, 868)
 
 [node name="Trash" parent="." instance=ExtResource("22_1iff4")]
 position = Vector2(852, 807)

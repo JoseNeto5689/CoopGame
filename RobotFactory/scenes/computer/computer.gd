@@ -32,38 +32,17 @@ var players_in_death_zone = []
 @export var missing_cpu := false
 @export var missing_ssd := false
 
-@rpc("any_peer", "call_local")
-func fix_missing_part(part_name: String):
-	var fixed = false
-	match part_name:
-		"ram":
-			missing_ram = false
-			fixed = true
-			item_used.emit()
-		"gpu":
-			missing_gpu = false
-			fixed = true
-			item_used.emit()
-		"hd":
-			missing_hd = false
-			fixed = true
-			item_used.emit()
-		"cpu":
-			missing_cpu = false
-			fixed = true
-			item_used.emit()
-		"ssd":
-			missing_cpu = false
-			fixed = true
-			item_used.emit()
-	if fixed and not missing_gpu and not missing_hd and not missing_ram and not missing_cpu and not missing_ssd:
-		var tween = create_tween()
-		tween.tween_method(self.change_blink_intensity, 1.0, 0.0, 0.3)
-		await tween.finished
-		pc_fixed.emit(players_interacting, pc_id)
-		broken = false
-
 func _ready() -> void:
+	if missing_cpu:
+		$Items/Center/CPU.show()
+	if missing_gpu:
+		$Items/Center/GPU.show()
+	if missing_ssd:
+		$Items/Center/SSD.show()
+	if missing_hd:
+		$Items/Center/HD.show()
+	if missing_ram:
+		$Items/Center/RAM.show()
 	timer.wait_time = time_for_conclude
 	pc_sprite.texture = texture_off
 
@@ -195,3 +174,41 @@ func _on_death_zone_body_entered(body: Node2D) -> void:
 
 func _on_death_zone_body_exited(body: Node2D) -> void:
 	players_in_death_zone.erase(body.id)
+	
+	
+@rpc("any_peer", "call_local")
+func fix_missing_part(part_name: String):
+	var fixed = false
+	match part_name:
+		"ram":
+			missing_ram = false
+			fixed = true
+			$Items/Center/RAM.hide()
+			item_used.emit()
+		"gpu":
+			missing_gpu = false
+			fixed = true
+			$Items/Center/GPU.hide()
+			item_used.emit()
+		"hd":
+			missing_hd = false
+			fixed = true
+			$Items/Center/HD.hide()
+			item_used.emit()
+		"cpu":
+			missing_cpu = false
+			fixed = true
+			$Items/Center/CPU.hide()
+			item_used.emit()
+		"ssd":
+			missing_cpu = false
+			fixed = true
+			$Items/Center/SSD.hide()
+			item_used.emit()
+			
+	if fixed and not missing_gpu and not missing_hd and not missing_ram and not missing_cpu and not missing_ssd:
+		var tween = create_tween()
+		tween.tween_method(self.change_blink_intensity, 1.0, 0.0, 0.3)
+		await tween.finished
+		pc_fixed.emit(players_interacting, pc_id)
+		broken = false

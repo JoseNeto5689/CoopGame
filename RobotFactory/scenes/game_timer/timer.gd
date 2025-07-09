@@ -12,6 +12,13 @@ var last_second_hazard = 0.0
 var last_second_upgrade = 0.0
 
 
+func get_minutes():
+	var minutes = int(time_left) / 60
+	var seconds = int(time_left) % 60
+	minutes = str(minutes) if minutes / 10 >= 1 else "0" + str(minutes)
+	seconds = str(seconds) if seconds / 10 >= 1 else "0" + str(seconds)
+	$CanvasLayer/Control/RichTextLabel.text = "%s:%s" % [minutes, seconds]
+
 func _ready() -> void:
 	if (number_of_hazards == 0): 
 		print("Error ao dividir por zero")
@@ -25,6 +32,7 @@ func _ready() -> void:
 		upgrade_timepoints.append((number+1) * upgrade_interval )
 		
 func _process(_delta: float) -> void:
+	get_minutes()
 	var actual_second = snapped(game_duration-time_left, 0.01)
 	if(actual_second in hazard_timepoints and actual_second != last_second_hazard):
 		hazard_time.emit()

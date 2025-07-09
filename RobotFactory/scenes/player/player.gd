@@ -160,10 +160,10 @@ func get_item(item_name : String):
 		can_move = true
 	
 @rpc("any_peer", "call_local")
-func show_item_purchased(item: String):
-	if item == "coffe":
+func show_item_purchased(item_purchased: String):
+	if item_purchased == "coffe":
 		$Item.texture = coffe_img
-	if item == "wifi":
+	if item_purchased == "wifi":
 		$Item.texture = wifi_img
 	$Item.show()
 	$AnimatedSprite2D.play("get_item")

@@ -37,8 +37,8 @@ func addPlayerRemote(_id: String, _name: String):
 
 func sync_robots():
 	var raw_list = []
-	raw_list.append(["gun_robot_red",  2, 0, 0, 0, 0, 0])
-	raw_list.append(["claw_robot_red", 0, 2, 0, 0, 0, 0])
+	raw_list.append(["metal_sonic",  2, 0, 0, 0, 0, 0])
+	raw_list.append(["mettaton", 0, 2, 0, 0, 0, 0])
 	raw_list.append(["wing_robot_red", 1, 1, 0, 0, 0, 0])
 	raw_list.append(["ball_robot_red", 1, 2, 0, 0, 0, 0])
 	

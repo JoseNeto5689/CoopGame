@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ccpv55u352ff3"]
+[gd_scene load_steps=9 format=3 uid="uid://ccpv55u352ff3"]
 
 [ext_resource type="Texture2D" uid="uid://c75x2q2y83do7" path="res://assets/sprites/own/Door.png" id="1_bu3y2"]
 [ext_resource type="Script" uid="uid://cva54d8h3r4yd" path="res://scenes/door/door.gd" id="1_odsy8"]
+[ext_resource type="AudioStream" uid="uid://r2fm366mpf4b" path="res://assets/sounds/qubodup-DoorOpen01.ogg" id="3_bsixq"]
+[ext_resource type="AudioStream" uid="uid://d14gyw07ghmny" path="res://assets/sounds/qubodup-DoorClose01.ogg" id="4_iwle0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iwle0"]
 size = Vector2(117.69, 50.2415)
@@ -56,6 +58,12 @@ collision_layer = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/StaticBody2D"]
 position = Vector2(0, 3.45973)
 shape = SubResource("RectangleShape2D_bsixq")
+
+[node name="DoorOpening" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_bsixq")
+
+[node name="DoorClosing" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_iwle0")
 
 [connection signal="body_entered" from="DangerZone" to="." method="_on_danger_zone_body_entered"]
 [connection signal="body_exited" from="DangerZone" to="." method="_on_danger_zone_body_exited"]

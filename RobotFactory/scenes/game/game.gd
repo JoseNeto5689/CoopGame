@@ -237,6 +237,7 @@ func _on_button_next_player_entered_button_area(player_id: int) -> void:
 
 
 func _on_button_next_button_has_been_pressed() -> void:
+	#Checar vitoria
 	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
 	$StatusTelevision.set_robot_progress(RobotStats.new())
 	$StatusTelevision.set_robot_status(Global.get_robot_stats(robot_index))
@@ -352,8 +353,8 @@ func _on_trash_trash_exited(player_id: int) -> void:
 	player.interacting.disconnect(player.reset_item.rpc)
 
 
-func send_log(log: Log):
-	API.send_log(log)
+func send_log(log_data: Log):
+	API.send_log(log_data)
 	
 @rpc("any_peer", "call_local")
 func _cancel_game(_id):

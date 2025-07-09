@@ -1,17 +1,22 @@
-[gd_scene load_steps=26 format=3 uid="uid://tx64gjx52y3"]
+[gd_scene load_steps=34 format=3 uid="uid://tx64gjx52y3"]
 
 [ext_resource type="Script" uid="uid://wd31uttu17sr" path="res://scenes/computer/computer.gd" id="1_srgvo"]
 [ext_resource type="Material" uid="uid://nrk8667qynar" path="res://resources/computer_shader.tres" id="2_8it8f"]
 [ext_resource type="Texture2D" uid="uid://k02jbmi3ud0a" path="res://assets/sprites/own/pc_1_0001.png" id="3_8it8f"]
 [ext_resource type="Texture2D" uid="uid://b4hyg3tusa4e0" path="res://assets/sprites/light/2d_light.webp" id="4_5o8iy"]
 [ext_resource type="PackedScene" uid="uid://djqygmt1j4djo" path="res://scenes/progress bar/progress_bar.tscn" id="4_8d7te"]
+[ext_resource type="Texture2D" uid="uid://cb0y8n6h2o5kk" path="res://assets/sprites/own/pc_parts/CPU.png" id="4_ymmt0"]
 [ext_resource type="Texture2D" uid="uid://c0nqpddj13sjt" path="res://assets/sprites/explosion/4.png" id="5_gh4r0"]
+[ext_resource type="Texture2D" uid="uid://3r7s2gqna6vx" path="res://assets/sprites/own/pc_parts/GPU.png" id="5_rh5cs"]
 [ext_resource type="Texture2D" uid="uid://dsrposf2qh061" path="res://assets/sprites/explosion/5.png" id="6_8it8f"]
 [ext_resource type="AudioStream" uid="uid://b86ek1hsjad28" path="res://assets/sounds/explosions/Explosion.wav" id="6_jrk3l"]
+[ext_resource type="Texture2D" uid="uid://bsbufep83q5bu" path="res://assets/sprites/own/pc_parts/SSD.png" id="6_yro87"]
 [ext_resource type="AudioStream" uid="uid://dyh043soccky7" path="res://assets/sounds/typing/mixkit-slow-typing-on-a-keyboard-2532.wav" id="7_8xmrj"]
 [ext_resource type="Texture2D" uid="uid://dam65crfyia8h" path="res://assets/sprites/explosion/6.png" id="7_jrk3l"]
+[ext_resource type="Texture2D" uid="uid://dfe7fhtbu38lf" path="res://assets/sprites/own/pc_parts/HD.png" id="7_qy67r"]
 [ext_resource type="Texture2D" uid="uid://dtatj7in5ksgr" path="res://assets/sprites/explosion/7.png" id="8_8xmrj"]
 [ext_resource type="AudioStream" uid="uid://5k138k8f5x5q" path="res://assets/sounds/success.wav" id="8_lmu87"]
+[ext_resource type="Texture2D" uid="uid://frodpvxfyed5" path="res://assets/sprites/own/pc_parts/Memory.png" id="8_lxmd3"]
 [ext_resource type="AudioStream" uid="uid://bgtj556xhgiwt" path="res://assets/sounds/concluded.wav" id="9_f361i"]
 [ext_resource type="Texture2D" uid="uid://ckf71yln7kfh2" path="res://assets/sprites/explosion/8.png" id="9_lmu87"]
 [ext_resource type="Texture2D" uid="uid://b16t54m1nsf28" path="res://assets/sprites/explosion/9.png" id="10_f361i"]
@@ -73,6 +78,43 @@ size = Vector2(37.5663, 7.60578)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jrk3l"]
 size = Vector2(51.8186, 31.1582)
 
+[sub_resource type="Animation" id="Animation_rh5cs"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Items:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.98),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-47, -36), Vector2(-47, -47), Vector2(-47, -36)]
+}
+
+[sub_resource type="Animation" id="Animation_yro87"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Items:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-47, -36)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qy67r"]
+_data = {
+&"RESET": SubResource("Animation_yro87"),
+&"idle": SubResource("Animation_rh5cs")
+}
+
 [node name="PC" type="Node2D"]
 z_index = 1
 script = ExtResource("1_srgvo")
@@ -102,6 +144,45 @@ collision_layer = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorkingZone"]
 position = Vector2(0, 5.5)
 shape = SubResource("RectangleShape2D_5o8iy")
+
+[node name="Items" type="CenterContainer" parent="."]
+offset_left = -47.0
+offset_top = -36.0
+offset_right = 49.0
+offset_bottom = -20.0
+
+[node name="Center" type="HBoxContainer" parent="Items"]
+layout_mode = 2
+
+[node name="CPU" type="TextureRect" parent="Items/Center"]
+visible = false
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("4_ymmt0")
+
+[node name="GPU" type="TextureRect" parent="Items/Center"]
+visible = false
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("5_rh5cs")
+
+[node name="SSD" type="TextureRect" parent="Items/Center"]
+visible = false
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("6_yro87")
+
+[node name="HD" type="TextureRect" parent="Items/Center"]
+visible = false
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("7_qy67r")
+
+[node name="RAM" type="TextureRect" parent="Items/Center"]
+visible = false
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("8_lxmd3")
 
 [node name="ProgressBar" parent="." instance=ExtResource("4_8d7te")]
 visible = false
@@ -201,6 +282,12 @@ shape = SubResource("RectangleShape2D_8it8f")
 position = Vector2(0.449462, 8.84101)
 shape = SubResource("RectangleShape2D_jrk3l")
 disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_qy67r")
+}
+autoplay = "idle"
 
 [connection signal="body_entered" from="WorkingZone" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="WorkingZone" to="." method="_on_area_2d_body_exited"]

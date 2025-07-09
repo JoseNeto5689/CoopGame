@@ -1,20 +1,32 @@
-[gd_scene load_steps=31 format=3 uid="uid://d4f5l5h647twd"]
+[gd_scene load_steps=87 format=3 uid="uid://d4f5l5h647twd"]
 
 [ext_resource type="Script" uid="uid://cxgvrotvfomsq" path="res://scenes/robot/robot.gd" id="1_eqtul"]
 [ext_resource type="Texture2D" uid="uid://cbr7ofjn1iwlq" path="res://assets/sprites/basic cute robot/ballbot/1/ballred1.png" id="2_0abj3"]
 [ext_resource type="Shader" uid="uid://b870mj1svnhk" path="res://assets/shaders/blink.gdshader" id="2_15li0"]
+[ext_resource type="Texture2D" uid="uid://bdddu2gbknb4w" path="res://assets/sprites/basic cute robot/ballbot/4/ballgreen1.png" id="3_07nmv"]
 [ext_resource type="Texture2D" uid="uid://bdgnrosvpr16g" path="res://assets/sprites/basic cute robot/ballbot/1/ballred2.png" id="3_ujdmv"]
+[ext_resource type="Texture2D" uid="uid://d37j0f6slfygu" path="res://assets/sprites/basic cute robot/ballbot/4/ballgreen2.png" id="4_hf6a4"]
 [ext_resource type="Texture2D" uid="uid://dl7pphlbbojmm" path="res://assets/sprites/basic cute robot/ballbot/1/ballred3.png" id="4_jhdl5"]
 [ext_resource type="Texture2D" uid="uid://bbqnb6pby8o1y" path="res://assets/sprites/basic cute robot/ballbot/1/ballred4.png" id="5_36p58"]
+[ext_resource type="Texture2D" uid="uid://bnr7fchkofumx" path="res://assets/sprites/basic cute robot/ballbot/4/ballgreen3.png" id="5_bykdd"]
 [ext_resource type="Texture2D" uid="uid://cbr0j3eteopyd" path="res://assets/sprites/basic cute robot/bombbot/bomb1.png" id="5_qfk2u"]
+[ext_resource type="Texture2D" uid="uid://cns1x2pqq2bos" path="res://assets/sprites/basic cute robot/ballbot/4/ballgreen4.png" id="6_0e2f4"]
 [ext_resource type="Texture2D" uid="uid://dimni5mq4b8uf" path="res://assets/sprites/basic cute robot/bombbot/bomb2.png" id="6_eqtul"]
+[ext_resource type="Texture2D" uid="uid://c2berwcqxuwn0" path="res://assets/sprites/basic cute robot/ballbot/3/ballorange1.png" id="7_8abt7"]
 [ext_resource type="Texture2D" uid="uid://cmvv6mo48qa3d" path="res://assets/sprites/basic cute robot/bombbot/bomb3.png" id="7_15li0"]
 [ext_resource type="Texture2D" uid="uid://1478pc6hcb44" path="res://assets/sprites/basic cute robot/bombbot/bomb4.png" id="8_1gelo"]
+[ext_resource type="Texture2D" uid="uid://b17ehnwvqjsis" path="res://assets/sprites/basic cute robot/ballbot/3/ballorange2.png" id="8_047s3"]
+[ext_resource type="Texture2D" uid="uid://bfbb80oiipmyo" path="res://assets/sprites/basic cute robot/ballbot/3/ballorange3.png" id="9_2v1wi"]
 [ext_resource type="Texture2D" uid="uid://ubfc8gglge28" path="res://assets/sprites/basic cute robot/clawbot/1/botzred1.png" id="9_fma3l"]
 [ext_resource type="Texture2D" uid="uid://cfwwrk64payua" path="res://assets/sprites/basic cute robot/clawbot/1/botzred2.png" id="10_b68ws"]
+[ext_resource type="Texture2D" uid="uid://bj65nhfe842to" path="res://assets/sprites/basic cute robot/ballbot/3/ballorange4.png" id="10_sok42"]
 [ext_resource type="Texture2D" uid="uid://bd82b21gdtg3e" path="res://assets/sprites/basic cute robot/clawbot/1/botzred3.png" id="11_fankf"]
+[ext_resource type="Texture2D" uid="uid://bv8mt3skhqqfr" path="res://assets/sprites/basic cute robot/ballbot/2/ballpurple1.png" id="11_shqlh"]
 [ext_resource type="Texture2D" uid="uid://c1v1ve06ajqkb" path="res://assets/sprites/basic cute robot/clawbot/1/botzred4.png" id="12_al1rj"]
+[ext_resource type="Texture2D" uid="uid://dkrekt4b3kgvs" path="res://assets/sprites/basic cute robot/ballbot/2/ballpurple2.png" id="12_ln0kf"]
+[ext_resource type="Texture2D" uid="uid://d4e6i64ay6bxj" path="res://assets/sprites/basic cute robot/ballbot/2/ballpurple3.png" id="13_hufr0"]
 [ext_resource type="Texture2D" uid="uid://cmm7ku3qalqal" path="res://assets/sprites/droids/Droid03Idle.png" id="13_k6xon"]
+[ext_resource type="Texture2D" uid="uid://qrx7w4hw3dlq" path="res://assets/sprites/basic cute robot/ballbot/2/ballpurple4.png" id="14_kof3v"]
 [ext_resource type="Texture2D" uid="uid://cxab1trds0bjp" path="res://assets/sprites/basic cute robot/gunbot/1/botred1.png" id="14_w1ify"]
 [ext_resource type="Texture2D" uid="uid://d36xk3w1rytll" path="res://assets/sprites/basic cute robot/gunbot/1/botred2.png" id="15_54tvn"]
 [ext_resource type="Texture2D" uid="uid://dqulms1vy0vwd" path="res://assets/sprites/basic cute robot/gunbot/1/botred3.png" id="16_3pikt"]
@@ -23,6 +35,44 @@
 [ext_resource type="Texture2D" uid="uid://dr0q4t5xb1roq" path="res://assets/sprites/basic cute robot/wingbot/1/wingbot2.png" id="19_84cbo"]
 [ext_resource type="Texture2D" uid="uid://d2kg543r5ypcd" path="res://assets/sprites/basic cute robot/wingbot/1/wingbot3.png" id="20_8ivtw"]
 [ext_resource type="Texture2D" uid="uid://buje3wcy67og" path="res://assets/sprites/basic cute robot/wingbot/1/wingbot4.png" id="21_6mnvf"]
+[ext_resource type="Texture2D" uid="uid://ugqe2uehhj8p" path="res://assets/sprites/basic cute robot/clawbot/4/botzgreen1.png" id="23_ku0ou"]
+[ext_resource type="Texture2D" uid="uid://cisnb2vqls8p2" path="res://assets/sprites/basic cute robot/clawbot/4/botzgreen2.png" id="24_xsig5"]
+[ext_resource type="Texture2D" uid="uid://dbxshfxl8utot" path="res://assets/sprites/basic cute robot/clawbot/4/botzgreen3.png" id="25_sed8n"]
+[ext_resource type="Texture2D" uid="uid://fi3gwnlnrdnr" path="res://assets/sprites/basic cute robot/clawbot/4/botzgreen4.png" id="26_0ipw2"]
+[ext_resource type="Texture2D" uid="uid://bro5ms4bwlnbt" path="res://assets/sprites/basic cute robot/clawbot/3/botzorange1.png" id="27_t1syc"]
+[ext_resource type="Texture2D" uid="uid://bpbw4mrg1sb7a" path="res://assets/sprites/basic cute robot/clawbot/3/botzorange2.png" id="28_mi634"]
+[ext_resource type="Texture2D" uid="uid://dufwxe8iw3is1" path="res://assets/sprites/basic cute robot/clawbot/3/botzorange3.png" id="29_bv3w7"]
+[ext_resource type="Texture2D" uid="uid://lidrkus8fa15" path="res://assets/sprites/basic cute robot/clawbot/3/botzorange4.png" id="30_4olb1"]
+[ext_resource type="Texture2D" uid="uid://dukj037idn0eg" path="res://assets/sprites/basic cute robot/clawbot/2/botzpurple1.png" id="31_b5svd"]
+[ext_resource type="Texture2D" uid="uid://43gg0fpj6r0" path="res://assets/sprites/basic cute robot/clawbot/2/botzpurple2.png" id="32_tyxxd"]
+[ext_resource type="Texture2D" uid="uid://canhsn4xkp7oo" path="res://assets/sprites/basic cute robot/clawbot/2/botzpurple3.png" id="33_y2cwd"]
+[ext_resource type="Texture2D" uid="uid://c67qgkvyjld2s" path="res://assets/sprites/basic cute robot/clawbot/2/botzpurple4.png" id="34_h3xdr"]
+[ext_resource type="Texture2D" uid="uid://b2ypmmegmumk5" path="res://assets/sprites/basic cute robot/gunbot/2/botpurple1.png" id="40_5go73"]
+[ext_resource type="Texture2D" uid="uid://yce7glt011m2" path="res://assets/sprites/basic cute robot/gunbot/2/botpurple2.png" id="41_g80ou"]
+[ext_resource type="Texture2D" uid="uid://bhm4jax1uryot" path="res://assets/sprites/basic cute robot/gunbot/2/botpurple3.png" id="42_cg8su"]
+[ext_resource type="Texture2D" uid="uid://climedhspr8ub" path="res://assets/sprites/basic cute robot/gunbot/2/botpurple4.png" id="43_5fagq"]
+[ext_resource type="Texture2D" uid="uid://lrugkddm8f1q" path="res://assets/sprites/basic cute robot/gunbot/4/botgreen1.png" id="44_bk0rj"]
+[ext_resource type="Texture2D" uid="uid://g6444kov5gyc" path="res://assets/sprites/basic cute robot/gunbot/4/botgreen2.png" id="45_tr0ne"]
+[ext_resource type="Texture2D" uid="uid://j7h6knheb0h8" path="res://assets/sprites/basic cute robot/gunbot/4/botgreen3.png" id="46_spl3p"]
+[ext_resource type="Texture2D" uid="uid://cw87dhg4a31ng" path="res://assets/sprites/basic cute robot/gunbot/4/botgreen4.png" id="47_0awe4"]
+[ext_resource type="Texture2D" uid="uid://cbh7bbe3ory6f" path="res://assets/sprites/basic cute robot/gunbot/3/botorange1.png" id="48_r813o"]
+[ext_resource type="Texture2D" uid="uid://daeldgpjfypff" path="res://assets/sprites/basic cute robot/gunbot/3/botorange2.png" id="49_65iiq"]
+[ext_resource type="Texture2D" uid="uid://cdehw72idovgs" path="res://assets/sprites/basic cute robot/gunbot/3/botorange3.png" id="50_wki1v"]
+[ext_resource type="Texture2D" uid="uid://dpoy5g4rax25q" path="res://assets/sprites/basic cute robot/gunbot/3/botorange4.png" id="51_thk3y"]
+[ext_resource type="Texture2D" uid="uid://bbbruf8e582sp" path="res://assets/sprites/extra/Metal Sonic.png" id="56_n176d"]
+[ext_resource type="Texture2D" uid="uid://bi1kxr1dktwg" path="res://assets/sprites/extra/Mettaton Fixed.png" id="57_hf6a4"]
+[ext_resource type="Texture2D" uid="uid://cwi0spwj1syjl" path="res://assets/sprites/basic cute robot/wingbot/4/wingbot1.png" id="57_ju5e5"]
+[ext_resource type="Texture2D" uid="uid://coeu0cfo6wvxp" path="res://assets/sprites/basic cute robot/wingbot/4/wingbot2.png" id="58_p8wrs"]
+[ext_resource type="Texture2D" uid="uid://dyc5bdio4o2uq" path="res://assets/sprites/basic cute robot/wingbot/4/wingbot3.png" id="59_ptowh"]
+[ext_resource type="Texture2D" uid="uid://b5r4kevesbrui" path="res://assets/sprites/basic cute robot/wingbot/4/wingbot4.png" id="60_snqod"]
+[ext_resource type="Texture2D" uid="uid://dccpaq6fuj2t8" path="res://assets/sprites/basic cute robot/wingbot/3/wingbot1.png" id="61_gl5wn"]
+[ext_resource type="Texture2D" uid="uid://cve7monn18027" path="res://assets/sprites/basic cute robot/wingbot/3/wingbot2.png" id="62_qdbj8"]
+[ext_resource type="Texture2D" uid="uid://chs125n4jhxit" path="res://assets/sprites/basic cute robot/wingbot/3/wingbot3.png" id="63_f0wdu"]
+[ext_resource type="Texture2D" uid="uid://btvl4fswm6cxf" path="res://assets/sprites/basic cute robot/wingbot/3/wingbot4.png" id="64_pki0f"]
+[ext_resource type="Texture2D" uid="uid://cdgtqu44p0c4n" path="res://assets/sprites/basic cute robot/wingbot/2/wingbot1.png" id="65_hadhy"]
+[ext_resource type="Texture2D" uid="uid://dnwole3fp07s8" path="res://assets/sprites/basic cute robot/wingbot/2/wingbot2.png" id="66_i8c47"]
+[ext_resource type="Texture2D" uid="uid://cbcpa2vswjhcb" path="res://assets/sprites/basic cute robot/wingbot/2/wingbot3.png" id="67_hfnyk"]
+[ext_resource type="Texture2D" uid="uid://cvj6606ydhqsl" path="res://assets/sprites/basic cute robot/wingbot/2/wingbot4.png" id="68_fmd8y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1gelo"]
 shader = ExtResource("2_15li0")
@@ -45,8 +95,83 @@ region = Rect2(104, 0, 32, 48)
 atlas = ExtResource("13_k6xon")
 region = Rect2(152, 0, 32, 48)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_5y88w"]
+atlas = ExtResource("56_n176d")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hti64"]
+atlas = ExtResource("56_n176d")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lirr"]
+atlas = ExtResource("56_n176d")
+region = Rect2(80, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bykdd"]
+atlas = ExtResource("57_hf6a4")
+region = Rect2(3, 0, 27, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0e2f4"]
+atlas = ExtResource("57_hf6a4")
+region = Rect2(31, 0, 27, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8abt7"]
+atlas = ExtResource("57_hf6a4")
+region = Rect2(59, 0, 27, 50)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_a3dwq"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_07nmv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hf6a4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bykdd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0e2f4")
+}],
+"loop": true,
+"name": &"ball_robot_green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_8abt7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_047s3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_2v1wi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_sok42")
+}],
+"loop": true,
+"name": &"ball_robot_orange",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_shqlh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_ln0kf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_hufr0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_kof3v")
+}],
+"loop": true,
+"name": &"ball_robot_purple",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_0abj3")
@@ -79,6 +204,57 @@ animations = [{
 }],
 "loop": true,
 "name": &"bomb_robot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("23_ku0ou")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_xsig5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_sed8n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_0ipw2")
+}],
+"loop": true,
+"name": &"claw_robot_green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_t1syc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_mi634")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_bv3w7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_4olb1")
+}],
+"loop": true,
+"name": &"claw_robot_orange",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_b5svd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_tyxxd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_y2cwd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_h3xdr")
+}],
+"loop": true,
+"name": &"claw_robot_purple",
 "speed": 5.0
 }, {
 "frames": [{
@@ -117,6 +293,57 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("40_5go73")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_g80ou")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_cg8su")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_5fagq")
+}],
+"loop": true,
+"name": &"gun_bot_purple",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("44_bk0rj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_tr0ne")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_spl3p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_0awe4")
+}],
+"loop": true,
+"name": &"gun_robot_green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("48_r813o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_65iiq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_wki1v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_thk3y")
+}],
+"loop": true,
+"name": &"gun_robot_orange",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("14_w1ify")
 }, {
 "duration": 1.0,
@@ -130,6 +357,85 @@ animations = [{
 }],
 "loop": true,
 "name": &"gun_robot_red",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5y88w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hti64")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7lirr")
+}],
+"loop": true,
+"name": &"metal_sonic",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bykdd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0e2f4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8abt7")
+}],
+"loop": true,
+"name": &"mettaton",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("57_ju5e5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_p8wrs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_ptowh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_snqod")
+}],
+"loop": true,
+"name": &"wing_robot_green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("61_gl5wn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_qdbj8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_f0wdu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_pki0f")
+}],
+"loop": true,
+"name": &"wing_robot_orange",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("65_hadhy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_i8c47")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_hfnyk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_fmd8y")
+}],
+"loop": true,
+"name": &"wing_robot_purple",
 "speed": 5.0
 }, {
 "frames": [{
@@ -160,7 +466,8 @@ script = ExtResource("1_eqtul")
 texture_filter = 1
 material = SubResource("ShaderMaterial_1gelo")
 sprite_frames = SubResource("SpriteFrames_a3dwq")
-animation = &"gun_robot_red"
+animation = &"mettaton"
+frame_progress = 0.244585
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 visible = false
