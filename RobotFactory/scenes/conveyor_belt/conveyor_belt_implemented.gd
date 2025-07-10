@@ -29,6 +29,8 @@ func spawn_robot(robot_sprite: String):
 		spawned_robot.add_shadow()
 	$LineProduction.add_child(spawned_robot)
 	actual_robot = spawned_robot
+	if multiplayer.is_server():
+		Global.sync_robots()
 	
 	
 func _process(delta: float) -> void:

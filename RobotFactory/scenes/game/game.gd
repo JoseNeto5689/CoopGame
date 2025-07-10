@@ -22,7 +22,7 @@ func _ready() -> void:
 	if multiplayer.is_server():
 		ui.hide_hud()
 		
-	call_deferred("send_log", Log.new(1, "Ola"))
+	#call_deferred("send_log", Log.new(1, "Ola"))
 	var player_preloaded = preload("res://scenes/player/player.tscn")
 	var spawn_points: Array = map.get_spawn_points()
 	var limits = map.get_map_limits()
@@ -138,19 +138,19 @@ func _on_timer_timeout() -> void:
 	#$BossWarnings.send("Trabalhem pilantras")
 	#await $BossWarnings.concluded
 	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
-	$StatusTelevision.set_robot_status(Global.get_robot_stats(robot_index))
 	robot_index+=1
 	
 
 func _on_conveyor_belt_animation_concluded() -> void:
 	in_animation = false
 	animation_concluded.emit(true)
+	$StatusTelevision.set_robot_status(Global.get_robot_stats(robot_index - 1))
 
 
 func _on_conveyor_belt_animation_started() -> void:
 	in_animation = true
 	animation_concluded.emit(false)
-
+	$StatusTelevision.set_robot_status(RobotStats.new())
 
 func _on_player_enter_deployer_area(player_id: int) -> void:
 	if multiplayer.get_unique_id() == player_id:
@@ -184,7 +184,6 @@ func check_robot_in_conveyor_belt(robot_stats: RobotStats):
 		$ConveyorBelt.robot_ok()
 		$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
 		$StatusTelevision.set_robot_progress(RobotStats.new())
-		$StatusTelevision.set_robot_status(Global.get_robot_stats(robot_index))
 		Global.update_money(+10)
 		robot_index+=1
 
@@ -240,7 +239,6 @@ func _on_button_next_button_has_been_pressed() -> void:
 	#Checar vitoria
 	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
 	$StatusTelevision.set_robot_progress(RobotStats.new())
-	$StatusTelevision.set_robot_status(Global.get_robot_stats(robot_index))
 	robot_index+=1
 
 

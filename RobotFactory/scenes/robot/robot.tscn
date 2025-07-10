@@ -293,23 +293,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("40_5go73")
-}, {
-"duration": 1.0,
-"texture": ExtResource("41_g80ou")
-}, {
-"duration": 1.0,
-"texture": ExtResource("42_cg8su")
-}, {
-"duration": 1.0,
-"texture": ExtResource("43_5fagq")
-}],
-"loop": true,
-"name": &"gun_bot_purple",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": ExtResource("44_bk0rj")
 }, {
 "duration": 1.0,
@@ -340,6 +323,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"gun_robot_orange",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("40_5go73")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_g80ou")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_cg8su")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_5fagq")
+}],
+"loop": true,
+"name": &"gun_robot_purple",
 "speed": 5.0
 }, {
 "frames": [{
@@ -466,8 +466,7 @@ script = ExtResource("1_eqtul")
 texture_filter = 1
 material = SubResource("ShaderMaterial_1gelo")
 sprite_frames = SubResource("SpriteFrames_a3dwq")
-animation = &"mettaton"
-frame_progress = 0.244585
+animation = &"gun_robot_purple"
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 visible = false
