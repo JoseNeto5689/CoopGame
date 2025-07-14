@@ -22,7 +22,6 @@ func _ready() -> void:
 	if multiplayer.is_server():
 		ui.hide_hud()
 		
-	#call_deferred("send_log", Log.new(1, "Ola"))
 	var player_preloaded = preload("res://scenes/player/player.tscn")
 	var spawn_points: Array = map.get_spawn_points()
 	var limits = map.get_map_limits()
@@ -178,7 +177,7 @@ func _on_exit_robot_area(body: Node2D) -> void:
 	player.interacting.disconnect(player.give_item.rpc)
 	
 
-func check_robot_in_conveyor_belt(robot_stats: RobotStats):
+func check_robot_in_conveyor_belt(id,robot_stats: RobotStats):
 	Global.update_robot_stats(0)
 	if Global.check_robot_stats(robot_stats, Global.get_robot_stats(robot_index - 1)):
 		$ConveyorBelt.robot_ok()
@@ -186,6 +185,9 @@ func check_robot_in_conveyor_belt(robot_stats: RobotStats):
 		$StatusTelevision.set_robot_progress(RobotStats.new())
 		Global.update_money(+10)
 		robot_index+=1
+		SaveData.save_log(Log.new(id, "Player concluiu robo"))
+	else:
+		SaveData.save_log(Log.new(id, "Player falhou em concluir robo"))
 
 func find_player_by_id(id: int) -> Node2D:
 	var players_list = players.get_children()
@@ -209,10 +211,12 @@ func _on_market_item_buyed(item: String, player_id: int, value: int, hide_self: 
 			hide_self.call()
 			player.show_item_purchased.rpc("coffe")
 			increase_player_speed.rpc()
+			SaveData.save_log(Log.new(player_id, "Player comprou cafe"))
 			return
 		elif item == "wifi":
 			hide_self.call()
 			player.show_item_purchased.rpc("wifi")
+			SaveData.save_log(Log.new(player_id, "Player comprou wifi"))
 			reduce_computer_time()
 			return
 		hide_self.call()
@@ -254,6 +258,8 @@ func kill_players(list: Array):
 
 func _on_hazard_release() -> void:
 	pass
+	Log.new(0, "Mapa escureceu")
+	Log.new(0, "Mapa voltou ao normal")
 	#if multiplayer.is_server():
 		#if not is_dark:
 			#become_dark.rpc()
@@ -317,8 +323,9 @@ func _on_engineer_player_start_interact(player_id: int, item: String) -> void:
 		player.interacting.connect(reset_engineer.rpc)
 
 @rpc("any_peer", "call_remote")
-func upgrade_random_pc_server(_item):
+func upgrade_random_pc_server(player_id: int, _item: String):
 	if multiplayer.is_server():
+		SaveData.save_log(Log.new(player_id, "Player atualizou computador aleatorio"))
 		var random_id = randi_range(1, 4)
 		upgrade_random_pc_local.rpc(random_id)
 
@@ -328,7 +335,7 @@ func upgrade_random_pc_local(id):
 	computer.reduce_speed(0.5)
 
 @rpc("any_peer", "call_local")
-func reset_engineer(_item):
+func reset_engineer(player_id: int, _item: String):
 	$Engineer.change_item_needed("")
 
 func _on_engineer_player_stop_interact(player_id: int, item: String) -> void:
@@ -351,12 +358,13 @@ func _on_trash_trash_exited(player_id: int) -> void:
 	player.interacting.disconnect(player.reset_item.rpc)
 
 
-func send_log(log_data: Log):
-	API.send_log(log_data)
-	
 @rpc("any_peer", "call_local")
 func _cancel_game(_id):
 	call_deferred("change_to_menu")
 	
 func change_to_menu():
 	get_tree().change_scene_to_packed(menu)
+
+
+func _on_game_timer_timeout() -> void:
+	Log.new(0,"Jogo finalizado")

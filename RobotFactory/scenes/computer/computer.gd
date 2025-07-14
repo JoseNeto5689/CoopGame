@@ -85,11 +85,13 @@ func _on_timer_timeout() -> void:
 	reset()
 	change_progress(0)
 	stop_progress()
+	SaveData.save_log(Log.new(pc_id, "Trabalho no pc concluido"))
 	work_concluded.emit(pc_id)
 
 @rpc("any_peer", "call_local")
-func increase_progress(_item: String):
+func increase_progress(player_id: int, _item: String):
 	if is_animation_concluded and not broken:
+		SaveData.save_log(Log.new(player_id, "Player trabalhando no pc %s" % str(pc_id)))
 		#$PointLight2D.enabled = true
 		if(get_percentage() == 0):
 			change_progress(0)
@@ -130,7 +132,7 @@ func change_blink_intensity(new_value: float):
 	$ComputerSprite.material.set_shader_parameter("blink_intensity", new_value)
 
 @rpc("any_peer", "call_local")
-func fix_pc(_item: String):
+func fix_pc(player_id: int, _item: String):
 	if(broken):
 		item_used.emit()
 		var tween = create_tween()
@@ -138,6 +140,7 @@ func fix_pc(_item: String):
 		$PowerUpSound.play()
 		await tween.finished
 		broken = false
+		SaveData.save_log(Log.new(player_id, "Player consertou pc %s" % str(pc_id)))
 		pc_fixed.emit(players_interacting, pc_id)
 			 
 @rpc("any_peer", "call_local")
@@ -157,6 +160,7 @@ func explode():
 	pc_exploded.emit(players_in_death_zone)
 	players_in_death_zone = []
 	await get_tree().create_timer(0.8).timeout
+	SaveData.save_log(Log.new(pc_id, "Computador explodiu"))
 	$DeathZone/CollisionShape2D.disabled = true
 	
 

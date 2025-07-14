@@ -219,4 +219,5 @@ metadata/_custom_type_script = "uid://rf2o02nkaag5"
 [connection signal="trash_exited" from="Trash" to="." method="_on_trash_trash_exited"]
 [connection signal="timeout" from="RobotDelay" to="." method="_on_timer_timeout"]
 [connection signal="hazard_time" from="GameTimer" to="." method="_on_hazard_release"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
 [connection signal="upgrade_time" from="GameTimer" to="." method="_on_game_timer_upgrade_time"]

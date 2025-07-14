@@ -18,6 +18,7 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 
 Global="*res://scenes/global/global.gd"
 API="*res://scenes/global/api.gd"
+SaveData="*res://scenes/logs/save_data.gd"
 
 [display]
 

@@ -35,9 +35,9 @@ var player_name : String
 var holding_interaction := false 
 var animation_concluded := false
 
-signal interacting(item: String)
+signal interacting(player_id: int, item: String)
 signal stop_interacting
-signal given_usb_stick(robot_stats: RobotStats)
+signal given_usb_stick(id,robot_stats: RobotStats)
 signal player_entered_heal_zone(dead_player_id: int, player_id: int)
 signal player_exited_heal_zone(dead_player_id: int, player_id: int)
 signal healing_player
@@ -99,7 +99,7 @@ func _enter_tree() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if (event.is_action_pressed("interact") and not dead):
 		holding_interaction = true
-		interacting.emit(current_item)
+		interacting.emit(id,current_item)
 	elif (event.is_action_released("interact") and not dead):
 		holding_interaction = false
 		stop_interacting.emit()
@@ -158,6 +158,7 @@ func get_item(item_name : String):
 		last_direction = Vector2.ZERO
 		$AnimatedSprite2D.play("adam_idle_front")
 		can_move = true
+		SaveData.save_log(Log.new(id, "Player comprou item %s" % item_name))
 	
 @rpc("any_peer", "call_local")
 func show_item_purchased(item_purchased: String):
@@ -176,15 +177,15 @@ func show_item_purchased(item_purchased: String):
 	can_move = true
 
 @rpc("any_peer", "call_local")
-func give_item(_item: String):
+func give_item(player_id: int, _item: String):
 	if has_item and animation_concluded:
 		has_item = false
 		item.visible = false
-		given_usb_stick.emit(pendrive_stats)
+		given_usb_stick.emit(id,pendrive_stats)
 		pendrive_stats = null
 
 @rpc("any_peer", "call_local")
-func interact_with_deployer(_item: String):
+func interact_with_deployer(player_id: int, _item: String):
 	if has_item and current_item == "usb_stick":
 		Global.update_usb_stick_number(+1)
 		has_item = false #Colocar tudo isso em uma func
@@ -210,6 +211,7 @@ func finish_deployer_transfer():
 	await get_tree().create_timer(0.5).timeout
 	$AnimatedSprite2D.play("adam_idle_front")
 	can_move = true
+	SaveData.save_log(Log.new(id, "Player pegou pendrive no deployer"))
 
 @rpc("any_peer", "call_local")
 func clear_item():
@@ -218,7 +220,7 @@ func clear_item():
 	item.visible = false
 	
 @rpc("any_peer", "call_local")
-func reset_item(_item):
+func reset_item(player_id: int, _item: String):
 	current_item = ""
 	has_item = false
 	item.visible = false
@@ -241,6 +243,7 @@ func die():
 	$CollisionShape2D.disabled = true
 	$HealZone/CollisionShape2D.disabled = false
 	$AnimatedSprite2D.play("dead")
+	SaveData.save_log(Log.new(id, "Player morreu"))
 
 @rpc("any_peer", "call_local")
 func revive():
@@ -254,12 +257,13 @@ func revive():
 	$AnimatedSprite2D.play("adam_idle_front")
 
 @rpc("any_peer", "call_local")
-func heal_player(_item: String):
+func heal_player(player_id: int, _item: String):
 	if current_item == "medkit":
 		item.visible = false
 		current_item = ""
 		has_item = false
 		healing_player.emit()
+		SaveData.save_log(Log.new(id, "Player %s curou player %s" % [id, player_id]))
 		
 
 func turn_off_lights():
