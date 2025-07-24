@@ -17,6 +17,9 @@ func _ready() -> void:
 	multiplayer.connection_failed.connect(_close_network)
 	multiplayer.connected_to_server.connect(_connected)
 	multiplayer.server_disconnected.connect(_disconnected)
+	
+func _enter_tree() -> void:
+	multiplayer.multiplayer_peer = null
 
 func _on_control_host_pressed() -> void:
 	var peer = WebSocketMultiplayerPeer.new()

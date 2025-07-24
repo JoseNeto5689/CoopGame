@@ -26,6 +26,8 @@ var has_item := false
 var current_item := ""
 var dead = false
 
+var time_elapsed_while_dead: float = 0.0
+
 var last_direction := Vector2.ZERO
 var buttons_pressed := []
 var can_move := true
@@ -45,6 +47,11 @@ signal usb_stick_given
 
 #endregion
 
+func format_time(seconds: float) -> String:
+	var whole = int(seconds)
+	var decimals = int((seconds - whole) * 100)
+	return "%d.%02d" % [whole, decimals]
+	
 
 func get_direction() -> Vector2:
 	if (Input.is_action_just_pressed("up")):
@@ -112,6 +119,9 @@ func _ready() -> void:
 		camera.make_current()
 
 func _process(delta: float) -> void:
+	if dead:
+		time_elapsed_while_dead += delta
+		
 	if not is_multiplayer_authority() or dead or not can_move:
 		return
 	var direction = get_direction()
@@ -225,6 +235,13 @@ func reset_item(player_id: int, _item: String):
 	has_item = false
 	item.visible = false
 	
+@rpc("any_peer", "call_local")
+func discard_item(player_id: int, item_name: String):
+	current_item = ""
+	has_item = false
+	item.visible = false
+	SaveData.save_log(Log.new(player_id, "Player jogou o item %s no lixo" % item_name))
+	
 func update_camera_limits(list: Array):
 	$PlayerCamera.limit_left = list[0]
 	$PlayerCamera.limit_top = list[1]
@@ -247,6 +264,10 @@ func die():
 
 @rpc("any_peer", "call_local")
 func revive():
+	if multiplayer.is_server():
+		print(multiplayer.get_unique_id())
+		SaveData.save_log(Log.new(id, "Player revivido apos %f segundos" % time_elapsed_while_dead))
+	time_elapsed_while_dead = 0
 	position.y -= 5
 	dead = false
 	if (has_item):
@@ -263,7 +284,7 @@ func heal_player(player_id: int, _item: String):
 		current_item = ""
 		has_item = false
 		healing_player.emit()
-		SaveData.save_log(Log.new(id, "Player %s curou player %s" % [id, player_id]))
+		SaveData.save_log(Log.new(id, "Player curou outro player"))
 		
 
 func turn_off_lights():

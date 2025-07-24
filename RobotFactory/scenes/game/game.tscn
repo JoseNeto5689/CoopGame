@@ -162,7 +162,7 @@ position = Vector2(797, 60)
 position = Vector2(426, 868)
 
 [node name="Trash" parent="." instance=ExtResource("22_1iff4")]
-position = Vector2(852, 807)
+position = Vector2(855, 824)
 
 [node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("25_4vuph")
@@ -171,8 +171,6 @@ autoplay = true
 panning_strength = 0.0
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
-color = Color(0, 0.167778, 0.215408, 1)
 
 [node name="UI" parent="." instance=ExtResource("4_kelw5")]
 
@@ -182,6 +180,7 @@ autostart = true
 
 [node name="GameTimer" parent="." instance=ExtResource("20_pg2xm")]
 number_of_upgrades = 10
+game_duration = 120.0
 
 [node name="PlayerDisconnected" type="Node" parent="."]
 script = ExtResource("27_h48ew")

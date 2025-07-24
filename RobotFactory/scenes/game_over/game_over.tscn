@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0dhl7uyri8g0"]
+
+[ext_resource type="Script" uid="uid://cm0m1pnd0be4n" path="res://scenes/game_over/game_over.gd" id="1_3j056"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3j056")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.225
+anchor_top = 0.133333
+anchor_right = 0.775
+anchor_bottom = 0.355333
+offset_bottom = 0.0399971
+text = "Jogo finalizado"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="GoToMenu" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.096875
+anchor_top = 0.522222
+anchor_right = 0.494
+anchor_bottom = 0.694
+offset_right = -0.0800018
+offset_bottom = 0.0800095
+text = "Voltar ao menu"
+metadata/_edit_use_anchors_ = true
+
+[node name="ExitGame" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.525
+anchor_top = 0.522222
+anchor_right = 0.922
+anchor_bottom = 0.694
+offset_right = -0.0400085
+offset_bottom = 0.0800018
+text = "Sair do jogo"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="GoToMenu" to="." method="_on_go_to_menu_pressed"]
+[connection signal="pressed" from="ExitGame" to="." method="_on_exit_game_pressed"]

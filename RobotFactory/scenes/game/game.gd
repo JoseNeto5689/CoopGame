@@ -11,9 +11,11 @@ var robot_index = 0
 var in_animation = true
 var is_dark := false
 var menu := preload("res://scenes/menu/menu.tscn")
-var thread := Thread.new()
+var game_over := preload("res://scenes/game_over/game_over.tscn")
+var pc_to_explode := []
 	
 func _ready() -> void:
+	SaveData.clear_logs()
 	multiplayer.peer_disconnected.connect(_cancel_game.rpc)
 	
 	Global.usb_number_changed.connect(ui.update_pendrive.rpc)
@@ -52,16 +54,18 @@ func _ready() -> void:
 		Global.sync_robots()
 		
 func player_entered_heal_zone(dead_player_id: int, player_id: int):
-	var dead_player = find_player_by_id(dead_player_id)
-	var player = find_player_by_id(player_id)
-	player.interacting.connect(player.heal_player.rpc)
-	player.healing_player.connect(dead_player.revive.rpc)
+	if multiplayer.get_unique_id() == player_id:
+		var dead_player = find_player_by_id(dead_player_id)
+		var player = find_player_by_id(player_id)
+		player.interacting.connect(player.heal_player.rpc)
+		player.healing_player.connect(dead_player.revive.rpc)
 	
 func player_exited_heal_zone(dead_player_id: int, player_id: int):
-	var dead_player = find_player_by_id(dead_player_id)
-	var player = find_player_by_id(player_id)
-	player.interacting.disconnect(player.heal_player.rpc)
-	player.healing_player.disconnect(dead_player.revive.rpc)
+	if multiplayer.get_unique_id() == player_id:
+		var dead_player = find_player_by_id(dead_player_id)
+		var player = find_player_by_id(player_id)
+		player.interacting.disconnect(player.heal_player.rpc)
+		player.healing_player.disconnect(dead_player.revive.rpc)
 
 func _on_pc_player_entered_pc(id: int, pc_id: int) -> void:
 	var player = find_player_by_id(id)
@@ -128,8 +132,7 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 func _on_pc_work_concluded(pc_id: int) -> void:
 	var computer = find_computer_by_id(pc_id)
 	computer.reset.rpc()
-	if pc_id ==2:
-		computer.explode()
+	computer.explode.rpc()
 	Global.update_robot_stats(pc_id)
 	$StatusTelevision.set_robot_progress(Global.robot_status)
 
@@ -255,17 +258,20 @@ func kill_players(list: Array):
 		var player = find_player_by_id(player_id)
 		player.die()
 
+func subtract_arrays(array_a: Array, array_b: Array) -> Array:
+	var result_array = []
+	for element_a in array_a:
+		if not array_b.has(element_a):
+			result_array.append(element_a)
+	return result_array
 
 func _on_hazard_release() -> void:
-	pass
-	Log.new(0, "Mapa escureceu")
-	Log.new(0, "Mapa voltou ao normal")
-	#if multiplayer.is_server():
-		#if not is_dark:
-			#become_dark.rpc()
-		#else:
-			#return_to_light.rpc()
-		
+	if multiplayer.is_server():
+		var hazard = [1].pick_random()
+		if hazard == 1:
+			var pc_to_explode_id = subtract_arrays([1,2,3,4], pc_to_explode).pick_random()
+			print(pc_to_explode_id)
+			pc_to_explode.append(pc_to_explode_id)
 
 func _on_game_timer_upgrade_time() -> void:
 	if multiplayer.is_server() and $Engineer.item_needed == "":
@@ -350,21 +356,34 @@ func _on_engineer_player_stop_interact(player_id: int, item: String) -> void:
 
 func _on_trash_trash_entered(player_id: int) -> void:
 	var player = find_player_by_id(player_id)
-	player.interacting.connect(player.reset_item.rpc)
+	player.interacting.connect(player.discard_item.rpc)
 
 
 func _on_trash_trash_exited(player_id: int) -> void:
 	var player = find_player_by_id(player_id)
-	player.interacting.disconnect(player.reset_item.rpc)
+	player.interacting.disconnect(player.discard_item.rpc)
 
 
 @rpc("any_peer", "call_local")
 func _cancel_game(_id):
 	call_deferred("change_to_menu")
 	
+@rpc("any_peer", "call_local")
+func finish_game():
+	get_tree().change_scene_to_packed(game_over)
+	
 func change_to_menu():
 	get_tree().change_scene_to_packed(menu)
 
 
 func _on_game_timer_timeout() -> void:
-	Log.new(0,"Jogo finalizado")
+	print(SaveData.read_logs())
+	var tween = create_tween()
+	tween.tween_property($CanvasModulate, "color", Color.BLACK, 1)
+	$UI.hide()
+	$GameTimer.queue_free()
+	await get_tree().create_timer(1).timeout
+	if multiplayer.is_server():
+		finish_game.rpc()
+	
+	
