@@ -5,7 +5,7 @@ signal upgrade_time
 
 @export var number_of_hazards := 0
 @export var number_of_upgrades := 0
-@export var game_duration := 0.0
+var game_duration := 1
 var hazard_timepoints := []
 var upgrade_timepoints := []
 var last_second_hazard = 0.0
@@ -20,6 +20,7 @@ func get_minutes():
 	$CanvasLayer/Control/RichTextLabel.text = "%s:%s" % [minutes, seconds]
 
 func _ready() -> void:
+	game_duration = Global.duration * 60
 	if (number_of_hazards == 0): 
 		print("Error ao dividir por zero")
 		return

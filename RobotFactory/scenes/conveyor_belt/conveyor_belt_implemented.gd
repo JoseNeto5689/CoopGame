@@ -18,6 +18,7 @@ signal animation_concluded
 func change_to_dark_scene():
 	is_dark = true
 
+@rpc("any_peer", "call_local")
 func spawn_robot(robot_sprite: String):
 	if actual_robot:
 		last_robot = actual_robot

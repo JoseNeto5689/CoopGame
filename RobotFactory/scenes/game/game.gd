@@ -17,7 +17,6 @@ var pc_to_explode := []
 func _ready() -> void:
 	SaveData.clear_logs()
 	multiplayer.peer_disconnected.connect(_cancel_game.rpc)
-	
 	Global.usb_number_changed.connect(ui.update_pendrive.rpc)
 	Global.usb_number_changed.connect($Deployer.check_usb_number.rpc)
 	Global.money_changed.connect(ui.update_money.rpc)
@@ -38,6 +37,7 @@ func _ready() -> void:
 		new_player.player_name = player.name
 		new_player.spawn_position = spawn_points[order]
 		new_player.update_camera_limits(limits)
+		call_deferred("add_player", player.name, player.id)
 		order+=1
 		players.add_child(new_player)
 	
@@ -53,6 +53,14 @@ func _ready() -> void:
 	if multiplayer.is_server():
 		Global.sync_robots()
 		
+func add_player(name: String, id: String):
+	API.send_player('
+			{
+				"player_name": "%s",
+				"player_code": "%s"
+			}
+	' % [name, id])
+
 func player_entered_heal_zone(dead_player_id: int, player_id: int):
 	if multiplayer.get_unique_id() == player_id:
 		var dead_player = find_player_by_id(dead_player_id)
@@ -68,17 +76,19 @@ func player_exited_heal_zone(dead_player_id: int, player_id: int):
 		player.healing_player.disconnect(dead_player.revive.rpc)
 
 func _on_pc_player_entered_pc(id: int, pc_id: int) -> void:
+	print(id, pc_id)
 	var player = find_player_by_id(id)
 	if multiplayer.get_unique_id() == id:
 		#Trocar por func de Ui
 		ui.show_interact()
 		var computer = find_computer_by_id(pc_id)
 		computer.show_progress_bar()
+		print(computer.missing_cpu," " ,player.current_item == "cpu")
 		if (computer.broken and player.current_item == "toolkit" and not computer.missing_ram and not computer.missing_gpu and not computer.missing_hd):
 			player.interacting.connect(computer.fix_pc.rpc)
 			computer.item_used.connect(player.clear_item.rpc)
 			computer.pc_fixed.connect(swap_interaction.rpc)
-		elif (computer.missing_ram and player.current_item == "ram") or (computer.missing_gpu and player.current_item == "gpu") or (computer.missing_hd and player.current_item == "hd"):
+		elif (computer.missing_ram and player.current_item == "ram") or (computer.missing_gpu and player.current_item == "gpu") or (computer.missing_hd and player.current_item == "hd") or (computer.missing_cpu and player.current_item == "cpu") or (computer.missing_ssd and player.current_item == "ssd"):
 			player.interacting.connect(computer.fix_missing_part.rpc)
 			computer.item_used.connect(player.clear_item.rpc)
 			computer.pc_fixed.connect(swap_interaction.rpc)
@@ -132,21 +142,25 @@ func _on_pc_player_exited_pc(id: int, pc_id: int) -> void:
 func _on_pc_work_concluded(pc_id: int) -> void:
 	var computer = find_computer_by_id(pc_id)
 	computer.reset.rpc()
-	computer.explode.rpc()
+	if pc_id in pc_to_explode:
+		computer.explode.rpc()
+		pc_to_explode.erase(pc_id)
 	Global.update_robot_stats(pc_id)
 	$StatusTelevision.set_robot_progress(Global.robot_status)
 
 func _on_timer_timeout() -> void:
-	#$BossWarnings.send("Trabalhem pilantras")
-	#await $BossWarnings.concluded
+	#$BossWarnings.start()
 	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
-	robot_index+=1
-	
+
+func _release_robot():
+	#$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
+	#robot_index+=1
+	pass
 
 func _on_conveyor_belt_animation_concluded() -> void:
 	in_animation = false
 	animation_concluded.emit(true)
-	$StatusTelevision.set_robot_status(Global.get_robot_stats(robot_index - 1))
+	$StatusTelevision.set_robot_status(Global.get_robot_stats(robot_index))
 
 
 func _on_conveyor_belt_animation_started() -> void:
@@ -182,15 +196,21 @@ func _on_exit_robot_area(body: Node2D) -> void:
 
 func check_robot_in_conveyor_belt(id,robot_stats: RobotStats):
 	Global.update_robot_stats(0)
-	if Global.check_robot_stats(robot_stats, Global.get_robot_stats(robot_index - 1)):
-		$ConveyorBelt.robot_ok()
-		$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
-		$StatusTelevision.set_robot_progress(RobotStats.new())
-		Global.update_money(+10)
-		robot_index+=1
-		SaveData.save_log(Log.new(id, "Player concluiu robo"))
-	else:
-		SaveData.save_log(Log.new(id, "Player falhou em concluir robo"))
+	if multiplayer.get_unique_id() == id:
+		if Global.check_robot_stats(robot_stats, Global.get_robot_stats(robot_index)):
+			$ConveyorBelt.robot_ok()
+			var robot_name:String = Global.get_robot_name(robot_index)
+			robot_index+=1
+			$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
+			$StatusTelevision.set_robot_progress(RobotStats.new())
+			if robot_name == "droid_basic" or robot_name == "mettaton" or robot_name == "metal_sonic" or robot_name == "bomb_robot":
+				Global.update_money.rpc(+50)
+			else:
+				Global.update_money.rpc(+10)
+			_on_button_next_button_has_been_pressed.rpc()
+			SaveData.save_log(Log.new(id, "player concluiu robo"))
+		else:
+			SaveData.save_log(Log.new(id, "player falhou em concluir robo"))
 
 func find_player_by_id(id: int) -> Node2D:
 	var players_list = players.get_children()
@@ -214,12 +234,12 @@ func _on_market_item_buyed(item: String, player_id: int, value: int, hide_self: 
 			hide_self.call()
 			player.show_item_purchased.rpc("coffe")
 			increase_player_speed.rpc()
-			SaveData.save_log(Log.new(player_id, "Player comprou cafe"))
+			SaveData.save_log(Log.new(player_id, "player comprou cafe"))
 			return
 		elif item == "wifi":
 			hide_self.call()
 			player.show_item_purchased.rpc("wifi")
-			SaveData.save_log(Log.new(player_id, "Player comprou wifi"))
+			SaveData.save_log(Log.new(player_id, "player comprou wifi"))
 			reduce_computer_time()
 			return
 		hide_self.call()
@@ -242,11 +262,12 @@ func _on_button_next_player_entered_button_area(player_id: int) -> void:
 	player.interacting.connect($ButtonNext.button_pressed.rpc)
 
 
+@rpc("any_peer", "call_remote")
 func _on_button_next_button_has_been_pressed() -> void:
-	#Checar vitoria
-	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
+	Global.update_robot_stats(0)
 	$StatusTelevision.set_robot_progress(RobotStats.new())
 	robot_index+=1
+	$ConveyorBelt.spawn_robot(Global.get_robot_name(robot_index))
 
 
 func _on_button_next_player_exited_button_area(player_id: int) -> void:
@@ -266,12 +287,21 @@ func subtract_arrays(array_a: Array, array_b: Array) -> Array:
 	return result_array
 
 func _on_hazard_release() -> void:
+	pass
 	if multiplayer.is_server():
-		var hazard = [1].pick_random()
-		if hazard == 1:
-			var pc_to_explode_id = subtract_arrays([1,2,3,4], pc_to_explode).pick_random()
-			print(pc_to_explode_id)
-			pc_to_explode.append(pc_to_explode_id)
+		var hazard = ["boom"].pick_random()
+		if hazard == "boom":
+			var pc_to_explode_id = subtract_arrays([1,2,3,4], pc_to_explode)
+			if pc_to_explode_id.is_empty():
+				return
+			pc_to_explode.append(pc_to_explode_id.pick_random())
+			print(pc_to_explode)
+		if hazard == "dark":
+			if is_dark:
+				return_to_light.rpc()
+			else:
+				become_dark.rpc()
+			
 
 func _on_game_timer_upgrade_time() -> void:
 	if multiplayer.is_server() and $Engineer.item_needed == "":
@@ -331,7 +361,7 @@ func _on_engineer_player_start_interact(player_id: int, item: String) -> void:
 @rpc("any_peer", "call_remote")
 func upgrade_random_pc_server(player_id: int, _item: String):
 	if multiplayer.is_server():
-		SaveData.save_log(Log.new(player_id, "Player atualizou computador aleatorio"))
+		SaveData.save_log(Log.new(player_id, "player atualizou computador aleatorio"))
 		var random_id = randi_range(1, 4)
 		upgrade_random_pc_local.rpc(random_id)
 
@@ -346,8 +376,6 @@ func reset_engineer(player_id: int, _item: String):
 
 func _on_engineer_player_stop_interact(player_id: int, item: String) -> void:
 	var player = find_player_by_id(player_id)
-	print(player.current_item)
-	print(item)
 	if player.interacting.is_connected(upgrade_random_pc_server.rpc):
 		player.interacting.disconnect(upgrade_random_pc_server.rpc)
 		player.interacting.disconnect(player.reset_item.rpc)
@@ -370,6 +398,7 @@ func _cancel_game(_id):
 	
 @rpc("any_peer", "call_local")
 func finish_game():
+	#get_tree().paused = true
 	get_tree().change_scene_to_packed(game_over)
 	
 func change_to_menu():
@@ -377,7 +406,15 @@ func change_to_menu():
 
 
 func _on_game_timer_timeout() -> void:
-	print(SaveData.read_logs())
+	#Perigo, pode n funcionar
+	if multiplayer.is_server():
+		#SaveData.save_log(Log.new(1, "os jogadores acumularam um total de %s moedas" % Global.money))
+		print(SaveData.read_logs())
+		API.send_result('{
+			"session": "%s",
+			"data": %s,
+			"status": "Concluída"
+		}' % [Global.session_code,SaveData.read_logs()])
 	var tween = create_tween()
 	tween.tween_property($CanvasModulate, "color", Color.BLACK, 1)
 	$UI.hide()

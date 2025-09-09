@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c03ixpu8dtpxf"]
+[gd_scene load_steps=12 format=3 uid="uid://c03ixpu8dtpxf"]
 
 [ext_resource type="Script" uid="uid://7om86g4srb7v" path="res://scenes/status_television/status_television.gd" id="1_he5dl"]
 [ext_resource type="Texture2D" uid="uid://djaw5jeony6om" path="res://assets/sprites/own/TV.png" id="1_vx0tn"]
@@ -6,13 +6,27 @@
 [ext_resource type="Texture2D" uid="uid://bldhvklpy1qqx" path="res://assets/sprites/office_pixel_art/desk.png" id="2_wqbjn"]
 [ext_resource type="StyleBox" uid="uid://dbv578bqovuv4" path="res://resources/progress_bar_2.tres" id="3_he5dl"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_f277d"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wqbjn"]
+resource_local_to_scene = true
+light_mode = 1
+
 [sub_resource type="LabelSettings" id="LabelSettings_vx0tn"]
 font_size = 5
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_jmdbg"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6mtn1"]
+light_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_he5dl"]
 size = Vector2(96, 50)
 
 [node name="StatusTelevision" type="Node2D"]
+material = SubResource("CanvasItemMaterial_f277d")
 script = ExtResource("1_he5dl")
 
 [node name="Desk1" type="Sprite2D" parent="."]
@@ -31,6 +45,7 @@ texture_filter = 1
 texture = ExtResource("1_vx0tn")
 
 [node name="Control" type="Control" parent="."]
+material = SubResource("CanvasItemMaterial_wqbjn")
 layout_mode = 3
 anchors_preset = 0
 offset_left = -46.0
@@ -40,6 +55,7 @@ offset_bottom = 19.0
 metadata/_edit_use_anchors_ = true
 
 [node name="Attack" type="Label" parent="Control"]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.0608695
@@ -55,6 +71,8 @@ vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar" type="ProgressBar" parent="Control/Attack"]
+material = SubResource("CanvasItemMaterial_jmdbg")
+use_parent_material = true
 layout_mode = 0
 offset_left = 4.0
 offset_top = -27.0
@@ -67,6 +85,7 @@ show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar2" type="ProgressBar" parent="Control/Attack"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 4.0
 offset_top = -27.0
@@ -79,6 +98,7 @@ show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Defense" type="Label" parent="Control"]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.221739
@@ -94,6 +114,8 @@ horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar" type="ProgressBar" parent="Control/Defense"]
+material = SubResource("CanvasItemMaterial_6mtn1")
+use_parent_material = true
 layout_mode = 0
 offset_left = 3.0
 offset_top = -27.0
@@ -106,6 +128,7 @@ show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar2" type="ProgressBar" parent="Control/Defense"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 3.0
 offset_top = -27.0
@@ -118,6 +141,7 @@ show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Speed" type="Label" parent="Control"]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.371739
@@ -133,6 +157,7 @@ horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar" type="ProgressBar" parent="Control/Speed"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 3.0
 offset_top = -27.0
@@ -145,6 +170,7 @@ show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar2" type="ProgressBar" parent="Control/Speed"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 3.0
 offset_top = -27.0
@@ -157,6 +183,7 @@ show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Energy" type="Label" parent="Control"]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.521739
@@ -170,6 +197,7 @@ horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar" type="ProgressBar" parent="Control/Energy"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 3.0
 offset_top = -27.0
@@ -182,6 +210,7 @@ show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar2" type="ProgressBar" parent="Control/Energy"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 3.0
 offset_top = -27.0
@@ -194,6 +223,7 @@ show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Charisma" type="Label" parent="Control"]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.671739
@@ -209,6 +239,7 @@ horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar" type="ProgressBar" parent="Control/Charisma"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 3.0
 offset_top = -27.0
@@ -221,6 +252,7 @@ show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar2" type="ProgressBar" parent="Control/Charisma"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 3.0
 offset_top = -27.0
@@ -233,6 +265,7 @@ show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Chaos" type="Label" parent="Control"]
+use_parent_material = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.821739
@@ -248,6 +281,7 @@ horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar" type="ProgressBar" parent="Control/Chaos"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 3.00001
 offset_top = -27.0
@@ -260,6 +294,7 @@ show_percentage = false
 metadata/_edit_use_anchors_ = true
 
 [node name="ProgressBar2" type="ProgressBar" parent="Control/Chaos"]
+use_parent_material = true
 layout_mode = 0
 offset_left = 3.00001
 offset_top = -27.0

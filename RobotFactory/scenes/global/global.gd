@@ -4,9 +4,13 @@ var players: Array = []
 var robot_list = []
 var robot_status := RobotStats.new()
 
-var money := 20
+var money := 100
 var usb_stick_number := 1
 var luck = 0
+
+var session_code = ""
+var duration := 0
+var max_players := 0
 
 var status_list = []
 var status_list_special = []
@@ -29,11 +33,43 @@ func _ready() -> void:
 	status_list.append(["wing_robot_orange",   0, 0, 3, 0, 0, 0])
 	status_list.append(["wing_robot_purple",   0, 0, 1, 2, 0, 0])
 	status_list.append(["wing_robot_red",      2, 0, 1, 0, 0, 0])
+	status_list.append(["ball_robot_green",    0, 2, 0, 1, 0, 0])
+	status_list.append(["ball_robot_orange",   0, 0, 2, 1, 0, 0])
+	status_list.append(["ball_robot_purple",   0, 0, 0, 3, 0, 0])
+	status_list.append(["ball_robot_red",      2, 0, 0, 1, 0, 0])
+	status_list.append(["claw_robot_green",    0, 3, 0, 0, 0, 0])
+	status_list.append(["claw_robot_orange",   0, 1, 2, 0, 0, 0])
+	status_list.append(["claw_robot_purple",   0, 1, 0, 2, 0, 0])
+	status_list.append(["claw_robot_red",      2, 1, 0, 0, 0, 0])
+	status_list.append(["gun_robot_green",     1, 2, 0, 0, 0, 0])
+	status_list.append(["gun_robot_orange",    1, 0, 2, 0, 0, 0])
+	status_list.append(["gun_robot_purple",    1, 0, 0, 2, 0, 0])
+	status_list.append(["gun_robot_red",       3, 0, 0, 0, 0, 0])
+	status_list.append(["wing_robot_green",    0, 2, 1, 0, 0, 0])
+	status_list.append(["wing_robot_orange",   0, 0, 3, 0, 0, 0])
+	status_list.append(["wing_robot_purple",   0, 0, 1, 2, 0, 0])
+	status_list.append(["wing_robot_red",      2, 0, 1, 0, 0, 0])
+	status_list.append(["ball_robot_green",    0, 2, 0, 1, 0, 0])
+	status_list.append(["ball_robot_orange",   0, 0, 2, 1, 0, 0])
+	status_list.append(["ball_robot_purple",   0, 0, 0, 3, 0, 0])
+	status_list.append(["ball_robot_red",      2, 0, 0, 1, 0, 0])
+	status_list.append(["claw_robot_green",    0, 3, 0, 0, 0, 0])
+	status_list.append(["claw_robot_orange",   0, 1, 2, 0, 0, 0])
+	status_list.append(["claw_robot_purple",   0, 1, 0, 2, 0, 0])
+	status_list.append(["claw_robot_red",      2, 1, 0, 0, 0, 0])
+	status_list.append(["gun_robot_green",     1, 2, 0, 0, 0, 0])
+	status_list.append(["gun_robot_orange",    1, 0, 2, 0, 0, 0])
+	status_list.append(["gun_robot_purple",    1, 0, 0, 2, 0, 0])
+	status_list.append(["gun_robot_red",       3, 0, 0, 0, 0, 0])
+	status_list.append(["wing_robot_green",    0, 2, 1, 0, 0, 0])
+	status_list.append(["wing_robot_orange",   0, 0, 3, 0, 0, 0])
+	status_list.append(["wing_robot_purple",   0, 0, 1, 2, 0, 0])
+	status_list.append(["wing_robot_red",      2, 0, 1, 0, 0, 0])
+	status_list.append(["droid_basic",         3, 3, 3, 3, 0, 0])
+	status_list.append(["mettaton",            2, 2, 2, 2, 0, 4])
+	status_list.append(["metal_sonic",         2, 2, 2, 2, 4, 0])
+	status_list.append(["bomb_robot",          5, 0, 0, 0, 0, 0])
 	
-	status_list_special.append(["droid_basic", 3, 3, 3, 3, 0, 0])
-	status_list_special.append(["mettaton",    2, 2, 2, 2, 0, 4])
-	status_list_special.append(["metal_sonic", 2, 2, 2, 2, 4, 0])
-	status_list_special.append(["bomb_robot",  5, 0, 0, 0, 0, 0])
 
 signal usb_number_changed
 signal money_changed
@@ -65,13 +101,8 @@ func addPlayerRemote(_id: String, _name: String):
 
 func sync_robots():
 	var raw_list = []
-	
-	if luck >= 5:
-		raw_list.append(status_list_special.pick_random())
-		luck=0
-	else:
-		raw_list.append(status_list.pick_random())
-		luck+=1
+
+	raw_list.append(status_list.pick_random())
 	
 	var list = JSON.stringify(raw_list)
 	send_robots_data.rpc(list)
@@ -98,6 +129,8 @@ func update_robot_stats(pc_id: int):
 		robot_status.energy += 1
 	elif pc_id == 5:
 		robot_status.charisma += 1
+	elif pc_id == 6:
+		robot_status.chaos += 1
 		
 
 func copy_robot_stats(robot_stats: RobotStats):

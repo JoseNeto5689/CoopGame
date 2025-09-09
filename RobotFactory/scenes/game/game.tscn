@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bnpkmu5c8hrax"]
+[gd_scene load_steps=33 format=3 uid="uid://bnpkmu5c8hrax"]
 
 [ext_resource type="PackedScene" uid="uid://b3g051f07h7dq" path="res://scenes/map/map.tscn" id="1_3pj57"]
 [ext_resource type="Script" uid="uid://gvqlls5jblv3" path="res://scenes/game/game.gd" id="1_7h61r"]
@@ -16,9 +16,10 @@
 [ext_resource type="PackedScene" uid="uid://1bgp4wmb7bh7" path="res://scenes/deployer/deployer.tscn" id="14_ftsea"]
 [ext_resource type="PackedScene" uid="uid://4xnw1sko17cx" path="res://scenes/market/market.tscn" id="14_otnwt"]
 [ext_resource type="PackedScene" uid="uid://goci0fy1omcp" path="res://scenes/wall_light/wall_light.tscn" id="15_3xj4h"]
-[ext_resource type="Texture2D" uid="uid://mkfespwxcrnm" path="res://assets/sprites/office_pixel_art/desk-with-pc.png" id="15_8b66f"]
 [ext_resource type="Texture2D" uid="uid://calkw8w2mvhn" path="res://assets/sprites/own/pc_2_0002.png" id="15_gc57s"]
+[ext_resource type="Texture2D" uid="uid://cwm4bwqfctdst" path="res://assets/sprites/own/desk-with-pc_0002.png" id="16_fty5b"]
 [ext_resource type="Texture2D" uid="uid://bm5yx8xawkmbk" path="res://assets/sprites/own/pc_1_0002.png" id="17_8b66f"]
+[ext_resource type="Texture2D" uid="uid://col8boksupcx0" path="res://assets/sprites/own/desk-with-pc_0001.png" id="17_l2dhg"]
 [ext_resource type="PackedScene" uid="uid://bmjjt2lmp61ft" path="res://scenes/top_light/top_light.tscn" id="18_10c2w"]
 [ext_resource type="PackedScene" uid="uid://cybk1aahnf1jq" path="res://scenes/boss_warnings/boss_warnings.tscn" id="19_10c2w"]
 [ext_resource type="PackedScene" uid="uid://bojsyo4cu8qtk" path="res://scenes/game_timer/timer.tscn" id="20_pg2xm"]
@@ -64,23 +65,17 @@ visible = false
 [node name="WallLight" parent="Lights" instance=ExtResource("15_3xj4h")]
 position = Vector2(702, 21)
 
-[node name="TopLight" parent="Lights" instance=ExtResource("18_10c2w")]
-position = Vector2(280, 280)
-
 [node name="TopLight2" parent="Lights" instance=ExtResource("18_10c2w")]
-position = Vector2(721, 281)
-
-[node name="TopLight3" parent="Lights" instance=ExtResource("18_10c2w")]
-position = Vector2(1185, 286)
+position = Vector2(715, 390)
 
 [node name="TopLight4" parent="Lights" instance=ExtResource("18_10c2w")]
-position = Vector2(281, 716)
+position = Vector2(1099, 909)
 
 [node name="TopLight5" parent="Lights" instance=ExtResource("18_10c2w")]
-position = Vector2(722, 717)
+position = Vector2(715, 781)
 
 [node name="TopLight6" parent="Lights" instance=ExtResource("18_10c2w")]
-position = Vector2(1186, 722)
+position = Vector2(288, 908)
 
 [node name="ConveyorBelt" parent="." instance=ExtResource("13_vaxfo")]
 position = Vector2(656, 60)
@@ -127,16 +122,27 @@ pc_id = 4
 texture_on = ExtResource("17_8b66f")
 texture_off = ExtResource("11_5jirj")
 
-[node name="PC" parent="Computers" instance=ExtResource("3_0sr1o")]
+[node name="PC_5" parent="Computers" instance=ExtResource("3_0sr1o")]
 position = Vector2(102, 943)
 pc_id = 5
 time_for_conclude = 10
-texture_on = ExtResource("15_8b66f")
-texture_off = ExtResource("15_8b66f")
+texture_on = ExtResource("16_fty5b")
+texture_off = ExtResource("16_fty5b")
 broken = true
 missing_ram = true
 missing_gpu = true
 missing_hd = true
+
+[node name="PC_6" parent="Computers" instance=ExtResource("3_0sr1o")]
+position = Vector2(191, 942)
+pc_id = 6
+time_for_conclude = 10
+texture_on = ExtResource("17_l2dhg")
+texture_off = ExtResource("17_l2dhg")
+broken = true
+missing_hd = true
+missing_cpu = true
+missing_ssd = true
 
 [node name="Players" type="Node" parent="."]
 
@@ -151,7 +157,7 @@ position = Vector2(1110, 685)
 position = Vector2(1099, 831)
 
 [node name="BossWarnings" parent="." instance=ExtResource("19_10c2w")]
-position = Vector2(-21, 94)
+position = Vector2(-21, 107)
 walking_time = 7
 text_speed = 0.1
 
@@ -175,12 +181,13 @@ panning_strength = 0.0
 [node name="UI" parent="." instance=ExtResource("4_kelw5")]
 
 [node name="RobotDelay" type="Timer" parent="."]
+wait_time = 5.0
 one_shot = true
 autostart = true
 
 [node name="GameTimer" parent="." instance=ExtResource("20_pg2xm")]
-number_of_upgrades = 10
-game_duration = 120.0
+number_of_hazards = 3
+number_of_upgrades = 3
 
 [node name="PlayerDisconnected" type="Node" parent="."]
 script = ExtResource("27_h48ew")
@@ -203,15 +210,19 @@ metadata/_custom_type_script = "uid://rf2o02nkaag5"
 [connection signal="player_entered_pc" from="Computers/PC_4" to="." method="_on_pc_player_entered_pc"]
 [connection signal="player_exited_pc" from="Computers/PC_4" to="." method="_on_pc_player_exited_pc"]
 [connection signal="work_concluded" from="Computers/PC_4" to="." method="_on_pc_work_concluded"]
-[connection signal="player_entered_pc" from="Computers/PC" to="." method="_on_pc_player_entered_pc"]
-[connection signal="player_exited_pc" from="Computers/PC" to="." method="_on_pc_player_exited_pc"]
-[connection signal="work_concluded" from="Computers/PC" to="." method="_on_pc_work_concluded"]
+[connection signal="player_entered_pc" from="Computers/PC_5" to="." method="_on_pc_player_entered_pc"]
+[connection signal="player_exited_pc" from="Computers/PC_5" to="." method="_on_pc_player_exited_pc"]
+[connection signal="work_concluded" from="Computers/PC_5" to="." method="_on_pc_work_concluded"]
+[connection signal="player_entered_pc" from="Computers/PC_6" to="." method="_on_pc_player_entered_pc"]
+[connection signal="player_exited_pc" from="Computers/PC_6" to="." method="_on_pc_player_exited_pc"]
+[connection signal="work_concluded" from="Computers/PC_6" to="." method="_on_pc_work_concluded"]
 [connection signal="button_has_been_pressed" from="ButtonNext" to="." method="_on_button_next_button_has_been_pressed"]
 [connection signal="player_entered_button_area" from="ButtonNext" to="." method="_on_button_next_player_entered_button_area"]
 [connection signal="player_exited_button_area" from="ButtonNext" to="." method="_on_button_next_player_exited_button_area"]
 [connection signal="enter_deployer_area" from="Deployer" to="." method="_on_player_enter_deployer_area"]
 [connection signal="exit_deployer_area" from="Deployer" to="." method="_on_player_exit_deployer_area"]
 [connection signal="item_buyed" from="Market" to="." method="_on_market_item_buyed"]
+[connection signal="concluded" from="BossWarnings" to="." method="_release_robot"]
 [connection signal="player_start_interact" from="Engineer" to="." method="_on_engineer_player_start_interact"]
 [connection signal="player_stop_interact" from="Engineer" to="." method="_on_engineer_player_stop_interact"]
 [connection signal="trash_entered" from="Trash" to="." method="_on_trash_trash_entered"]

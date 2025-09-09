@@ -85,13 +85,13 @@ func _on_timer_timeout() -> void:
 	reset()
 	change_progress(0)
 	stop_progress()
-	SaveData.save_log(Log.new(pc_id, "Trabalho no pc concluido"))
+	SaveData.save_log(Log.new(pc_id, "trabalho no pc concluido"))
 	work_concluded.emit(pc_id)
 
 @rpc("any_peer", "call_local")
 func increase_progress(player_id: int, _item: String):
 	if is_animation_concluded and not broken:
-		SaveData.save_log(Log.new(player_id, "Player trabalhando no pc %s" % str(pc_id)))
+		SaveData.save_log(Log.new(player_id, "player trabalhando no pc" ))
 		#$PointLight2D.enabled = true
 		if(get_percentage() == 0):
 			change_progress(0)
@@ -140,9 +140,13 @@ func fix_pc(player_id: int, _item: String):
 		$PowerUpSound.play()
 		await tween.finished
 		broken = false
-		SaveData.save_log(Log.new(player_id, "Player consertou pc %s" % str(pc_id)))
 		pc_fixed.emit(players_interacting, pc_id)
-			 
+		call_deferred("save_fix_pc_log", player_id, pc_id)
+		
+
+func save_fix_pc_log(id_player, id_pc):
+	SaveData.save_log(Log.new(id_player, "player consertou pc"))
+
 @rpc("any_peer", "call_local")
 func explode():
 	broken = true
@@ -160,7 +164,7 @@ func explode():
 	pc_exploded.emit(players_in_death_zone)
 	players_in_death_zone = []
 	await get_tree().create_timer(0.8).timeout
-	SaveData.save_log(Log.new(pc_id, "Computador explodiu"))
+	SaveData.save_log(Log.new(pc_id, "computador explodiu"))
 	$DeathZone/CollisionShape2D.disabled = true
 	
 
@@ -181,7 +185,7 @@ func _on_death_zone_body_exited(body: Node2D) -> void:
 	
 	
 @rpc("any_peer", "call_local")
-func fix_missing_part(part_name: String):
+func fix_missing_part(_id: int, part_name: String):
 	var fixed = false
 	match part_name:
 		"ram":
@@ -205,7 +209,7 @@ func fix_missing_part(part_name: String):
 			$Items/Center/CPU.hide()
 			item_used.emit()
 		"ssd":
-			missing_cpu = false
+			missing_ssd = false
 			fixed = true
 			$Items/Center/SSD.hide()
 			item_used.emit()
@@ -215,4 +219,5 @@ func fix_missing_part(part_name: String):
 		tween.tween_method(self.change_blink_intensity, 1.0, 0.0, 0.3)
 		await tween.finished
 		pc_fixed.emit(players_interacting, pc_id)
+		$PowerUpSound.play()
 		broken = false

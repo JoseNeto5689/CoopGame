@@ -11,9 +11,9 @@
 
 [sub_resource type="Curve2D" id="Curve2D_6bc43"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 350, 0)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 730, 1, 0, 0, 0, 0, 730, 787)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_t43n5"]
 animations = [{
@@ -67,6 +67,8 @@ script = ExtResource("1_og720")
 curve = SubResource("Curve2D_6bc43")
 
 [node name="Boss" type="PathFollow2D" parent="Path2D"]
+rotation = 0.00136986
+rotates = false
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="Path2D/Boss"]
 texture_filter = 1
@@ -77,10 +79,10 @@ frame_progress = 0.542145
 
 [node name="Label" type="Label" parent="Path2D/Boss"]
 material = SubResource("CanvasItemMaterial_w2f3r")
-offset_left = -61.0
+offset_left = -156.0
 offset_top = -29.0
-offset_right = 61.0
-offset_bottom = -17.0
+offset_right = 154.0
+offset_bottom = -13.0
 label_settings = SubResource("LabelSettings_2lsfo")
 horizontal_alignment = 1
 vertical_alignment = 1

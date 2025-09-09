@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://tx64gjx52y3"]
+[gd_scene load_steps=35 format=3 uid="uid://tx64gjx52y3"]
 
 [ext_resource type="Script" uid="uid://wd31uttu17sr" path="res://scenes/computer/computer.gd" id="1_srgvo"]
 [ext_resource type="Material" uid="uid://nrk8667qynar" path="res://resources/computer_shader.tres" id="2_8it8f"]
@@ -78,6 +78,21 @@ size = Vector2(37.5663, 7.60578)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jrk3l"]
 size = Vector2(51.8186, 31.1582)
 
+[sub_resource type="Animation" id="Animation_yro87"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Items:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-47, -36)]
+}
+
 [sub_resource type="Animation" id="Animation_rh5cs"]
 resource_name = "idle"
 loop_mode = 1
@@ -94,26 +109,34 @@ tracks/0/keys = {
 "values": [Vector2(-47, -36), Vector2(-47, -47), Vector2(-47, -36)]
 }
 
-[sub_resource type="Animation" id="Animation_yro87"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Items:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-47, -36)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qy67r"]
 _data = {
 &"RESET": SubResource("Animation_yro87"),
 &"idle": SubResource("Animation_rh5cs")
 }
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_rh5cs"]
+properties/0/path = NodePath("Timer:wait_time")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:missing_ram")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:missing_gpu")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:missing_hd")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:missing_cpu")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath(".:missing_ssd")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath(".:broken")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [node name="PC" type="Node2D"]
 z_index = 1
@@ -288,6 +311,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_qy67r")
 }
 autoplay = "idle"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_rh5cs")
 
 [connection signal="body_entered" from="WorkingZone" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="WorkingZone" to="." method="_on_area_2d_body_exited"]

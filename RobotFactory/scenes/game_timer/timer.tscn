@@ -7,7 +7,6 @@ one_shot = true
 autostart = true
 script = ExtResource("1_u46mu")
 number_of_hazards = 10
-game_duration = 100.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -168,7 +168,7 @@ func get_item(item_name : String):
 		last_direction = Vector2.ZERO
 		$AnimatedSprite2D.play("adam_idle_front")
 		can_move = true
-		SaveData.save_log(Log.new(id, "Player comprou item %s" % item_name))
+		SaveData.save_log(Log.new(id, "player comprou item %s" % item_name))
 	
 @rpc("any_peer", "call_local")
 func show_item_purchased(item_purchased: String):
@@ -221,7 +221,7 @@ func finish_deployer_transfer():
 	await get_tree().create_timer(0.5).timeout
 	$AnimatedSprite2D.play("adam_idle_front")
 	can_move = true
-	SaveData.save_log(Log.new(id, "Player pegou pendrive no deployer"))
+	SaveData.save_log(Log.new(id, "player pegou pendrive no deployer"))
 
 @rpc("any_peer", "call_local")
 func clear_item():
@@ -240,7 +240,7 @@ func discard_item(player_id: int, item_name: String):
 	current_item = ""
 	has_item = false
 	item.visible = false
-	SaveData.save_log(Log.new(player_id, "Player jogou o item %s no lixo" % item_name))
+	#SaveData.save_log(Log.new(player_id, "Player jogou o item %s no lixo" % item_name))
 	
 func update_camera_limits(list: Array):
 	$PlayerCamera.limit_left = list[0]
@@ -260,13 +260,13 @@ func die():
 	$CollisionShape2D.disabled = true
 	$HealZone/CollisionShape2D.disabled = false
 	$AnimatedSprite2D.play("dead")
-	SaveData.save_log(Log.new(id, "Player morreu"))
+	SaveData.save_log(Log.new(id, "player morreu"))
 
 @rpc("any_peer", "call_local")
 func revive():
 	if multiplayer.is_server():
 		print(multiplayer.get_unique_id())
-		SaveData.save_log(Log.new(id, "Player revivido apos %f segundos" % time_elapsed_while_dead))
+		#SaveData.save_log(Log.new(id, "Player revivido apos %f segundos" % time_elapsed_while_dead))
 	time_elapsed_while_dead = 0
 	position.y -= 5
 	dead = false
@@ -284,7 +284,7 @@ func heal_player(player_id: int, _item: String):
 		current_item = ""
 		has_item = false
 		healing_player.emit()
-		SaveData.save_log(Log.new(id, "Player curou outro player"))
+		SaveData.save_log(Log.new(id, "player curou outro player"))
 		
 
 func turn_off_lights():

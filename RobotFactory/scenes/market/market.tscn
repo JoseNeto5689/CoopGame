@@ -201,11 +201,11 @@ position = Vector2(-25, 35)
 texture = ExtResource("5_e5foy")
 
 [node name="Label" type="Label" parent="ToolKit"]
-offset_left = -36.0
+offset_left = -38.0
 offset_top = 44.0
-offset_right = -23.0
+offset_right = -24.0
 offset_bottom = 61.0
-text = "5"
+text = "10"
 label_settings = SubResource("LabelSettings_cgn7w")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -233,10 +233,11 @@ position = Vector2(12, 36)
 texture = ExtResource("6_cum83")
 
 [node name="Label" type="Label" parent="MedKit"]
+offset_left = -2.0
 offset_top = 44.0
-offset_right = 13.0
+offset_right = 12.0
 offset_bottom = 61.0
-text = "5"
+text = "10"
 label_settings = SubResource("LabelSettings_cgn7w")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -264,10 +265,11 @@ position = Vector2(12, 36)
 texture = ExtResource("9_uli35")
 
 [node name="Label" type="Label" parent="HD"]
+offset_left = -2.0
 offset_top = 44.0
-offset_right = 13.0
+offset_right = 12.0
 offset_bottom = 61.0
-text = "5"
+text = "15"
 label_settings = SubResource("LabelSettings_cgn7w")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -295,11 +297,11 @@ position = Vector2(-40, 40)
 texture = ExtResource("7_3krxk")
 
 [node name="Label" type="Label" parent="Ram"]
-offset_left = -52.0
+offset_left = -54.0
 offset_top = 45.0
-offset_right = -39.0
+offset_right = -40.0
 offset_bottom = 62.0
-text = "5"
+text = "15"
 label_settings = SubResource("LabelSettings_cgn7w")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -328,11 +330,11 @@ position = Vector2(0, 38)
 texture = ExtResource("8_3krxk")
 
 [node name="Label" type="Label" parent="Gpu"]
-offset_left = -11.0
+offset_left = -13.0
 offset_top = 44.0
-offset_right = 2.0
+offset_right = 1.0
 offset_bottom = 61.0
-text = "5"
+text = "15"
 label_settings = SubResource("LabelSettings_cgn7w")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -360,11 +362,11 @@ position = Vector2(37, 39)
 texture = ExtResource("9_3krxk")
 
 [node name="Label" type="Label" parent="SSD"]
-offset_left = 25.0
+offset_left = 23.0
 offset_top = 44.0
-offset_right = 38.0
+offset_right = 37.0
 offset_bottom = 61.0
-text = "5"
+text = "15"
 label_settings = SubResource("LabelSettings_cgn7w")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -392,11 +394,11 @@ position = Vector2(37, 39)
 texture = ExtResource("11_g5yo1")
 
 [node name="Label" type="Label" parent="CPU"]
-offset_left = 25.0
+offset_left = 23.0
 offset_top = 44.0
-offset_right = 38.0
+offset_right = 37.0
 offset_bottom = 61.0
-text = "5"
+text = "15"
 label_settings = SubResource("LabelSettings_cgn7w")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -424,11 +426,11 @@ position = Vector2(59, 34)
 texture = SubResource("CompressedTexture2D_lsn5p")
 
 [node name="Label" type="Label" parent="Coffe"]
-offset_left = 47.0
+offset_left = 45.0
 offset_top = 39.0
-offset_right = 60.0
+offset_right = 59.0
 offset_bottom = 56.0
-text = "5"
+text = "30"
 label_settings = SubResource("LabelSettings_cgn7w")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -456,11 +458,11 @@ position = Vector2(59, 34)
 texture = ExtResource("10_3krxk")
 
 [node name="Label" type="Label" parent="Wifi"]
-offset_left = 47.0
+offset_left = 45.0
 offset_top = 39.0
-offset_right = 60.0
+offset_right = 59.0
 offset_bottom = 56.0
-text = "5"
+text = "40"
 label_settings = SubResource("LabelSettings_cgn7w")
 horizontal_alignment = 1
 vertical_alignment = 1

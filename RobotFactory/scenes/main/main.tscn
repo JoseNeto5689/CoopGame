@@ -14,6 +14,8 @@ script = ExtResource("3_k2fmo")
 dialog_text = "Seu nome precisa ter pelo menos 4 caracteres"
 metadata/_custom_type_script = "uid://rf2o02nkaag5"
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
 [connection signal="host_pressed" from="Control" to="." method="_on_control_host_pressed"]
 [connection signal="join_pressed" from="Control" to="." method="_on_control_join_pressed"]
 [connection signal="start_pressed" from="Control" to="." method="_on_control_start_pressed"]
