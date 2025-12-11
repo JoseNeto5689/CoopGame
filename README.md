@@ -1,5 +1,3 @@
----
-
 # 🕹️ Jogo Sério para Avaliação de Soft Skills
 
 **Desenvolvido em Godot Engine 4**
